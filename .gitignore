@@ -1,0 +1,41 @@
+*.class
+*.dex
+*.ap_
+*.cdi_javac
+.data/
+*.url
+*.jar
+*.cache
+*.log
+*.log.csv
+*.csv
+*.ods
+*.o
+# *.py
+# *.png
+*.iml
+yarn.lock
+gen/
+classes/
+/classes/*.properties
+classes/*
+*.min.js
+*.min.js.map
+doc/
+*/email.properties
+node_modules/
+bower_components/
+email.properties
+.gradle*/
+build/
+gen/*
+.idea/
+*.so
+# *.php
+# gradle/
+# gradlew
+gradle-app.setting
+*.zip
+.gitignore
+*.h5
+**/__pycache__
