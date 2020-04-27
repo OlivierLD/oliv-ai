@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application' // -> provides the 'run' task.
-    id 'com.github.johnrengelman.shadow' // version '4.0.2'
+    id 'com.github.johnrengelman.shadow'
 }
 
 // Application plugin doc at https://docs.gradle.org/current/userguide/application_plugin.html

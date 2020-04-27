@@ -120,7 +120,7 @@ For more details on the process, there is [a Jupyter Notebook](./python.nmea.ipy
 -->
 
 ### Links
-- [NMEA Multiplexer](https://github.com/OlivierLD/raspberry-coffee/blob/master/NMEA.multiplexer/README.md)
+- [NMEA Multiplexer](https://github.com/OlivierLD/raspberry-coffee/blob/master/NMEA-multiplexer/README.md)
 - There is a good NMEA documentation [here](https://gpsd.gitlab.io/gpsd/NMEA.html)
 
 ### Processing
