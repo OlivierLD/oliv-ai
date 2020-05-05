@@ -3,9 +3,25 @@ cwd=$(pwd)
 cvVersion=4.1.0
 #
 # sudo update-alternatives --config java
+
+sudo apt-get install build-essential cmake \
+                     pkg-config libpng12-0 \
+                     libpng12-dev libpng++-dev \
+                     libpng3 libpnglite-dev \
+                     zlib1g-dbg zlib1g zlib1g-dev \
+                     pngtools  libtiff4 libtiffxx0c2 \
+                     libtiff-tools libjpeg8 libjpeg8-dev \
+                     libjpeg8-dbg libjpeg-progs \
+                     libavcodec-dev   \
+                     libavformat-dev libgstreamer0.10-0-dbg \
+                     libgstreamer0.10-0 libgstreamer0.10-dev  \
+                     libunicap2 libunicap2-dev libdc1394-22-dev \
+                     libdc1394-22 libdc1394-utils swig \
+                     libv4l-0 libv4l-dev
+
 #
 # export JAVA_HOME=/usr/lib/jvm/java-9-openjdk-armhf
-export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
+# export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
 echo JAVA_HOME=${JAVA_HOME}
 export PATH=${JAVA_HOME}/bin:$PATH
 ant -version

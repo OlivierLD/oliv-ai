@@ -9,7 +9,7 @@ plugins {
 compileJava.options.encoding = 'ISO-8859-1'
 compileJava.options.compilerArgs += ["-Xlint:unchecked"]
 
-group = 'oliv.raspi.coffee'
+group = 'oliv.ai'
 version = '1.0'
 
 // sourceCompatibility = 1.8

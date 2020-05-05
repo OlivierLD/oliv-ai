@@ -27,13 +27,16 @@ Java stuff:
 ll /usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4
 ```
 
-Make sure you use Java 9.
+Make sure you use Java 9, at least.
 ```
  export JAVA_HOME=`/usr/libexec/java_home -v 9.0.1`
  ../gradlew run
  
 ```
 > If this raises a  `no opencv_java410 in java.library.path`
+
+> JavaFX was removed from JDK 11: See how to fix that [here](https://www.youtube.com/watch?time_continue=157&v=WtOgoomDewo&feature=emb_logo),
+> and [here](https://openjfx.io/openjfx-docs/).
 
 You need 
 ```

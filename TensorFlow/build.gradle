@@ -5,7 +5,7 @@ plugins {
   id 'com.github.johnrengelman.shadow' // version '4.0.2'
 }
 
-group = 'oliv.raspi.coffee'
+group = 'oliv.ai'
 version = '1.0'
 
 repositories {

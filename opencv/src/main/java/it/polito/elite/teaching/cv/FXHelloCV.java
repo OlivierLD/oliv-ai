@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 /**
- * The main class for a JavaFX application. It creates and handle the main
+ * The main class for a avaFX application. It creates and handle the main
  * window with its resources (style, graphics, etc.).
  *
  * @author <a href="mailto:luigi.derussis@polito.it">Luigi De Russis</a>

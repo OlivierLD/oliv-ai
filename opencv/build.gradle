@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application' // -> provides the 'run' task.
+    id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'com.github.johnrengelman.shadow'
 }
 
@@ -9,8 +10,8 @@ plugins {
 group 'oliv.opencv'
 version '1.0'
 
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+//sourceCompatibility = 1.9
+//targetCompatibility = 1.9
 
 repositories {
     mavenCentral()
@@ -19,9 +20,20 @@ repositories {
 }
 
 dependencies {
+//    compile group: 'org.openjfx', name: 'javafx', version: '11'
+//    compile group: 'org.openjfx', name: 'javafx-controls', version: '11'
+//    compile group: 'org.openjfx', name: 'javafx-fxml', version: '11'
+//    compile group: 'org.openjfx', name: 'javafx-graphics', version: '11'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile fileTree(dir: '/usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4', include: ['*.jar'])
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+javafx {
+    version = "12"
+    modules = [ 'javafx.controls',
+                'javafx.swing',
+                'javafx.fxml' ]
 }
 
 task listJars {
@@ -44,6 +56,7 @@ if (!hasProperty('mainClassName')) {
 //    ext.mainClassName = mainClassName
 }
 
+
 mainClassName = 'it.polito.elite.teaching.cv.dummy.HelloCV'
 ext.mainClassNameFX = 'it.polito.elite.teaching.cv.FXHelloCV'
 ext.mainClassNameOliv101 = 'oliv.opencv.OpenCV101'
@@ -55,6 +68,7 @@ ext.mainClassNameContinuousPathDetect = 'oliv.opencv.OpenCVContinuousPathDetecti
 
 tasks.withType(JavaExec) {
     systemProperty "java.library.path", "/usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4" // For Mac
+//    systemProperty "java.library.path", "/usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4" // For Rasperry Pi
     if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
     }
