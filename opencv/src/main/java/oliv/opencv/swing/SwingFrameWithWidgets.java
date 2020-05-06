@@ -26,8 +26,11 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 
 	private JCheckBox divideCheckBox = null;
 	private JCheckBox contrastBrightnessCheckBox = null;
+	private final static String B_AND_C_LABEL = "Contrasts & Brightness";
+	private JLabel cbLabel = null;
 	private JCheckBox grayCheckBox = null;
 	private JCheckBox blurCheckBox = null;
+	private final static String BLUR_LABEL = "To Gaussian Blur";
 	private JCheckBox threshedCheckBox = null;
 	private JCheckBox cannyCheckBox = null;
 	private JCheckBox contoursCheckBox = null;
@@ -154,7 +157,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		grayCheckBox = new JCheckBox("To Gray");
 		grayCheckBox.setSelected(false);
 
-		blurCheckBox = new JCheckBox("To Gaussian Blur");
+		blurCheckBox = new JCheckBox(BLUR_LABEL);
 		blurCheckBox.setSelected(false);
 
 		threshedCheckBox = new JCheckBox("To Threshed");
@@ -169,27 +172,30 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		contoursOnNewImageCheckBox = new JCheckBox("Contours on new image");
 		contoursOnNewImageCheckBox.setSelected(false);
 
-		contrastBrightnessCheckBox = new JCheckBox("Contrasts & Brightness");
+		contrastBrightnessCheckBox = new JCheckBox(B_AND_C_LABEL);
 		contrastBrightnessCheckBox.setSelected(false);
+
+		cbLabel = new JLabel("-");
 
 		gaussSlider = new JSlider(JSlider.HORIZONTAL, 1, 51, 15);
 		gaussSlider.setEnabled(true);
 		gaussSlider.addChangeListener(changeEvent -> {
-			// dummy
+			int gaussianKernelSize = getGaussianKernelSize();
+			blurCheckBox.setText(String.format("%s (%d)", BLUR_LABEL, gaussianKernelSize));
 		});
 		gaussSlider.setToolTipText("Gaussian Kernel size");
 
 		contrastSlider = new JSlider(JSlider.HORIZONTAL, 100, 300, 100);
 		contrastSlider.setEnabled(true);
 		contrastSlider.addChangeListener(changeEvent -> {
-			// dummy
+			cbLabel.setText(String.format("Cont.:%03d%%, Bright:%.02f", getBrightnessValue(), getContrastValue()));
 		});
 		contrastSlider.setToolTipText("Contrast");
 
 		brightnessSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
 		brightnessSlider.setEnabled(true);
 		brightnessSlider.addChangeListener(changeEvent -> {
-			// dummy
+			cbLabel.setText(String.format("Cont.:%03d%%, Bright:%.02f", getBrightnessValue(), getContrastValue()));
 		});
 		brightnessSlider.setToolTipText("Brightness");
 
@@ -285,6 +291,15 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				0.0,
 				GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL,
+				new Insets(0, 0, 0, 0), 0, 0));
+		bottomPanel.add(cbLabel, new GridBagConstraints(0,
+				5,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
 		bottomPanel.add(brightnessSlider, new GridBagConstraints(1,
 				5,
