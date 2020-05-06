@@ -33,7 +33,7 @@ public class OpenCVSwingCamera {
 	private ScheduledExecutorService timer;
 	private VideoCapture camera = null;
 	private boolean cameraActive = false;
-	private static int cameraId = 0;
+	private final static int cameraId = 0;
 
 	private static SwingFrameWithWidgets swingFrame = null;
 
@@ -61,8 +61,8 @@ public class OpenCVSwingCamera {
 		startCamera();
 	}
 
-	private final static double VIDEO_WIDTH = (double)DEFAULT_IMAGE_WIDTH;
-	private final static double VIDEO_HEIGHT = (double)DEFAULT_IMAGE_HEIGHT;
+	private final static double VIDEO_WIDTH = DEFAULT_IMAGE_WIDTH;
+	private final static double VIDEO_HEIGHT = DEFAULT_IMAGE_HEIGHT;
 
 	protected void startCamera() {
 		this.camera = new VideoCapture(); // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
@@ -81,9 +81,7 @@ public class OpenCVSwingCamera {
 			if (this.camera.isOpened()) {
 				this.cameraActive = true;
 				// grab a frame every 33 ms (30 frames/sec)
-				Runnable frameGrabber = () -> {
-					process(grabFrame());
-				};
+				Runnable frameGrabber = () -> process(grabFrame());
 
 				this.timer = Executors.newSingleThreadScheduledExecutor();
 				this.timer.scheduleAtFixedRate(frameGrabber, 0, 33, TimeUnit.MILLISECONDS);
@@ -135,7 +133,7 @@ public class OpenCVSwingCamera {
 
 	private static byte saturate(double val) {
 		int iVal = (int) Math.round(val);
-		iVal = iVal > 255 ? 255 : (iVal < 0 ? 0 : iVal);
+		iVal = Math.min(255, Math.max(iVal, 0));
 		return (byte) iVal;
 	}
 
@@ -144,11 +142,11 @@ public class OpenCVSwingCamera {
 		Mat original; // For the contours, if needed.
 		if (swingFrame.isDivideChecked()) {
 			original = new Mat();
-			Imgproc.resize(frame, original, new Size(frame.width() / 2, frame.height() / 2));
+			Imgproc.resize(frame, original, new Size(Math.round(frame.width() / 2), Math.round(frame.height() / 2)));
 		} else {
 			original = frame.clone();
 		}
-		Mat newMat = null;
+		Mat newMat;
 		Mat lastMat = original;
 
 		// Brightness & Contrast

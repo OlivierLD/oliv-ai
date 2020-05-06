@@ -10,9 +10,9 @@
 - <https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html>
 - <https://medium.com/@manishbansal8843/face-recognition-using-opencv-in-java-updated-8fc329863e52>
 - [Motion detection](https://www.pyimagesearch.com/2016/01/18/multiple-cameras-with-the-raspberry-pi-and-opencv/)
-
+---
 - [Even for Scala](https://docs.opencv.org/3.4/d9/d52/tutorial_java_dev_intro.html)
-
+---
 
 ### Face recognition, OpenCV and DL
 - <https://www.freecodecamp.org/news/facial-recognition-using-opencv-in-java-92fa40c22f62/>
@@ -22,27 +22,36 @@
 > Great resource [here](https://docs.opencv.org/master/d9/df8/tutorial_root.html),
 > samples in 3 languages: C++, Java, Python.
 
-Java stuff:
+#### Java stuff
+- find the `opencv` jar file, done during the build
 ```
-ll /usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4
+Mac> ll /usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4
+```
+or
+```
+$ find /usr/local -name 'opencv*.jar'
 ```
 
-Make sure you use Java 9, at least.
+- Make sure you use at least Java 9.
 ```
  export JAVA_HOME=`/usr/libexec/java_home -v 9.0.1`
  ../gradlew run
  
 ```
-> If this raises a  `no opencv_java410 in java.library.path`
-
-> JavaFX was removed from JDK 11: See how to fix that [here](https://www.youtube.com/watch?time_continue=157&v=WtOgoomDewo&feature=emb_logo),
-> and [here](https://openjfx.io/openjfx-docs/).
-
-You need 
+> If this raises a `no opencv_java410 in java.library.path`,
+> then you need (this is on Mac)
 ```
-cd /usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4
-ln -s libopencv_java410.dylib libopencv_java410.so 
+$ cd /usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4
+$ ln -s libopencv_java410.dylib libopencv_java410.so 
 ```
+> If you see a `Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib`
+> then try
+```
+ $ cd /usr/local/opt/openssl/lib/
+ $ ln -s libssl.dylib libssl.1.0.0.dylib 
+```
+Same for other libs, if any ( like `ln -s libcrypto.1.1.dylib libcrypto.1.0.0.dylib`)
+
 See in [`build.gradle`](./build.gradle).
 
 ```
@@ -56,7 +65,6 @@ See in [`build.gradle`](./build.gradle).
 ```
  ../gradlew runOlivSwing
 ```
-
 | | | |
 |:--------:|:--------:|:--------:|
 | Original | Gray | Blur |
