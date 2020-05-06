@@ -4,6 +4,8 @@
 # Same as detection.6, but continuous,
 # frame by frame (camera)
 #
+# Type q to quit.
+#
 import time
 import cv2
 import numpy as np

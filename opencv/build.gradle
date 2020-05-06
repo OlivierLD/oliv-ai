@@ -64,8 +64,8 @@ ext.mainClassNameContinuousFaceDetect = 'oliv.opencv.OpenCVContinuousFaceDetecti
 ext.mainClassNameContinuousPathDetect = 'oliv.opencv.OpenCVContinuousPathDetection'
 
 tasks.withType(JavaExec) {
-    systemProperty "java.library.path", "/usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4" // MAc
-    systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
+    systemProperty "java.library.path", "/usr/local/Cellar/opencv/4.1.0_2/share/java/opencv4" // Mac
+//    systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
     if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
     }
