@@ -5,6 +5,10 @@
 - [More OpenCV, with samples](https://github.com/kipr/opencv)
 - [Pyimagesearch tutorial](https://www.pyimagesearch.com/start-here/?__s=wovspfff7eebsahwp9s9)
 
+```
+$ pip install opencv-python
+```
+
 For help on OpenCV:
 ```buildoutcfg
 $ python
@@ -88,3 +92,4 @@ See [Here](./object.detection/README.md)
 ##### Glossary:
 - ROI: Region Of Interest
 - PID algorithm: proportional-integral-derivative
+- DIP: Digital Image Processing

@@ -23,3 +23,6 @@ JavaFX was removed from Java 11.
 - Get the binaries from <https://gluonhq.com/products/javafx/>
 - Unzip in some place you like
 ---
+
+## Papers, other docs
+- <https://www.tutorialspoint.com/java_dip/create_zooming_effect.htm>

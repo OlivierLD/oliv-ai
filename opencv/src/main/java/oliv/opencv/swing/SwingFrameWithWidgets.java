@@ -3,6 +3,7 @@ package oliv.opencv.swing;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
@@ -32,12 +33,30 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	private JCheckBox contoursCheckBox = null;
 	private JCheckBox contoursOnNewImageCheckBox = null;
 
+	private JSlider zoomSlider = null;
 	private JSlider gaussSlider = null;
 	private JSlider contrastSlider = null;
 	private JSlider brightnessSlider = null;
 
+	private JLabel zoomLabel = null;
+
 	private final static int DEFAULT_WIDTH = 600;
 	private final static int DEFAULT_HEIGHT = 400;
+
+	private final static double MAX_ZOOM_FACTOR = 5d;
+	private final static int MAX_ZOOM_SLIDER_VALUE = 100;
+
+	private static double sliderToZoom(int sliderValue) {
+		double zoom = 1d;
+		if (sliderValue != 0) {
+		  if (sliderValue > 0) {
+		  	zoom = MAX_ZOOM_FACTOR * ((double)sliderValue / (double)MAX_ZOOM_SLIDER_VALUE);
+		  } else {
+			  zoom = 1 / (MAX_ZOOM_FACTOR * ((double)Math.abs(sliderValue) / (double)MAX_ZOOM_SLIDER_VALUE));
+		  }
+		}
+		return zoom;
+	}
 
 	@Override
 	public void componentResized(ComponentEvent e) {
@@ -120,6 +139,16 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 
 		divideCheckBox = new JCheckBox("Divide by 2");
 		divideCheckBox.setSelected(false);
+
+		zoomLabel = new JLabel("Zoom: 1.00");
+
+		zoomSlider = new JSlider(JSlider.HORIZONTAL, -MAX_ZOOM_SLIDER_VALUE, MAX_ZOOM_SLIDER_VALUE, 0);
+		zoomSlider.setEnabled(true);
+		zoomSlider.addChangeListener(changeEvent -> {
+			int zoomSliderValue = zoomSlider.getValue();
+			zoomLabel.setText(String.format("Zoom: %.02f", sliderToZoom(zoomSliderValue)));
+		});
+		zoomSlider.setToolTipText("Zoom factor");
 
 		grayCheckBox = new JCheckBox("To Gray");
 		grayCheckBox.setSelected(false);
@@ -266,6 +295,26 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				GridBagConstraints.HORIZONTAL,
 				new Insets(0, 0, 0, 0), 0, 0));
 
+		bottomPanel.add(zoomLabel, new GridBagConstraints(0,
+				6,
+				1,
+				1,
+				5.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0, 0, 0, 0), 0, 0));
+
+		bottomPanel.add(zoomSlider, new GridBagConstraints(1,
+				6,
+				1,
+				1,
+				5.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0, 0, 0, 0), 0, 0));
+
 		this.add(bottomPanel, BorderLayout.SOUTH);
 
 		this.pack();
@@ -319,6 +368,10 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	public int getBrightnessValue() {
 		int slider = brightnessSlider.getValue();
 		return slider;
+	}
+	public double getZoomValue() {
+		int slider = zoomSlider.getValue();
+		return sliderToZoom(slider);
 	}
 
 	/**

@@ -149,6 +149,14 @@ public class OpenCVSwingCamera {
 		Mat newMat;
 		Mat lastMat = original;
 
+		// Zoom slider
+		double zoomFactor = swingFrame.getZoomValue();
+		if (zoomFactor != 1) {
+			newMat = new Mat();
+			Imgproc.resize(lastMat, newMat, new Size(Math.round(lastMat.width() * zoomFactor), Math.round(lastMat.height() * zoomFactor)));
+			lastMat = newMat;
+		}
+
 		// Brightness & Contrast
 		if (swingFrame.isContrastBrightnessChecked()) {
 			newMat = Mat.zeros(lastMat.size(), lastMat.type());
