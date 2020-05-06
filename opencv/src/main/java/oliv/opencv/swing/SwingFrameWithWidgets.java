@@ -50,9 +50,9 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		double zoom = 1d;
 		if (sliderValue != 0) {
 		  if (sliderValue > 0) {
-		  	zoom = MAX_ZOOM_FACTOR * ((double)sliderValue / (double)MAX_ZOOM_SLIDER_VALUE);
+		  	zoom = 1 + (MAX_ZOOM_FACTOR * ((double)sliderValue / (double)MAX_ZOOM_SLIDER_VALUE));
 		  } else {
-			  zoom = 1 / (MAX_ZOOM_FACTOR * ((double)Math.abs(sliderValue) / (double)MAX_ZOOM_SLIDER_VALUE));
+			  zoom = (1d / MAX_ZOOM_FACTOR) + (((((double)MAX_ZOOM_SLIDER_VALUE + (double)sliderValue) / (double)MAX_ZOOM_SLIDER_VALUE) * (MAX_ZOOM_FACTOR - 1)) / MAX_ZOOM_FACTOR);
 		  }
 		}
 		return zoom;
@@ -146,6 +146,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		zoomSlider.setEnabled(true);
 		zoomSlider.addChangeListener(changeEvent -> {
 			int zoomSliderValue = zoomSlider.getValue();
+			System.out.println(String.format("Zoom: %d => %.02f", zoomSliderValue, sliderToZoom(zoomSliderValue)));
 			zoomLabel.setText(String.format("Zoom: %.02f", sliderToZoom(zoomSliderValue)));
 		});
 		zoomSlider.setToolTipText("Zoom factor");

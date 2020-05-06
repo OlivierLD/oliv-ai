@@ -140,22 +140,23 @@ public class OpenCVSwingCamera {
 	public static void process(Mat frame) {
 
 		Mat original; // For the contours, if needed.
-		if (swingFrame.isDivideChecked()) {
-			original = new Mat();
-			Imgproc.resize(frame, original, new Size(Math.round(frame.width() / 2), Math.round(frame.height() / 2)));
-		} else {
-			original = frame.clone();
-		}
-		Mat newMat;
-		Mat lastMat = original;
 
 		// Zoom slider
 		double zoomFactor = swingFrame.getZoomValue();
 		if (zoomFactor != 1) {
-			newMat = new Mat();
-			Imgproc.resize(lastMat, newMat, new Size(Math.round(lastMat.width() * zoomFactor), Math.round(lastMat.height() * zoomFactor)));
-			lastMat = newMat;
+			original = new Mat();
+			Imgproc.resize(frame, original, new Size(Math.round(frame.width() * zoomFactor), Math.round(frame.height() * zoomFactor)));
+		} else {
+			original = frame.clone();
 		}
+
+		Mat newMat;
+		if (swingFrame.isDivideChecked()) {
+			newMat = new Mat();
+			Imgproc.resize(original, newMat, new Size(Math.round(original.width() / 2), Math.round(original.height() / 2)));
+			original = newMat;
+		}
+		Mat lastMat = original;
 
 		// Brightness & Contrast
 		if (swingFrame.isContrastBrightnessChecked()) {
