@@ -219,10 +219,10 @@ public class OpenCVSwingCamera {
 				cve.printStackTrace();
 			}
 		}
-		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("OpenCV %s", Core.getVersionString()));
+		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
 	}
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		// load the OpenCV native library
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
