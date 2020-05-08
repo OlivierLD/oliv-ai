@@ -25,7 +25,7 @@ import org.tensorflow.types.UInt8;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -156,7 +156,7 @@ public class LabelImage {
 
 	private static List<String> readAllLinesOrExit(Path path) {
 		try {
-			return Files.readAllLines(path, Charset.forName("UTF-8"));
+			return Files.readAllLines(path,  StandardCharsets.UTF_8); // Charset.forName("UTF-8"));
 		} catch (IOException e) {
 			System.err.println("Failed to read [" + path + "]: " + e.getMessage());
 			System.exit(0);
@@ -168,8 +168,11 @@ public class LabelImage {
 	// the OpDefs linked into libtensorflow_jni.so. That would match what is done in other languages
 	// like Python, C++ and Go.
 	static class GraphBuilder {
-		GraphBuilder(Graph g) {
-			this.g = g;
+
+		private Graph graph;
+
+		GraphBuilder(Graph graph) {
+			this.graph = graph;
 		}
 
 		Output<Float> div(Output<Float> x, Output<Float> y) {
@@ -190,7 +193,7 @@ public class LabelImage {
 
 		<T, U> Output<U> cast(Output<T> value, Class<U> type) {
 			DataType dtype = DataType.fromClass(type);
-			return g.opBuilder("Cast", "Cast")
+			return graph.opBuilder("Cast", "Cast")
 					.addInput(value)
 					.setAttr("DstT", dtype)
 					.build()
@@ -198,7 +201,7 @@ public class LabelImage {
 		}
 
 		Output<UInt8> decodeJpeg(Output<String> contents, long channels) {
-			return g.opBuilder("DecodeJpeg", "DecodeJpeg")
+			return graph.opBuilder("DecodeJpeg", "DecodeJpeg")
 					.addInput(contents)
 					.setAttr("channels", channels)
 					.build()
@@ -207,7 +210,7 @@ public class LabelImage {
 
 		<T> Output<T> constant(String name, Object value, Class<T> type) {
 			try (Tensor<T> t = Tensor.<T>create(value, type)) {
-				return g.opBuilder("Const", name)
+				return graph.opBuilder("Const", name)
 						.setAttr("dtype", DataType.fromClass(type))
 						.setAttr("value", t)
 						.build()
@@ -232,13 +235,11 @@ public class LabelImage {
 		}
 
 		private <T> Output<T> binaryOp(String type, Output<T> in1, Output<T> in2) {
-			return g.opBuilder(type, type).addInput(in1).addInput(in2).build().<T>output(0);
+			return graph.opBuilder(type, type).addInput(in1).addInput(in2).build().<T>output(0);
 		}
 
 		private <T, U, V> Output<T> binaryOp3(String type, Output<U> in1, Output<V> in2) {
-			return g.opBuilder(type, type).addInput(in1).addInput(in2).build().<T>output(0);
+			return graph.opBuilder(type, type).addInput(in1).addInput(in2).build().<T>output(0);
 		}
-
-		private Graph g;
 	}
 }
