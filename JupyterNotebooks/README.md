@@ -38,7 +38,7 @@ reboot
 sudo pip3 install jupyter
 sudo apt-get clean
 ```
-> Also see the [Jupyter Installation](https://jupyter.org/install) guide.
+> See also the [Jupyter Installation](https://jupyter.org/install) guide.
 
 To add the required Java features, see 
 - <https://blog.frankel.ch/teaching-java-jupyter-notebooks/>
@@ -58,7 +58,7 @@ or more recently
 ```
  $ jupyter-notebook
 ```
-And from a browser any where on the network of the Raspberry Pi, `raspberry-pi` being the name or address of the Raspberry Pi where the notebook server is running, reach `http://raspberry-pi:8888/tree` to start playing!
+And from a browser anywhere on the network of the Raspberry Pi, `raspberry-pi` being the name or address of the Raspberry Pi where the notebook server is running, reach `http://raspberry-pi:8888/tree` to start playing!
  
 > Note: You can run the above wherever you have installed `jupyter`, on a Raspberry PI, on a Linux laptop, on a Windows box, etc.
 > If you are in a graphical environment, `Jupyter` might even be smart enough to display its home page in your default browser.  

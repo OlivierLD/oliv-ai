@@ -64,7 +64,7 @@ without comments and graphics.
 ### Material
 We will use Jupyter Notebooks (for Python and Java), as well as plain Python scripts.
 
-See how to install Jupyter and Jupyter for Java in [this document](../../README.md).
+See how to install Jupyter and Jupyter for Java in [this document](../README.md).
 
 Then run
 ```

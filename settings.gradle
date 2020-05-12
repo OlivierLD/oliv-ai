@@ -4,4 +4,5 @@ include "TensorFlow"
 include "JupyterNotebooks:deep.learning.crash.course"
 include 'opencv'
 include 'oliv-opencv'
+include 'TinyML'
 
