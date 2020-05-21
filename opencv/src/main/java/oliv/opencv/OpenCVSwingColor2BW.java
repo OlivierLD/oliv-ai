@@ -34,7 +34,8 @@ import java.util.List;
 public class OpenCVSwingColor2BW {
 
 	private final static String IMAGE_SOURCE_PATH = "." + File.separator + "images" + File.separator + "birds";
-	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "cardinal.jpeg";
+//	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "cardinal.jpeg";
+	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "pelican.01.jpg";
 
 	private final static long WAIT = 1_000L;
 
@@ -142,6 +143,7 @@ public class OpenCVSwingColor2BW {
 				// write dimensions
 				dat.writeInt(128); // W
 				dat.writeInt(64);  // H
+				// Then the data.
 				for (int line = 0; line < screenMatrix.length; line++) {
 					dat.writeLong(screenMatrix[line][0]);
 					dat.writeLong(screenMatrix[line][1]);
@@ -165,7 +167,7 @@ public class OpenCVSwingColor2BW {
 				// 2 longs per line
 				for (int w=0; w<128; w++) {
 					long pixel = ((screenMatrix[line][w<64?0:1] & (1L << (w%64))));
-					printLine.append(pixel==0?' ':'X');
+					printLine.append(pixel==0?' ':'\u2588'); // Small: ■, bigger █
 				}
 				System.out.println(printLine.toString());
 			}
