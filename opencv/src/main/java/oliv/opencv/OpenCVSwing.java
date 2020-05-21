@@ -47,10 +47,12 @@ public class OpenCVSwing {
 		swingFrame = new SwingFrame();
 		swingFrame.setVisible(true);
 
+		System.out.println(String.format("Will show different states, every %d ms.", WAIT));
 		while (true) {
 			Mat image = Imgcodecs.imread(imagePath);
 			System.out.println(String.format("Original image: w %d, h %d, channels %d", image.width(), image.height(), image.channels()));
 
+			System.out.println("-> Original");
 			swingFrame.plot(Utils.mat2AWTImage(image), "Original");
 
 			try {
@@ -63,6 +65,7 @@ public class OpenCVSwing {
 			Mat gray = new Mat();
 			Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
 
+			System.out.println("-> Gray");
 			swingFrame.plot(Utils.mat2AWTImage(gray), "Gray");
 
 			try {
@@ -77,6 +80,7 @@ public class OpenCVSwing {
 			Mat blurred = new Mat();
 			Imgproc.GaussianBlur(gray, blurred, kSize, sigmaX);
 
+			System.out.println("-> Blurred");
 			swingFrame.plot(Utils.mat2AWTImage(blurred), "Blurred");
 
 			try {
@@ -89,6 +93,7 @@ public class OpenCVSwing {
 			Mat threshed = new Mat();
 			Imgproc.threshold(blurred, threshed, 127, 255, 0);
 
+			System.out.println("-> Threshed");
 			swingFrame.plot(Utils.mat2AWTImage(threshed), "Threshed");
 
 			try {
@@ -102,6 +107,7 @@ public class OpenCVSwing {
 			Imgproc.findContours(threshed, contours, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 			Imgproc.drawContours(gray, contours, -1, new Scalar(0, 255, 0), 2);
 
+			System.out.println("-> Contours");
 			swingFrame.plot(Utils.mat2AWTImage(gray), "Contours");
 
 			try {
@@ -114,6 +120,7 @@ public class OpenCVSwing {
 			Mat canny = new Mat();
 			Imgproc.Canny(image, canny, 10, 100);
 
+			System.out.println("-> Canny Edges");
 			swingFrame.plot(Utils.mat2AWTImage(canny), "Canny Edges");
 
 			try {
@@ -122,6 +129,7 @@ public class OpenCVSwing {
 				ie.printStackTrace();
 			}
 
+			System.out.println("Now path detection...");
 			List<List<Integer>> tiles = new ArrayList<>();
 			// Path detection?
 			for (int h = threshed.height() - 1; h >= 0; h -= 40) { // Start from the bottom of the image
@@ -190,7 +198,7 @@ public class OpenCVSwing {
 //		System.out.println("Done!");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		// load the OpenCV native library
 		System.out.println("Loading " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
