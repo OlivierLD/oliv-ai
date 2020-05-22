@@ -142,7 +142,9 @@ The matrix used here is 128x64 pixels big. The file will contain 64 lines of 2 `
 A Java `long` has 64 bits, 2 `long`s make 128 bits, that's all we need to encode on line of 128 leds on the screen.
 See the code in `OpenCVSwingColor2BW.java` for details.
 
-![Final](./docimg/downgrading/minion.ssd1306.png) 
+| Swing Simulator | Real device |
+|:---------:|:-----------:|
+| ![Final](./docimg/downgrading/minion.ssd1306.png) | ![Final](./docimg/downgrading/on.the.device.jpg) |
 
 
 ### In Python
