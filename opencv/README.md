@@ -107,6 +107,44 @@ For continuous detection, see `OpenCVContinuousFaceDetection.java`, run
  ../gradlew continuousFaceDetect
 ``` 
 
+#### Downgrading a color image to display on a led matrix
+Here we want to render a colored image (RGB), on a led matrix.
+
+Here are the steps:
+- We start from the colored image
+- We turn it to gray
+- We thresh it
+- We resize it (smaller)
+- We store it in a file, custom format
+- We can then display the image on the led matrix (oled screen here)
+
+| Original | Gray | 
+|:--------:|:----:|
+| ![Original](./docimg/downgrading/minion.jpeg) | ![Gray](./docimg/downgrading/gray.jpg) |
+| Threshed | Resized |  
+| ![Threshed](./docimg/downgrading/threshed.jpg) | ![Resized](./docimg/downgrading/resized.jpg) |  
+
+The level of details of the final display is obained during the `threshold` part.
+See in `OpenCVSwingColor2BW.java`:
+```java
+    // threshold
+    Mat threshed = new Mat();
+    Imgproc.threshold(gray,
+            threshed,
+            150, // 127,
+            255,
+            0);
+``` 
+Tweaking the `thresh` parameter (`150` above) leads to different results.
+
+The final result is stored in a binary file (`image.dat`).
+The matrix used here is 128x64 pixels big. The file will contain 64 lines of 2 `long`s.
+A Java `long` has 64 bits, 2 `long`s make 128 bits, that's all we need to encode on line of 128 leds on the screen.
+See the code in `OpenCVSwingColor2BW.java` for details.
+
+![Final](./docimg/downgrading/minion.ssd1306.png) 
+
+
 ### In Python
 See [here](./src/main/python/README.md)
 

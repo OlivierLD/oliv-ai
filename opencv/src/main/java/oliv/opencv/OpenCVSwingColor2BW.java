@@ -34,12 +34,22 @@ import java.util.List;
 public class OpenCVSwingColor2BW {
 
 	private final static String IMAGE_SOURCE_PATH = "." + File.separator + "images" + File.separator + "birds";
-//	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "cardinal.jpeg";
-	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "pelican.01.jpg";
+//	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "cardinal.jpeg";
+//  private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "pelican.01.jpg";
+	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "minion.jpeg";
 
-	private final static long WAIT = 1_000L;
+	private final static long WAIT = 5_000L;
 
 	private static SwingFrame swingFrame = null;
+
+	private static String lPad(String input, Character with, int length) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(input);
+		while (sb.length() < length) {
+			sb.insert(0, with);
+		}
+		return sb.toString();
+	}
 
 	public static void process(String imagePath) {
 
@@ -47,10 +57,11 @@ public class OpenCVSwingColor2BW {
 		swingFrame.setVisible(true);
 
 		System.out.println(String.format("Will show different states, every %d ms.", WAIT));
+		int padding = 30;
 		while (true) {
 			Mat image = Imgcodecs.imread(imagePath);
-			swingFrame.setSize(new Dimension(image.width(), image.height() + 30));
-			swingFrame.setPreferredSize(new Dimension(image.width(), image.height() + 30));
+			swingFrame.setSize(new Dimension(image.width(), image.height() + padding));
+			swingFrame.setPreferredSize(new Dimension(image.width(), image.height() + padding));
 
 			System.out.println(String.format("Original image: w %d, h %d, channels %d", image.width(), image.height(), image.channels()));
 
@@ -69,6 +80,8 @@ public class OpenCVSwingColor2BW {
 
 			System.out.println("-> Gray");
 			swingFrame.plot(Utils.mat2AWTImage(gray), "Gray");
+			// write the new image on disk
+			Imgcodecs.imwrite(IMAGE_SOURCE_PATH + File.separator + "gray.jpg", gray);
 
 			try {
 				Thread.sleep(WAIT);
@@ -78,10 +91,16 @@ public class OpenCVSwingColor2BW {
 
 			// threshold
 			Mat threshed = new Mat();
-			Imgproc.threshold(gray, threshed, 127, 255, 0);
+			Imgproc.threshold(gray,
+					threshed,
+					150, // 127,
+					255,
+					0);
 
 			System.out.println("-> Threshed");
 			swingFrame.plot(Utils.mat2AWTImage(threshed), "Threshed");
+			// write the new image on disk
+			Imgcodecs.imwrite(IMAGE_SOURCE_PATH + File.separator + "threshed.jpg", threshed);
 
 			try {
 				Thread.sleep(WAIT);
@@ -97,6 +116,9 @@ public class OpenCVSwingColor2BW {
 			Imgproc.resize(threshed, resized, new Size(threshed.width() / sizeFactor, threshed.height() / sizeFactor));
 			System.out.println(String.format("Resized to %d x %d", resized.width(), resized.height()));
 			swingFrame.plot(Utils.mat2AWTImage(resized), String.format("Resized to %d x %d", resized.width(), resized.height()));
+
+			// write the new image on disk
+			Imgcodecs.imwrite(IMAGE_SOURCE_PATH + File.separator + "resized.jpg", resized);
 
 			int topPad = (64 - resized.height()) / 2;
 			int bottomPad = topPad;
@@ -155,9 +177,12 @@ public class OpenCVSwingColor2BW {
 			}
 
 			// Display matrix?
-			if (false) {
+			if (true) {
 				for (int line = 0; line < screenMatrix.length; line++) {
-					System.out.println(String.format("%d %d", screenMatrix[line][0], screenMatrix[line][1]));
+//					System.out.println(String.format("%d %d", screenMatrix[line][0], screenMatrix[line][1]));
+					System.out.println(String.format("%s%s", // Inveted, 1 first, then 0. Most significant on the left.
+							lPad(Long.toBinaryString(screenMatrix[line][1]), '0', 64),
+							lPad(Long.toBinaryString(screenMatrix[line][0]), '0', 64)));
 				}
 			}
 
@@ -188,7 +213,7 @@ public class OpenCVSwingColor2BW {
 		System.out.println("Loading " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		process(IMAGE_01);
+		process(IMAGE);
 
 		System.out.println("Bye!");
 	}
