@@ -4,9 +4,6 @@ import cv.utils.Utils;
 import oliv.opencv.swing.SwingFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -16,15 +13,13 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Oliv did it.
  * Basic OpenCV image manipulations.
  * Display images in Swing
  * Turns a Color picture in Pure B&W,
+ * resize it to be displayed on a small SSD1306 128x64 oled screen
  * resize it to be displayed on a small SSD1306 128x64 oled screen
  *
  * Uses assertions.
@@ -36,7 +31,9 @@ public class OpenCVSwingColor2BW {
 	private final static String IMAGE_SOURCE_PATH = "." + File.separator + "images" + File.separator + "birds";
 //	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "cardinal.jpeg";
 //  private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "pelican.01.jpg";
-	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "minion.jpeg";
+//	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "minion.jpeg";
+//	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "java.sparrows.jpg";
+	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "sparrow.jpg";
 
 	private final static long WAIT = 5_000L;
 
@@ -166,9 +163,9 @@ public class OpenCVSwingColor2BW {
 				dat.writeInt(128); // W
 				dat.writeInt(64);  // H
 				// Then the data.
-				for (int line = 0; line < screenMatrix.length; line++) {
-					dat.writeLong(screenMatrix[line][0]);
-					dat.writeLong(screenMatrix[line][1]);
+				for (long[] matrix : screenMatrix) {
+					dat.writeLong(matrix[0]);
+					dat.writeLong(matrix[1]);
 				}
 				dat.flush();
 				dat.close();
@@ -178,19 +175,19 @@ public class OpenCVSwingColor2BW {
 
 			// Display matrix?
 			if (true) { // First method, brute dump
-				for (int line = 0; line < screenMatrix.length; line++) {
+				for (long[] matrix : screenMatrix) {
 //					System.out.println(String.format("%d %d", screenMatrix[line][0], screenMatrix[line][1]));
 					System.out.println( // Inverted, 1 first, then 0. Most significant on the left.
-							new StringBuilder(lPad(Long.toBinaryString(screenMatrix[line][1]), '0', 64))
-									.append(lPad(Long.toBinaryString(screenMatrix[line][0]), '0', 64))
+							new StringBuilder(lPad(Long.toBinaryString(matrix[1]), '0', 64))
+									.append(lPad(Long.toBinaryString(matrix[0]), '0', 64))
 									.reverse().toString());
 				}
 			}
 
-			// Second method, more adapted to iteration, to turn leds on or off
+			// Second method, more adapted to iteration, to turn leds on or off, pos coordinates line and w.
 			System.out.println("---- From digit matrix ----");
 			for (int line=0; line<screenMatrix.length; line++) {
-				StringBuffer printLine = new StringBuffer();
+				StringBuilder printLine = new StringBuilder();
 				// 2 longs per line
 				for (int w=0; w<128; w++) {
 					long pixel = ((screenMatrix[line][w<64?0:1] & (1L << (w%64))));
