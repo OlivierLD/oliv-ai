@@ -177,15 +177,17 @@ public class OpenCVSwingColor2BW {
 			}
 
 			// Display matrix?
-			if (true) {
+			if (true) { // First method, brute dump
 				for (int line = 0; line < screenMatrix.length; line++) {
 //					System.out.println(String.format("%d %d", screenMatrix[line][0], screenMatrix[line][1]));
-					System.out.println(String.format("%s%s", // Inveted, 1 first, then 0. Most significant on the left.
-							lPad(Long.toBinaryString(screenMatrix[line][1]), '0', 64),
-							lPad(Long.toBinaryString(screenMatrix[line][0]), '0', 64)));
+					System.out.println( // Inverted, 1 first, then 0. Most significant on the left.
+							new StringBuilder(lPad(Long.toBinaryString(screenMatrix[line][1]), '0', 64))
+									.append(lPad(Long.toBinaryString(screenMatrix[line][0]), '0', 64))
+									.reverse().toString());
 				}
 			}
 
+			// Second method, more adapted to iteration, to turn leds on or off
 			System.out.println("---- From digit matrix ----");
 			for (int line=0; line<screenMatrix.length; line++) {
 				StringBuffer printLine = new StringBuffer();
@@ -204,7 +206,6 @@ public class OpenCVSwingColor2BW {
 				ie.printStackTrace();
 			}
 		}
-
 //		System.out.println("Done!");
 	}
 
