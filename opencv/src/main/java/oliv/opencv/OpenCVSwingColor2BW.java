@@ -33,7 +33,11 @@ public class OpenCVSwingColor2BW {
 //  private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "pelican.01.jpg";
 //	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "minion.jpeg";
 //	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "java.sparrows.jpg";
-	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "sparrow.jpg";
+//	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "sparrow.jpg";
+//	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "humming.bird.jpeg";
+//	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "parrot.jpeg";
+//  private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "pelican.bw.png";
+	private final static String IMAGE = IMAGE_SOURCE_PATH + File.separator + "logo.png";
 
 	private final static long WAIT = 5_000L;
 
@@ -57,8 +61,8 @@ public class OpenCVSwingColor2BW {
 		int padding = 30;
 		while (true) {
 			Mat image = Imgcodecs.imread(imagePath);
-			swingFrame.setSize(new Dimension(image.width(), image.height() + padding));
-			swingFrame.setPreferredSize(new Dimension(image.width(), image.height() + padding));
+			swingFrame.setSize(new Dimension(image.width() + padding, image.height() + padding));
+			swingFrame.setPreferredSize(new Dimension(image.width() + padding, image.height() + padding));
 
 			System.out.println(String.format("Original image: w %d, h %d, channels %d", image.width(), image.height(), image.channels()));
 
@@ -90,7 +94,7 @@ public class OpenCVSwingColor2BW {
 			Mat threshed = new Mat();
 			Imgproc.threshold(gray,
 					threshed,
-					150, // 127,
+					190, // 127,
 					255,
 					0);
 
