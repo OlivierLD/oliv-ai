@@ -124,7 +124,7 @@ Here are the steps:
 | Threshed | Resized |  
 | ![Threshed](./docimg/downgrading/threshed.jpg) | ![Resized](./docimg/downgrading/resized.jpg) |  
 
-The level of details of the final display is obained during the `threshold` part.
+The level of details of the final display is obtained during the `threshold` part.
 See in `OpenCVSwingColor2BW.java`:
 ```java
     // threshold
@@ -139,7 +139,7 @@ Tweaking the `thresh` parameter (`150` above) leads to different results.
 
 The final result is stored in a binary file (`image.dat`).
 The matrix used here is 128x64 pixels big. The file will contain 64 lines of 2 `long`s.
-A Java `long` has 64 bits, 2 `long`s make 128 bits, that's all we need to encode on line of 128 leds on the screen.
+A Java `long` has 64 bits, 2 `long`s make 128 bits, that's all we need to encode one line of 128 leds on the screen.
 See the code in `OpenCVSwingColor2BW.java` for details.
 
 | Swing Simulator | Real device |
