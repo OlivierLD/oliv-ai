@@ -31,9 +31,10 @@ Good summary at <https://en.wikipedia.org/wiki/Activation_function#Comparison_of
 - [Google colab](https://colab.research.google.com/github/tensorflow/tensorflow/blob/master/tensorflow/lite/micro/examples/hello_world/create_sine_model.ipynb)
 
 ```
-$ pip install tensorflow==2.0.0 [ -beta0 ]
+$ pip install tensorflow[==2.2.0 [ -beta0 ]]
 ```
-#### Keras
+#### TensorFlow and Keras
+- [TensorFlow](https://www.tensorflow.org/api_docs/python/tf)
 - [Keras](https://www.tensorflow.org/guide/keras)
 
 ---
