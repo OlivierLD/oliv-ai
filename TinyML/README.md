@@ -3,8 +3,9 @@ Reading the book TinyML, by Pete Warden & Daniel Situnayake, [published by O'Rei
 
 _Notes and stuff._
 
-### For Python scripts
-Use PyCharm. The best Python IDE, by far.
+### Python IDE
+If your machine can take it (it requires some RAM), use PyCharm. 
+The best Python IDE, by far.
 
 #### Google Colab
 Always up-to-date, _nice code-insight features_ and other developer help.
