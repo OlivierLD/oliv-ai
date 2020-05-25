@@ -3,11 +3,17 @@ Reading the book TinyML, by Pete Warden & Daniel Situnayake, [published by O'Rei
 
 _Notes and stuff._
 
+### For Python scripts
+Use PyCharm. The best Python IDE, by far.
+
 #### Google Colab
-Always up-to-date, nice code-insight features and other developer help.
+Always up-to-date, _nice code-insight features_ and other developer help.
 <https://colab.research.google.com/drive/1Gx5NVHlv4vJsNUGtCAdEHuqzN2mXY-x9#scrollTo=pYnBJkhUWTQn>
 
 Not to miss: `File` > `Download .py`
+
+#### Activation Functions
+Good summary at <https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions>. 
 
 #### Hardware, p 29.
 - [Arduino Nano 33 BLE Sense](https://store.arduino.cc/usa/nano-33-ble-sense-with-headers)
@@ -38,7 +44,14 @@ $ pip install tensorflow==2.0.0 [ -beta0 ]
 - [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb#recent=true)
 
 ### Start Jupyter Notebook
+A Jupyter server can run locally on any system (Windows, Mac, Linux)
+> _Note_: Some model trainings can be demanding. That would be where Google's Colab would make more sense, they
+> have some powerful CPUs available. 
+
 After installing it:
 ```
 $ jupyter-notebook
 ```
+The Web UI should popup by itself.
+
+> _Note_: It is also easy to download your notebooks from GoogleColab, and run them locally.
