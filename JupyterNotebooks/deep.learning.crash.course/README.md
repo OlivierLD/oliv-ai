@@ -103,6 +103,22 @@ Here is a non exhaustive list of the Jupyter Notebooks and Python scripts we pro
 ### Deep Learning and AI, where it fits
 And even AI (Artificial Intelligence) itself is part of the even bigger picture called Data Science.
 
+#### Artificial Intelligence?
+Aritificial Intelligence (AI for short) is _not_ a marketing term.
+It is the name of a _scentific_ project, aiming to have computers mimicking the human **way of thinking**.
+
+For example, think about this:
+
+Ask a computer: "I have 2 watches, one is stopped, the other is 5 minutes ahead, which one is the most accurate?".
+
+Depending on the program you are using, the computer may very well reply: "The stopped one. It gives the right time twice a day; the other watch is always wrong.".
+And this is not absurd. It is just wrong.
+
+Artificial Intelligence means to address this kind of "wrong" answer.
+
+Artificial Intelligence could very well be used to predict natural stupidity, like what would be the next bullshit Donald Tr*mp is going to come up with!!
+If it can do that, that would be a scientific step forward!  
+
 |  |  |
 |:---:|:---:|
 | ![Where](./img/01fig01.jpg) | ![Data Science](./img/DataScience.png) |
