@@ -327,9 +327,9 @@ print("Difference is %d bytes" % difference)
 """### Converting to a C file"""
 
 # Install xxd if not there yet (should be there on a Mac, comment the line)
-!apt-get -qq install xxd
+# !apt-get -qq install xxd
 # Save the file (the model) as a C file
-!xxd -i sine_model_quantized.tflite > sine_model_quantized.cc
+# !xxd -i sine_model_quantized.tflite > sine_model_quantized.cc
 # Display the file's content
-!cat sine_model_quantized.cc
+# !cat sine_model_quantized.cc
 
