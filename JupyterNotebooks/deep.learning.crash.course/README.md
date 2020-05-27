@@ -70,6 +70,11 @@ Then run
 ```
  $ jupyter notebook
 ```
+or more recently
+```
+ $ jupyter-notebook
+```
+
 Here is a non exhaustive list of the Jupyter Notebooks and Python scripts we provide:
 <table>
 <tr>
