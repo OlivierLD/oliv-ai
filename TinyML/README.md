@@ -1,7 +1,7 @@
 ## TinyML
 Reading the book TinyML, by Pete Warden & Daniel Situnayake, [published by O'Reilly](http://shop.oreilly.com/product/0636920254508.do).
 
-_Notes and stuff._
+_Raw and Bulk Notes and stuff._
 
 ### Python IDE
 If your machine can take it (it requires some RAM), use PyCharm. 
@@ -9,7 +9,7 @@ The best Python IDE, by far.
 
 #### Google Colab
 Always up-to-date, _nice code-insight features_ and other developer help.
-<https://colab.research.google.com/drive/1Gx5NVHlv4vJsNUGtCAdEHuqzN2mXY-x9#scrollTo=pYnBJkhUWTQn>
+My notebook for Chapter 4 at <https://colab.research.google.com/drive/1Gx5NVHlv4vJsNUGtCAdEHuqzN2mXY-x9#scrollTo=pYnBJkhUWTQn>
 
 Not to miss: `File` > `Download .py`
 
@@ -108,6 +108,8 @@ tensorflow/lite/micro/tools/make/gen/osx_x86_64/bin/hello_world_test: PASS
 [~/repos/tensorflow]
 ```
 ##### In the Arduino IDE
+Arduino Nano 33 BLE Sense doc [here](https://www.arduino.cc/en/Guide/NANO33BLESense), with libraries ans examples.
+
 - Install the `Arduino_TensorFlowLite` library (`Tools` > `Manage Libraries`)
 - Open the `Examples` > `Arduino_TensorFlowLite` > `hello_world`
 - Compile and deploy to the device
@@ -129,7 +131,7 @@ tensorflow/lite/micro/tools/make/gen/osx_x86_64/bin/hello_world_test: PASS
 A Jupyter server can run locally on any system (Windows, Mac, Linux)
 > _Note_: Some model trainings can be quite demanding. That would be where Google's Colab would make more sense, they
 > have some powerful CPUs available. The code you run on Google Colab is executed remotely, all you need is a browser.
-> I was able to do it _from a Raspberry Pi_ without any problem.
+> I was able to do it _**from** a Raspberry Pi_ without any problem.
 
 After installing it:
 ```
@@ -138,3 +140,9 @@ $ jupyter-notebook
 The Web UI should popup by itself.
 
 > _Note_: It is also easy to download your notebooks from GoogleColab, and run them locally.
+
+### Chapter 7 & 8
+
+Speech Command Dataset, see [here](https://ai.googleblog.com/2017/08/launching-speech-commands-dataset.html).
+
+My notebook [here](https://colab.research.google.com/drive/1lv_exGUJk3YIfc4bBNKZLp5sYGR_SlKi#scrollTo=ZUihSPD20xQt).
