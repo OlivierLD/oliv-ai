@@ -59,7 +59,7 @@ class FaceDetectDemo {
 }
 
 public class FaceRecognitionSample {
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		System.out.println("Face Detect, OpenCV");
 
 		// Load the native library.

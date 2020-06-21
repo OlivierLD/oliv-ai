@@ -256,7 +256,7 @@ public class OpenCVContinuousFaceDetection {
 		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("OpenCV %s", Core.getVersionString()));
 	}
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		// load the OpenCV native library
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);

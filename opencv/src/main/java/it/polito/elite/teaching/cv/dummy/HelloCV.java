@@ -15,7 +15,7 @@ import org.opencv.imgproc.Imgproc;
  * @since 2013-10-20
  */
 public class HelloCV {
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		// load the OpenCV native library
 		System.out.println("Loading " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
