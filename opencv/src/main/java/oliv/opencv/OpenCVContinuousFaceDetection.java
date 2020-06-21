@@ -230,6 +230,11 @@ public class OpenCVContinuousFaceDetection {
 				cve.printStackTrace();
 			}
 		}
+		if (swingFrame.isInvertChecked()) {
+			newMat = new Mat();
+			Core.bitwise_not(lastMat, newMat);
+			lastMat = newMat;
+		}
 		// Apply face detection here
 		// Detect faces in the image.
 		// MatOfRect is a special container class for Rect.

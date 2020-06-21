@@ -31,6 +31,8 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	private JCheckBox grayCheckBox = null;
 	private JCheckBox blurCheckBox = null;
 	private final static String BLUR_LABEL = "To Gaussian Blur";
+	private JCheckBox invertCheckBox = null;
+	private final static String INVERT_LABEL = "Invert Colors";
 	private JCheckBox threshedCheckBox = null;
 	private JCheckBox cannyCheckBox = null;
 	private JCheckBox contoursCheckBox = null;
@@ -154,11 +156,17 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		});
 		zoomSlider.setToolTipText("Zoom factor");
 
+		JPanel twoCBPanel = new JPanel();
+		twoCBPanel.setLayout(new GridBagLayout());
+
 		grayCheckBox = new JCheckBox("To Gray");
 		grayCheckBox.setSelected(false);
 
 		blurCheckBox = new JCheckBox(BLUR_LABEL);
 		blurCheckBox.setSelected(false);
+
+		invertCheckBox = new JCheckBox(INVERT_LABEL);
+		invertCheckBox.setSelected(false);
 
 		threshedCheckBox = new JCheckBox("To Threshed");
 		threshedCheckBox.setSelected(false);
@@ -208,7 +216,8 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				GridBagConstraints.WEST,
 				GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
-		bottomPanel.add(grayCheckBox, new GridBagConstraints(1,
+
+		twoCBPanel.add(grayCheckBox, new GridBagConstraints(0,
 				0,
 				1,
 				1,
@@ -217,6 +226,47 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				GridBagConstraints.WEST,
 				GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
+
+		twoCBPanel.add(invertCheckBox, new GridBagConstraints(1,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+
+		bottomPanel.add(twoCBPanel, new GridBagConstraints(1,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+
+//		bottomPanel.add(grayCheckBox, new GridBagConstraints(1,
+//				0,
+//				1,
+//				1,
+//				1.0,
+//				0.0,
+//				GridBagConstraints.WEST,
+//				GridBagConstraints.NONE,
+//				new Insets(0, 0, 0, 0), 0, 0));
+//
+//		bottomPanel.add(invertCheckBox, new GridBagConstraints(2,
+//				0,
+//				1,
+//				1,
+//				1.0,
+//				0.0,
+//				GridBagConstraints.WEST,
+//				GridBagConstraints.NONE,
+//				new Insets(0, 0, 0, 0), 0, 0));
+
 
 		bottomPanel.add(blurCheckBox, new GridBagConstraints(0,
 				1,
@@ -351,6 +401,9 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	}
 	public boolean isGrayChecked() {
 		return this.grayCheckBox.isSelected();
+	}
+	public boolean isInvertChecked() {
+		return this.invertCheckBox.isSelected();
 	}
 	public boolean isBlurChecked() {
 		return this.blurCheckBox.isSelected();

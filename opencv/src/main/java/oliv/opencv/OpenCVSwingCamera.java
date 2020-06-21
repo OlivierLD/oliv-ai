@@ -219,6 +219,12 @@ public class OpenCVSwingCamera {
 				cve.printStackTrace();
 			}
 		}
+		if (swingFrame.isInvertChecked()) {
+			newMat = new Mat();
+			Core.bitwise_not(lastMat, newMat);
+			lastMat = newMat;
+		}
+
 		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
 	}
 
