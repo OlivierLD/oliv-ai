@@ -9,6 +9,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
@@ -17,7 +18,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -42,8 +45,18 @@ public class OpenCVSwingCamera {
 	private final static int DEFAULT_IMAGE_WIDTH =  800;
 	private final static int DEFAULT_IMAGE_HEIGHT = 600;
 
+	private static boolean takeSnapshot = false;
+	private final static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss.SSS");
+
 	public OpenCVSwingCamera() {
-		swingFrame = new SwingFrameWithWidgets(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT, DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
+		// For the user button
+		final String userButtonLabel = "Take Snapshot";
+		Runnable userAction = () -> {
+			// See usage in then process method
+			takeSnapshot = true;
+		};
+
+		swingFrame = new SwingFrameWithWidgets(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT, DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT, userButtonLabel, userAction);
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - swingFrame.getWidth()) / 2);
 		int y = (int) ((dimension.getHeight() - swingFrame.getHeight()) / 2);
@@ -226,6 +239,18 @@ public class OpenCVSwingCamera {
 		}
 
 		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+
+		if (takeSnapshot) {
+			takeSnapshot = false; // Reset
+			// Store image here
+			final Mat toStore = lastMat;
+			Thread storer = new Thread(() -> {
+				String fileName = String.format("snap_%s.jpg", SDF.format(new Date()));
+				Imgcodecs.imwrite(fileName, toStore);
+				System.out.println(String.format("\tImage %s created", fileName));
+			}, "ImageStorer");
+			storer.start();
+		}
 	}
 
 	public static void main(String... args) {

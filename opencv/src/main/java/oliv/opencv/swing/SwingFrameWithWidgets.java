@@ -1,6 +1,7 @@
 package oliv.opencv.swing;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,11 +15,14 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 /**
  * A Canvas & Frame, in Swing.
+ * With all kinds of widgets.
  */
 public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 
@@ -37,6 +41,10 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	private JCheckBox cannyCheckBox = null;
 	private JCheckBox contoursCheckBox = null;
 	private JCheckBox contoursOnNewImageCheckBox = null;
+
+	private JButton userButton = null;
+	private String userButtonLabel = null;
+	private Runnable userButtonAction = null;
 
 	private JSlider zoomSlider = null;
 	private JSlider gaussSlider = null;
@@ -89,6 +97,13 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	}
 
 	public SwingFrameWithWidgets(int origW, int origH, int imageWidth, int imageHeight) {
+    this(origW, origH, imageWidth, imageHeight, null, null);
+	}
+
+	public SwingFrameWithWidgets(int origW, int origH, int imageWidth, int imageHeight, String userButtonLabel, Runnable userButtonAction) {
+		this.userButtonLabel = userButtonLabel;
+		this.userButtonAction = userButtonAction;
+
 		initComponents(imageWidth, imageHeight);
 		this.setSize(new Dimension(origW, origH));
 		this.setPreferredSize(new Dimension(origW, origH));
@@ -168,6 +183,16 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		invertCheckBox = new JCheckBox(INVERT_LABEL);
 		invertCheckBox.setSelected(false);
 
+		if (userButtonLabel != null) {
+			userButton = new JButton(userButtonLabel); // TODO Use user-provided label
+			userButton.addActionListener(e -> {
+				// Use user-provided Consumer
+				if (userButtonAction != null) {
+					userButtonAction.run();
+				}
+			});
+		}
+
 		threshedCheckBox = new JCheckBox("To Threshed");
 		threshedCheckBox.setSelected(false);
 
@@ -236,6 +261,18 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				GridBagConstraints.WEST,
 				GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
+
+		if (userButton != null) {
+			twoCBPanel.add(userButton, new GridBagConstraints(2,
+					0,
+					1,
+					1,
+					1.0,
+					0.0,
+					GridBagConstraints.WEST,
+					GridBagConstraints.NONE,
+					new Insets(0, 0, 0, 0), 0, 0));
+		}
 
 		bottomPanel.add(twoCBPanel, new GridBagConstraints(1,
 				0,
