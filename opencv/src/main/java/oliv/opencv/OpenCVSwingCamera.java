@@ -2,6 +2,7 @@ package oliv.opencv;
 
 import cv.utils.Utils;
 import oliv.opencv.swing.SwingFrameWithWidgets;
+import oliv.opencv.swing.SwingUtils;
 import org.opencv.core.Core;
 import org.opencv.core.CvException;
 import org.opencv.core.CvType;
@@ -14,6 +15,8 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -71,7 +74,50 @@ public class OpenCVSwingCamera {
 				System.exit(0);
 			}
 		});
-		startCamera();
+		// Dialog: From camera or image from a URL? (TODO Remote camera)
+		Object[] options = {
+				"From the camera",
+				"From image URL",
+				"Nothing"
+		};
+		int response = JOptionPane.showOptionDialog(swingFrame,
+				"Choose input source",
+				"Input Source",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[0]);
+		if (response == JOptionPane.YES_OPTION) {
+			startCamera();
+		} else if (response == JOptionPane.NO_OPTION) {
+			// Prompt the user for the image file. TODO URL
+			System.out.println("Choosing a file from the system");
+
+			JFileChooser chooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					"JPG & GIF Images", "jpg", "gif");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(swingFrame);
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("You chose to open this file: " +
+						chooser.getSelectedFile().getName());
+			}
+
+//			String imageFileName = SwingUtils.chooseFile(swingFrame,
+//					JFileChooser.FILES_ONLY,
+//					new String[] {"png", "jpg", "jpeg"},
+//					"Image Files",
+//					"Choose image file",
+//					"Select");
+//			if (imageFileName.trim().length() > 0) {
+//				// Display it
+//			} else {
+//				// Was canceled
+//			}
+		} else {
+			// Nothing
+		}
 	}
 
 	private final static double VIDEO_WIDTH = DEFAULT_IMAGE_WIDTH;
@@ -139,7 +185,7 @@ public class OpenCVSwingCamera {
 			}
 		}
 
-		if (this.camera.isOpened()) {
+		if (this.camera != null && this.camera.isOpened()) {
 			this.camera.release();
 		}
 	}

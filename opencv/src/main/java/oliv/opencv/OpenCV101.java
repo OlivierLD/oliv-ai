@@ -145,6 +145,6 @@ public class OpenCV101 {
 		after = System.currentTimeMillis();
 		System.out.println(String.format("Done in %d ms", (after - before)));
 
-		System.out.println("Bye!");
+		System.out.println("CV101, Bye!");
 	}
 }

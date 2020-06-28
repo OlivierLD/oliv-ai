@@ -5,6 +5,7 @@ On Mac OS, do make sure you have
 ```buildoutcfg
 xcode-select --install
 ```
+You will use `brew`, available at <http://brew.sh>.
 
 brew behind a firewall:
 ```buildoutcfg

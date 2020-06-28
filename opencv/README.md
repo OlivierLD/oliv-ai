@@ -33,6 +33,8 @@ Also see [this project](https://github.com/OlivierLD/oliv-ai/tree/master/opencv)
 ### Other Systems
 See <https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html>.
 
+> _Warning_ If you have a class verion issue (55 vs 57 for example) you might need to upgrade your JDK... 
+
 #### April-30, 2020.
 Raspbian Buster comes with a JDK 11.
 ```
