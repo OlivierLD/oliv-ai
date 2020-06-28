@@ -217,6 +217,6 @@ public class OpenCVSwingColor2BW {
 
 		process(IMAGE);
 
-		System.out.println("Bye!");
+		System.out.println("Color2BW, Bye!");
 	}
 }

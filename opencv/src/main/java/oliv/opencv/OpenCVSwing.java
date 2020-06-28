@@ -206,6 +206,6 @@ public class OpenCVSwing {
 //		process(IMAGE_01);
 		process(IMAGE_02);
 
-		System.out.println("Bye!");
+		System.out.println("OpenCVSwing, Bye!");
 	}
 }

@@ -46,7 +46,7 @@ public class SwingFrame extends JFrame {
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent evt) {
-				System.out.println("Bye!");
+				System.out.println("SwingFrame, Bye!");
 				exitForm(evt);
 			}
 		});

@@ -22,7 +22,7 @@ import java.io.IOException;
  *
  * Uses assertions.
  *
- * original -> gray -> threshed
+ * original ( -> gray -> threshed)
  */
 public class OpenCVSwingReadURL {
 
@@ -62,6 +62,6 @@ public class OpenCVSwingReadURL {
 
 		process(IMAGE_URL);
 
-		System.out.println("Bye!");
+		System.out.println("Keep watching, Bye!");
 	}
 }
