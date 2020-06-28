@@ -21,10 +21,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -52,6 +55,12 @@ public class OpenCVSwingCamera {
 	private final static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss.SSS");
 
 	public OpenCVSwingCamera() {
+
+		// Input Option (problems with Swing dialogs in JDK 11, like FileChooser)
+		String option = System.getProperty("input.source", "CAMERA");
+		// If "input.source" != 'CAMERA', then we assume it is the image URL.
+		boolean fromCamera = option.equals("CAMERA");
+
 		// For the user button
 		final String userButtonLabel = "Take Snapshot";
 		Runnable userAction = () -> {
@@ -74,54 +83,39 @@ public class OpenCVSwingCamera {
 				System.exit(0);
 			}
 		});
-		// Dialog: From camera or image from a URL? (TODO Remote camera)
-		Object[] options = {
-				"From the camera",
-				"From image URL",
-				"Nothing"
-		};
-		int response = JOptionPane.showOptionDialog(swingFrame,
-				"Choose input source",
-				"Input Source",
-				JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				options,
-				options[0]);
-		if (response == JOptionPane.YES_OPTION) {
+
+		if (fromCamera) {
 			startCamera();
-		} else if (response == JOptionPane.NO_OPTION) {
-			// Prompt the user for the image file. TODO URL
-			System.out.println("Choosing a file from the system");
-
-			JFileChooser chooser = new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-					"JPG & GIF Images", "jpg", "gif");
-			chooser.setFileFilter(filter);
-			int returnVal = chooser.showOpenDialog(swingFrame);
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				System.out.println("You chose to open this file: " +
-						chooser.getSelectedFile().getName());
-			}
-
-//			String imageFileName = SwingUtils.chooseFile(swingFrame,
-//					JFileChooser.FILES_ONLY,
-//					new String[] {"png", "jpg", "jpeg"},
-//					"Image Files",
-//					"Choose image file",
-//					"Select");
-//			if (imageFileName.trim().length() > 0) {
-//				// Display it
-//			} else {
-//				// Was canceled
-//			}
 		} else {
-			// Nothing
+			// option contains the image URL
+			try {
+				URL imageURL = new URL(option); // Validity check
+				startOneImageProcessor(option);
+			} catch (MalformedURLException mue) {
+				JOptionPane.showMessageDialog(swingFrame, String.format("Bad URL: %s", option), "Bad URL", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	private final static double VIDEO_WIDTH = DEFAULT_IMAGE_WIDTH;
 	private final static double VIDEO_HEIGHT = DEFAULT_IMAGE_HEIGHT;
+
+	protected void startOneImageProcessor(String imageURL) {
+		// Display it,
+		Mat image;
+		try {
+			image = Utils.readMatFromURL(imageURL);
+			process(image);
+			// grab a frame every 33 ms (30 frames/sec)
+			Runnable frameGrabber = () -> process(image);
+
+			this.timer = Executors.newSingleThreadScheduledExecutor();
+			this.timer.scheduleAtFixedRate(frameGrabber, 0, 33, TimeUnit.MILLISECONDS);
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(swingFrame, String.format("Reading image URL\n%s:\n%s", imageURL, ex.toString()), "Image URL", JOptionPane.ERROR_MESSAGE);
+			ex.printStackTrace();
+		}
+	}
 
 	protected void startCamera() {
 		this.camera = new VideoCapture(); // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
