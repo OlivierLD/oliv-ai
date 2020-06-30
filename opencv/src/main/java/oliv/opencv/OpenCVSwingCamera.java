@@ -34,8 +34,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Oliv did it.
- * Basic OpenCV image manipulations on frames returned by the Camera
+ * Basic OpenCV image manipulations on frames returned by the Camera, or a static image
+ * See -Dinput.source
  * Display images in a Swing JPanel, with widgets to interact with some OpenCV options
+ *
  */
 public class OpenCVSwingCamera {
 
