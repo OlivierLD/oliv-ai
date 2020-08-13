@@ -45,6 +45,9 @@ To add the required Java features, see
 - <https://github.com/SpencerPark/IJava>
 - <https://hub.mybinder.org/user/spencerpark-ijava-binder-ey9zwplq/notebooks/3rdPartyDependency.ipynb>
 
+> I installed it from the source (the its `git` repo).
+>
+> Note: To install the Java kernel, make sure `jupyter` and related commands are in the `$PATH` of your session.
 
 ### Raspberry-Coffee Notebooks
 
