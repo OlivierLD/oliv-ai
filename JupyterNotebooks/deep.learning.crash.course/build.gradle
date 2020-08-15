@@ -61,6 +61,8 @@ tasks.withType(JavaExec) {
   }
 }
 
+// TODO Start Web Server for WebComponents & Co
+
 task runHelloTFSample(type: JavaExec, dependsOn: classes, description: 'Runs HelloTF sample') {
   main = 'tf.samples.HelloTF'
   classpath sourceSets.main.runtimeClasspath

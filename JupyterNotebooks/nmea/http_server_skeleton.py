@@ -3,22 +3,16 @@
 # Requires:
 # ---------
 # pip3 install http (already in python3.7, no need to install it)
-# pip3 install pyserial
 #
-# Reads the Serial Port
-# Parses the NMEA Data
-# Pushes the parsed data in a cache
-# Provides REST access to the cache, try http://localhost:8080/gps/cache
+# Provides REST access to the cache, try GET http://localhost:8080/sample/cache
 #
 import json
 import sys
 import threading
 import traceback
+import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
-
-import serial
-
-import nmea_parser as NMEAParser
+from time import sleep
 
 sample_data = {  # Used for non-implemented operations. Fallback.
     "1": "First",
@@ -28,16 +22,6 @@ sample_data = {  # Used for non-implemented operations. Fallback.
 }
 server_port = 8080
 REST_DEBUG = False
-SERIAL_DEBUG = False
-GPS_DEBUG = False
-
-
-# On mac, USB GPS on port /dev/tty.usbmodem14101,
-# Raspberry Pi, use /dev/ttyUSB0 or so.
-# port_name = "/dev/tty.usbmodem14201"
-port_name = "/dev/tty.usbmodem143201"
-# port_name = "/dev/ttyS80"
-baud_rate = 4800
 
 
 class CoreFeatures:
@@ -66,101 +50,35 @@ class CoreFeatures:
 
 core = CoreFeatures()
 
-
-def read_nmea_sentence(serial_port):
-    """
-    Reads the serial port until a '\n' is met.
-    :param serial_port: the port to read, as returned by serial.Serial
-    :return: the full NMEA String, with its EOS '\r\n'
-    """
-    rv = []
-    while True:
-        try:
-            ch = serial_port.read()
-        except KeyboardInterrupt as ki:
-            raise ki
-        if SERIAL_DEBUG:
-            print("Read {} from Serial Port".format(ch))
-        rv.append(ch)
-        if ch == b'\n':
-            # string = [x.decode('utf-8') for x in rv]
-            string = "".join(map(bytes.decode, rv))
-            if SERIAL_DEBUG:
-                print("Returning {}".format(string))
-            return string
-
-
-def read_gps():
-    port = serial.Serial(port_name, baudrate=baud_rate, timeout=3.0)
+def do_stuff():
     print("Let's go. Hit Ctrl+C to stop")
     while True:
         try:
-            rcv = read_nmea_sentence(port)
-            # print("\tReceived:" + repr(rcv))  # repr: displays also non printable characters between quotes.
-            nmea_obj = NMEAParser.parse_nmea_sentence(rcv)
             try:
-                if nmea_obj["type"] == 'rmc':
-                    if 'valid' in nmea_obj['parsed'] and nmea_obj['parsed']['valid'] == 'true':
-                        if 'position' in nmea_obj['parsed']:
-                            if GPS_DEBUG:
-                                print("RMC => {}".format(nmea_obj))
-                                print("This is RMC: {} / {}".format(
-                                    NMEAParser.dec_to_sex(nmea_obj['parsed']['position']['latitude'], NMEAParser.NS),
-                                    NMEAParser.dec_to_sex(nmea_obj['parsed']['position']['longitude'], NMEAParser.EW)))
-                            core.update_cache('position', nmea_obj['parsed']['position'])
-                        if 'sog' in nmea_obj['parsed']:
-                            core.update_cache('sog', nmea_obj['parsed']['sog'])
-                        if 'cog' in nmea_obj['parsed']:
-                            core.update_cache('cog', nmea_obj['parsed']['cog'])
-                        if 'utc-date-itemized' in nmea_obj['parsed']:
-                            core.update_cache('utc-date', nmea_obj['parsed']['utc-date-itemized'])
-                    else:
-                        if GPS_DEBUG:
-                            print("No position yet")
-                elif nmea_obj["type"] == 'gll':
-                    if 'valid' in nmea_obj['parsed'] and nmea_obj['parsed']['valid'] == 'true':
-                        if 'position' in nmea_obj['parsed']:
-                            if GPS_DEBUG:
-                                print("GLL => {}".format(nmea_obj))
-                                print("This is GLL: {} / {}".format(
-                                    NMEAParser.dec_to_sex(nmea_obj['parsed']['position']['latitude'], NMEAParser.NS),
-                                    NMEAParser.dec_to_sex(nmea_obj['parsed']['position']['longitude'], NMEAParser.EW)))
-                            core.update_cache('position', nmea_obj['parsed']['position'])
-                        if 'gll-time-itemized' in nmea_obj['parsed']:
-                            core.update_cache('gll-time', nmea_obj['parsed']['gll-time-itemized'])
-                    else:
-                        if GPS_DEBUG:
-                            print("No position yet")
-                else:
-                    if GPS_DEBUG:
-                        print("{} => {}".format(nmea_obj["type"], nmea_obj))
+                core.update_cache('position', 'data goes here')
+                core.update_cache('timestamp', time.time())
             except AttributeError as ae:
-                print("AttributeError for {}: {}".format(nmea_obj, ae))
-        except NMEAParser.NoParserException as npe:
-            # absorb
-            if GPS_DEBUG:
-                print("- No parser, {}".format(npe))
+                print("AttributeError : {}".format(ae))
         except KeyboardInterrupt:
             print("\n\t\tUser interrupted, exiting.")
-            port.close()
             break
         except:
             # print("\t\tOoops! {}: {}".format(type(ex), ex))
             traceback.print_exc(file=sys.stdout)
-
+        sleep(1.0)  # one sec between loops
     print("Bye.")
 
 
-# Start polling Serial port here
+# Start doing the core job (read GPS, etc)
 try:
     print("Starting!")
-    x = threading.Thread(target=read_gps)
+    x = threading.Thread(target=do_stuff)
     x.start()
 except OSError as ose:
     print(ose)
     sys.exit(1)  # Bam!
 
-PATH_PREFIX = "/gps"
+PATH_PREFIX = "/sample"
 
 
 # Defining a HTTP request Handler class
@@ -202,7 +120,7 @@ class ServiceHandler(BaseHTTPRequestHandler):
                 else:
                     print("oops, no equal sign in {}".format(qs_prm))
 
-        if path == PATH_PREFIX + "/cache":  # GET /gps/cache
+        if path == PATH_PREFIX + "/cache":  # GET /sample/cache
             print("Cache request")
             try:
                 gps_cache = core.get_cache()
@@ -269,6 +187,6 @@ port_number = server_port
 print("Starting server on port {}".format(port_number))
 server = HTTPServer(('127.0.0.1', port_number), ServiceHandler)
 #
-print("Try curl -X GET http://localhost:8080/gps/cache")
+print("Try curl -X GET http://localhost:8080/sample/cache")
 #
 server.serve_forever()

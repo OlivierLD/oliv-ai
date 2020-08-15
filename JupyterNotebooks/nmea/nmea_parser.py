@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# A Python NMEA Parser. WIP.
+# A Python NMEA Parser. WiP, an example.
 #
 __author__ = 'Olivier LeDiouris'
 __version__ = '0.0.5'

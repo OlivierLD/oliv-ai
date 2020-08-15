@@ -11,6 +11,8 @@ Notebooks are ideal for tutorials, hence (a part of) their success.
 
 Notebooks are not only for Python (as they were at the very beginning), they also supports _**many**_ other languages!
 The main requirement being to have a `REPL` (**R**ead **E**valuate **P**rint **L**oop).
+> Note: As such, all languages providing a REPL can potentially be supported by
+> Jupyter Notebooks. Among them Python, Java (9+), Scala, NodeJS, Groovy... an more. 
 
 Java 9 comes with a `REPL` (called `JShell`).
 
@@ -40,12 +42,12 @@ sudo apt-get clean
 ```
 > See also the [Jupyter Installation](https://jupyter.org/install) guide.
 
-To add the required Java features, see 
+To add the required Java features, see the [SpencerPark](https://github.com/SpencerPark/IJava) git repo:
 - <https://blog.frankel.ch/teaching-java-jupyter-notebooks/>
 - <https://github.com/SpencerPark/IJava>
 - <https://hub.mybinder.org/user/spencerpark-ijava-binder-ey9zwplq/notebooks/3rdPartyDependency.ipynb>
 
-> I installed it from the source (the its `git` repo).
+> I installed it from the source (the its `git` repo), see [this](https://github.com/SpencerPark/IJava#install-from-source).
 >
 > Note: To install the Java kernel, make sure `jupyter` and related commands are in the `$PATH` of your session.
 
@@ -67,5 +69,7 @@ And from a browser anywhere on the network of the Raspberry Pi, `raspberry-pi` b
 > If you are in a graphical environment, `Jupyter` might even be smart enough to display its home page in your default browser.  
  
 Come back here soon.
+
+- For Scala, see [this](https://index.scala-lang.org/jupyter-scala/jupyter-scala/spark-stubs-2/0.4.2?target=_2.11), and [this](https://almond.sh/)
 
 ---

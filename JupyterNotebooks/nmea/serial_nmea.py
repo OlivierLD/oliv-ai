@@ -16,7 +16,8 @@ import serial
 verbose = False
 log_file_name = ""
 log_file = None
-serial_port_name = "/dev/tty.usbmodem14101"
+# serial_port_name = "/dev/tty.usbmodem14101"
+serial_port_name = "/dev/tty.usbmodem143201"
 
 LOG_PRM = '--log:'
 SERIAL_PORT_PRM = '--serial:'
