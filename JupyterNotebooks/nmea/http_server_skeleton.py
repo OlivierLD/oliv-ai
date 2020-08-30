@@ -182,11 +182,24 @@ class ServiceHandler(BaseHTTPRequestHandler):
         self.send_response(404)
 
 
+machine_name = "127.0.0.1"
+# CLI parameters
+MACHINE_NAME_PRM_PREFIX = "--machine-name:"
+PORT_PRM_PREFIX = "--port:"
+
+
+if len(sys.argv) > 0:  # Script name + X args
+    for arg in sys.argv:
+        if arg[:len(MACHINE_NAME_PRM_PREFIX)] == MACHINE_NAME_PRM_PREFIX:
+            machine_name = arg[len(MACHINE_NAME_PRM_PREFIX):]
+        if arg[:len(PORT_PRM_PREFIX)] == PORT_PRM_PREFIX:
+            server_port = int(arg[len(PORT_PRM_PREFIX):])
+
 # Server Initialization
 port_number = server_port
 print("Starting server on port {}".format(port_number))
-server = HTTPServer(('127.0.0.1', port_number), ServiceHandler)
+server = HTTPServer((machine_name, port_number), ServiceHandler)
 #
-print("Try curl -X GET http://localhost:8080/sample/cache")
+print("Try curl -X GET http://{}:{}/{}/cache".format(machine_name, port_number, PATH_PREFIX))
 #
 server.serve_forever()
