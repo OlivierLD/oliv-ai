@@ -21,8 +21,8 @@ repositories {
 
 // Note: use "$ gradle dependencies" to visualize them.
 dependencies {
-//    implementation fileTree(dir: '/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/', include: ['*.jar']) // Mac
-    implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
+    implementation fileTree(dir: '/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/', include: ['*.jar']) // Mac
+//    implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
@@ -45,6 +45,7 @@ shadowJar {
     zip64 true
 }
 
+
 if (!hasProperty('mainClassName')) {
     println "No mainClassName, using default"
     ext.mainClassName = 'it.polito.elite.teaching.cv.HelloCV'
@@ -52,6 +53,7 @@ if (!hasProperty('mainClassName')) {
 //    println ">> Found mainClassName: $mainClassName"
 //    ext.mainClassName = mainClassName
 }
+
 
 mainClassName = 'it.polito.elite.teaching.cv.dummy.HelloCV'
 ext.mainClassNameFX = 'it.polito.elite.teaching.cv.FXHelloCV'
