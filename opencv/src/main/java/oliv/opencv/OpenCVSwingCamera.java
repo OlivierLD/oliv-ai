@@ -71,6 +71,7 @@ public class OpenCVSwingCamera {
 		};
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		System.out.println(String.format("Dimensions: w %d h %d", screenSize.width, screenSize.height));
 
 		swingFrame = new SwingFrameWithWidgets(Math.min(DEFAULT_FRAME_WIDTH, screenSize.width),
 				Math.min(DEFAULT_FRAME_HEIGHT, screenSize.height),
