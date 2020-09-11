@@ -17,6 +17,7 @@ from time import sleep
 sample_data = {  # Used for non-implemented operations. Fallback.
     "1": "First",
     "2": "Second",
+    "2": "Second",
     "3": "Third",
     "4": "Fourth"
 }
