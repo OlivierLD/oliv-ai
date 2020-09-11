@@ -70,10 +70,16 @@ public class OpenCVSwingCamera {
 			takeSnapshot = true;
 		};
 
-		swingFrame = new SwingFrameWithWidgets(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT, DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT, userButtonLabel, userAction);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (int) ((dimension.getWidth() - swingFrame.getWidth()) / 2);
-		int y = (int) ((dimension.getHeight() - swingFrame.getHeight()) / 2);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+		swingFrame = new SwingFrameWithWidgets(Math.min(DEFAULT_FRAME_WIDTH, screenSize.width),
+				Math.min(DEFAULT_FRAME_HEIGHT, screenSize.height),
+				DEFAULT_IMAGE_WIDTH,
+				DEFAULT_IMAGE_HEIGHT,
+				userButtonLabel,
+				userAction);
+		int x = (int) ((screenSize.getWidth() - swingFrame.getWidth()) / 2);
+		int y = (int) ((screenSize.getHeight() - swingFrame.getHeight()) / 2);
 		swingFrame.setLocation(x, y);
 		swingFrame.setVisible(true);
 
