@@ -33,7 +33,7 @@ Also see [this project](https://github.com/OlivierLD/oliv-ai/tree/master/opencv)
 ### Other Systems
 See <https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html>.
 
-> _Warning_ If you have a class verion issue (55 vs 57 for example) you might need to upgrade your JDK... 
+> _Warning_ If you have a class version issue (55 vs 57 for example) you might need to upgrade your JDK... 
 
 #### April-30, 2020.
 Raspbian Buster comes with a JDK 11.
@@ -51,12 +51,13 @@ sudo apt-get install build-essential cmake ant
 
 - Download the last sources from <https://opencv.org/releases/>
   - Can be a `wget https://github.com/opencv/opencv/archive/4.3.0.zip`
+    - or `wget https://github.com/opencv/opencv/archive/4.4.0.zip`...
   - `mv 4.3.0.zip opencv-4.3.0.zip`
 - `unzip opencv-4.3.0.zip`
 - `cd opencv-4.3.0`
 - `mkdir build`
 - `cd build`
-- Make it (this one takes time, hours...):
+- Make it (this one takes time, like hours...):
 ```
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D WITH_LIBV4L=ON \
