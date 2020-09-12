@@ -71,7 +71,7 @@ public class OpenCVSwingCamera {
 		};
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println(String.format("Dimensions: w %d h %d", screenSize.width, screenSize.height));
+		System.out.println(String.format("Screen Dimensions: w %d h %d", screenSize.width, screenSize.height));
 
 		swingFrame = new SwingFrameWithWidgets(Math.min(DEFAULT_FRAME_WIDTH, screenSize.width),
 				Math.min(DEFAULT_FRAME_HEIGHT, screenSize.height),
@@ -127,7 +127,7 @@ public class OpenCVSwingCamera {
 	}
 
 	protected void startCamera() {
-		this.camera = new VideoCapture(); // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
+		this.camera = new VideoCapture();  // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
 		System.out.println(String.format("Camera opened: %s", this.camera.isOpened()));
 
 		if (!this.cameraActive) {
@@ -142,6 +142,7 @@ public class OpenCVSwingCamera {
 
 			if (this.camera.isOpened()) {
 				this.cameraActive = true;
+
 				// grab a frame every 33 ms (30 frames/sec)
 				Runnable frameGrabber = () -> process(grabFrame());
 
@@ -210,6 +211,9 @@ public class OpenCVSwingCamera {
 			Imgproc.resize(frame, original, new Size(Math.round(frame.width() * zoomFactor), Math.round(frame.height() * zoomFactor)));
 		} else {
 			original = frame.clone();
+		}
+		if ("true".equals(System.getProperty("FLIP_180"))) {
+			Utils.rotate_90n(original, Utils.AngleX90._180);
 		}
 
 		Mat newMat;

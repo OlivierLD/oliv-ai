@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -135,4 +136,21 @@ public final class Utils {
 		return out;
 	}
 
+	public enum AngleX90 {
+		_0, _90, _180, _270
+	}
+	public static void rotate_90n(Mat img, AngleX90 angle) {
+		if (angle == AngleX90._270) {
+			// Rotate clockwise 270 degrees
+			Core.transpose(img, img);
+			Core.flip(img, img, 0);
+		} else if (angle == AngleX90._180) {
+			// Rotate clockwise 180 degrees
+			Core.flip(img, img, -1);
+		} else if (angle == AngleX90._90) {
+			// Rotate clockwise 90 degrees
+			Core.transpose(img, img);
+			Core.flip(img, img, 1);
+		}
+	}
 }

@@ -43,7 +43,6 @@ public class OpenCV101 {
 		Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
 		// write the new image on disk
 		Imgcodecs.imwrite(IMAGE_SOURCE_PATH + File.separator + String.format("gray.%s.jpg", outputSuffix), gray);
-
 		// Gaussian blur
 		double sigmaX = 0d;
 		final Size kSize = new Size(31, 31);
