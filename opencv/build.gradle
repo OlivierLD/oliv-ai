@@ -19,10 +19,16 @@ repositories {
     // Also see https://mvnrepository.com/artifact/org.openpnp/opencv, https://mvnrepository.com/artifact/com.quickbirdstudios/opencv/4.0.1 ?
 }
 
+
 // Note: use "$ gradle dependencies" to visualize them.
 dependencies {
-    implementation fileTree(dir: '/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/', include: ['*.jar']) // Mac
-//    implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
+    if (System.getProperty("os.name").indexOf("Mac") > -1) {
+        print "On Mac"
+        implementation fileTree(dir: '/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/', include: ['*.jar']) // Mac
+    } else {
+        print "Assuming Raspberry Pi"
+        implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
+    }
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
