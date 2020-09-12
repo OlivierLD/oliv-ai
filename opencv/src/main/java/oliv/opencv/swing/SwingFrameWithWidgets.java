@@ -1,13 +1,6 @@
 package oliv.opencv.swing;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -29,6 +22,12 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	private SwingImagePanel swingImagePanel;
 
 	private JCheckBox divideCheckBox = null;
+	private JRadioButton rot0 = null;
+	private JRadioButton rot90 = null;
+	private JRadioButton rot180 = null;
+	private JRadioButton rot270 = null;
+	private ButtonGroup rotGroup = null;
+	private JLabel rotLabel = null;
 	private JCheckBox contrastBrightnessCheckBox = null;
 	private final static String B_AND_C_LABEL = "Contrasts & Brightness";
 	private JLabel cbLabel = null;
@@ -157,8 +156,23 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		bottomPanel.setLayout(new GridBagLayout());
 		bottomPanel.setBorder(BorderFactory.createTitledBorder("Transformations"));
 
+		JPanel divAndRotPanel = new JPanel();
+		divAndRotPanel.setLayout(new GridBagLayout());
+
 		divideCheckBox = new JCheckBox("Divide by 2");
 		divideCheckBox.setSelected(false);
+
+		rotGroup = new ButtonGroup();
+		rot0 = new JRadioButton("0\u00b0");
+		rot90 = new JRadioButton("90\u00b0");
+		rot180 = new JRadioButton("180\u00b0");
+		rot270 = new JRadioButton("270\u00b0");
+		rotGroup.add(rot0);
+		rotGroup.add(rot90);
+		rotGroup.add(rot180);
+		rotGroup.add(rot270);
+		rot0.setSelected(true);
+		rotLabel = new JLabel(". Rot:");
 
 		zoomLabel = new JLabel("Zoom: 1.00");
 
@@ -232,7 +246,62 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		});
 		brightnessSlider.setToolTipText("Brightness");
 
-		bottomPanel.add(divideCheckBox, new GridBagConstraints(0,
+		divAndRotPanel.add(divideCheckBox, new GridBagConstraints(0,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+		divAndRotPanel.add(rotLabel, new GridBagConstraints(1,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+		divAndRotPanel.add(rot0, new GridBagConstraints(2,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+		divAndRotPanel.add(rot90, new GridBagConstraints(3,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+		divAndRotPanel.add(rot180, new GridBagConstraints(4,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+		divAndRotPanel.add(rot270, new GridBagConstraints(5,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+
+		bottomPanel.add(divAndRotPanel, new GridBagConstraints(0,
 				0,
 				1,
 				1,
@@ -435,6 +504,15 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 
 	public boolean isDivideChecked() {
 		return this.divideCheckBox.isSelected();
+	}
+	public boolean isRot90Selected() {
+		return this.rot90.isSelected();
+	}
+	public boolean isRot180Selected() {
+		return this.rot180.isSelected();
+	}
+	public boolean isRot270Selected() {
+		return this.rot270.isSelected();
 	}
 	public boolean isGrayChecked() {
 		return this.grayCheckBox.isSelected();

@@ -21,7 +21,6 @@ CLASS=oliv.opencv.OpenCVSwingCamera
 # For MacOS Catalina, does not work :(
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"
 JAVA_OPTS="-Dinput.source=CAMERA"
-JAVA_OPTS="-DFLIP_180=true"
 # JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
 #
 java -cp ${CP} -Djava.library.path=${JAVA_LIB_PATH} ${JAVA_OPTS} ${CLASS}

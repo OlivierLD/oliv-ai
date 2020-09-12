@@ -212,8 +212,13 @@ public class OpenCVSwingCamera {
 		} else {
 			original = frame.clone();
 		}
-		if ("true".equals(System.getProperty("FLIP_180"))) {
+		// Rotation?
+		if (swingFrame.isRot90Selected()) {
+			Utils.rotate_90n(original, Utils.AngleX90._90);
+		} else if (swingFrame.isRot180Selected()) {
 			Utils.rotate_90n(original, Utils.AngleX90._180);
+		} else if (swingFrame.isRot270Selected()) {
+			Utils.rotate_90n(original, Utils.AngleX90._270);
 		}
 
 		Mat newMat;
