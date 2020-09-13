@@ -10,15 +10,16 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
+import java.io.File;
+
 /*
  * Detects faces in an image, draws boxes around them, and writes the results
  * to "faceDetection.png".
-*/
+ */
 class FaceDetectDemo {
 
 	public void run() {
 		System.out.println("\nRunning FaceDetectDemo");
-
 		// Create a face detector from the cascade file in the resources directory.
 		String cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
 		System.out.println(String.format("Looking for the resource file %s", cascadeResource));
@@ -52,18 +53,22 @@ class FaceDetectDemo {
 
 		// Save the visualized detection.
 		String filename = "faceDetection.png";
-		System.out.println(String.format("Writing %s, open it.", filename));
 		Imgcodecs.imwrite(filename, image);
+		File file = new File(filename);
+		try {
+			System.out.println(String.format("Writing the result, open it at %s", file.toURI().toURL().toString()));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
-
 }
 
 public class FaceRecognitionSample {
 	public static void main(String... args) {
-		System.out.println("Face Detect, OpenCV");
-
+		System.out.println("--- Face Detect, OpenCV - Start ---");
 		// Load the native library.
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		new FaceDetectDemo().run();
+		System.out.println("--- Face Detect, OpenCV - End -----");
 	}
 }
