@@ -376,10 +376,11 @@ public class OpenCVSwingCameraFaceRecognition {
 		try {
 			Mat faces = faceDetector.detect(lastMat);
 //			faceDetector.run();
+			System.out.println("\t\tYeeeeees!");
 			lastMat = faces;
 		} catch (CvException cvex) {
-			// No face
-			System.err.println(cvex.toString());
+			// No face...
+//			System.err.println(cvex.toString());
 		}
 
 		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
