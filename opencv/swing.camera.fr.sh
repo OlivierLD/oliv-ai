@@ -22,6 +22,7 @@ CLASS=oliv.opencv.OpenCVSwingCameraFaceRecognition
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"
 JAVA_OPTS="-Dinput.source=CAMERA"
 # JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
+# JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/snap_2020-09-13T113608.860.jpg"
 #
 REMOTE_DEBUG_FLAGS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
 #

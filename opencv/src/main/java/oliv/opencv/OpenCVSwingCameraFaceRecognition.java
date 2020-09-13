@@ -35,15 +35,13 @@ public class OpenCVSwingCameraFaceRecognition {
 
 	class FaceDetector {
 
-		CascadeClassifier faceDetector;
+		String cascadeResource;
 		public FaceDetector() {
 			// Create a face detector from the cascade file in the resources directory.
-			String cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
-			System.out.println(String.format("Looking for the resource file %s", cascadeResource));
-			if (cascadeResource == null) {
+			this.cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
+			if (this.cascadeResource == null) {
 				throw new RuntimeException("lbpcascade_frontalface.xml not found where expected");
 			}
-			this.faceDetector = new CascadeClassifier(cascadeResource);
 		}
 
 		public void run() {
@@ -56,9 +54,10 @@ public class OpenCVSwingCameraFaceRecognition {
 			}
 			CascadeClassifier faceDetector = new CascadeClassifier(cascadeResource);
 			String imageToProcess =
-//														getClass().getResource("/mec.jpeg").getPath();
-//														getClass().getResource("/meuf.png").getPath();
-					getClass().getResource("/several.jpeg").getPath();
+//					getClass().getResource("/mec.jpeg").getPath();
+//					getClass().getResource("/meuf.png").getPath();
+//					getClass().getResource("/several.jpeg").getPath();
+			"/Users/olivierlediouris/repos/oliv-ai/opencv/snap_2020-09-13T113608.860.jpg";
 			if (imageToProcess == null) {
 				throw new RuntimeException("Image to process not found where expected");
 			}
@@ -92,6 +91,7 @@ public class OpenCVSwingCameraFaceRecognition {
 
 		public Mat detect(Mat image) throws CvException {
 //			System.out.println("Starting face detection");
+			CascadeClassifier faceDetector = new CascadeClassifier(this.cascadeResource);
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
 			MatOfRect faceDetections = new MatOfRect();
@@ -375,6 +375,7 @@ public class OpenCVSwingCameraFaceRecognition {
 		// Face recognition here
 		try {
 			Mat faces = faceDetector.detect(lastMat);
+//			faceDetector.run();
 			lastMat = faces;
 		} catch (CvException cvex) {
 			// No face

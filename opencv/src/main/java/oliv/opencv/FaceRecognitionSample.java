@@ -28,9 +28,10 @@ class FaceDetectDemo {
 		}
 		CascadeClassifier faceDetector = new CascadeClassifier(cascadeResource);
 		String imageToProcess =
-//														getClass().getResource("/mec.jpeg").getPath();
-//														getClass().getResource("/meuf.png").getPath();
-														getClass().getResource("/several.jpeg").getPath();
+//				getClass().getResource("/mec.jpeg").getPath();
+//				getClass().getResource("/meuf.png").getPath();
+//				getClass().getResource("/several.jpeg").getPath();
+		"/Users/olivierlediouris/repos/oliv-ai/opencv/snap_2020-09-13T113608.860.jpg";
 		if (imageToProcess == null) {
 			throw new RuntimeException("Image to process not found where expected");
 		}
