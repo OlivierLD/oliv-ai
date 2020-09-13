@@ -90,7 +90,7 @@ public class OpenCVSwingCameraFaceRecognition {
 			}
 		}
 
-		public Mat detect(Mat image) {
+		public Mat detect(Mat image) throws CvException {
 			System.out.println("Starting face detection");
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
@@ -98,8 +98,8 @@ public class OpenCVSwingCameraFaceRecognition {
 			System.out.println("1 - Face detection");
 			try {
 				faceDetector.detectMultiScale(image, faceDetections);
-			} catch (Throwable duh) {
-				duh.printStackTrace();
+			} catch (CvException oops) {
+				throw oops;
 			}
 			System.out.println("2 - Face detection");
 			faceDetections.toList().stream().forEach(rect -> {
@@ -375,7 +375,13 @@ public class OpenCVSwingCameraFaceRecognition {
 		}
 
 		// Face recognition here
-		lastMat = faceDetector.detect(lastMat);
+		try {
+			Mat faces = faceDetector.detect(lastMat);
+			lastMat = faces;
+		} catch (CvException cvex) {
+			// No face
+			System.err.println(cvex.toString());
+		}
 
 		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
 
