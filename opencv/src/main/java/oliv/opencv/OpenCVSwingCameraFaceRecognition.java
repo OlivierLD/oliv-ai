@@ -95,7 +95,9 @@ public class OpenCVSwingCameraFaceRecognition {
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
 			MatOfRect faceDetections = new MatOfRect();
+			System.out.println("1 - Face detection");
 			faceDetector.detectMultiScale(image, faceDetections);
+			System.out.println("2 - Face detection");
 			faceDetections.toList().stream().forEach(rect -> {
 				System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
 			});
@@ -104,6 +106,7 @@ public class OpenCVSwingCameraFaceRecognition {
 			for (Rect rect : faceDetections.toArray()) {
 				Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0), 3);
 			}
+			System.out.println("3 - Face detection. End");
 			return image;
 		}
 	}
