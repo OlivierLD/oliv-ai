@@ -96,7 +96,11 @@ public class OpenCVSwingCameraFaceRecognition {
 			// MatOfRect is a special container class for Rect.
 			MatOfRect faceDetections = new MatOfRect();
 			System.out.println("1 - Face detection");
-			faceDetector.detectMultiScale(image, faceDetections);
+			try {
+				faceDetector.detectMultiScale(image, faceDetections);
+			} catch (Throwable duh) {
+				duh.printStackTrace();
+			}
 			System.out.println("2 - Face detection");
 			faceDetections.toList().stream().forEach(rect -> {
 				System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
