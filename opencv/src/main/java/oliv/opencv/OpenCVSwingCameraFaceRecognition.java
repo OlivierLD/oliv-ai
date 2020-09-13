@@ -35,6 +35,17 @@ public class OpenCVSwingCameraFaceRecognition {
 
 	class FaceDetectDemo {
 
+		CascadeClassifier faceDetector;
+		public FaceDetectDemo() {
+			// Create a face detector from the cascade file in the resources directory.
+			String cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
+			System.out.println(String.format("Looking for the resource file %s", cascadeResource));
+			if (cascadeResource == null) {
+				throw new RuntimeException("lbpcascade_frontalface.xml not found where expected");
+			}
+			this.faceDetector = new CascadeClassifier(cascadeResource);
+		}
+
 		public void run() {
 			System.out.println("\nRunning FaceDetectDemo");
 			// Create a face detector from the cascade file in the resources directory.
@@ -80,14 +91,7 @@ public class OpenCVSwingCameraFaceRecognition {
 		}
 
 		public Mat detect(Mat image) {
-			// Create a face detector from the cascade file in the resources directory.
-			String cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
-			System.out.println(String.format("Looking for the resource file %s", cascadeResource));
-			if (cascadeResource == null) {
-				throw new RuntimeException("lbpcascade_frontalface.xml not found where expected");
-			}
-			CascadeClassifier faceDetector = new CascadeClassifier(cascadeResource);
-
+			System.out.println("Starting face detection");
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
 			MatOfRect faceDetections = new MatOfRect();
@@ -102,15 +106,6 @@ public class OpenCVSwingCameraFaceRecognition {
 			for (Rect rect : faceDetections.toArray()) {
 				Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0), 3);
 			}
-			// Save the visualized detection.
-//			String filename = "faceDetection.png";
-//			Imgcodecs.imwrite(filename, image);
-//			File file = new File(filename);
-//			try {
-//				System.out.println(String.format("Writing the result, open it at %s", file.toURI().toURL().toString()));
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//			}
 			return image;
 		}
 	}
