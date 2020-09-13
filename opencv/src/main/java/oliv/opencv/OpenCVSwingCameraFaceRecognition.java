@@ -57,7 +57,7 @@ public class OpenCVSwingCameraFaceRecognition {
 //					getClass().getResource("/mec.jpeg").getPath();
 //					getClass().getResource("/meuf.png").getPath();
 //					getClass().getResource("/several.jpeg").getPath();
-			"/Users/olivierlediouris/repos/oliv-ai/opencv/snap_2020-09-13T113608.860.jpg";
+					"/Users/olivierlediouris/repos/oliv-ai/opencv/snap_2020-09-13T113608.860.jpg";
 			if (imageToProcess == null) {
 				throw new RuntimeException("Image to process not found where expected");
 			}
@@ -377,15 +377,14 @@ public class OpenCVSwingCameraFaceRecognition {
 
 		// Face recognition here
 		try {
-			Mat faces = faceDetector.detect(lastMat);
+			Mat faces = faceDetector.detect(frame); // lastMat);
 //			faceDetector.run();
 			System.out.println("\t\tYeeeeees!");
 			lastMat = faces;
-		} catch (CvException cvex) {
+		} catch (CvException cvEx) {
 			// No face...
-//			System.err.println(cvex.toString());
+//			System.err.println(cvEx.toString());
 		}
-
 		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
 
 		if (takeSnapshot) {
