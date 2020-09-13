@@ -25,5 +25,5 @@ JAVA_OPTS="-Dinput.source=CAMERA"
 #
 REMOTE_DEBUG_FLAGS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
 #
-JAVA_OPTS="${JAVA_OPTS} ${REMOTE_DEBUG_FLAGS}"
+# JAVA_OPTS="${JAVA_OPTS} ${REMOTE_DEBUG_FLAGS}"
 java -cp ${CP} -Djava.library.path=${JAVA_LIB_PATH} ${JAVA_OPTS} ${CLASS}
