@@ -92,6 +92,17 @@ public class OpenCVSwingCameraFaceRecognition {
 		public Mat detect(Mat image) throws CvException {
 			System.out.println("Starting face detection");
 			CascadeClassifier faceDetector = new CascadeClassifier(this.cascadeResource);
+			// -------------
+			String imageToProcess =
+//				getClass().getResource("/mec.jpeg").getPath();
+//				getClass().getResource("/meuf.png").getPath();
+				getClass().getResource("/several.jpeg").getPath();
+			if (imageToProcess == null) {
+				throw new RuntimeException("Image to process not found where expected");
+			}
+			image = Imgcodecs.imread(imageToProcess);
+			// -------------
+
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
 			System.out.println("Face detection - 1");
@@ -377,7 +388,7 @@ public class OpenCVSwingCameraFaceRecognition {
 
 		// Face recognition here
 		try {
-			Mat faces = faceDetector.detect(frame); // lastMat);
+			Mat faces = faceDetector.detect(lastMat);
 //			faceDetector.run();
 			System.out.println("\t\tYeeeeees!");
 			lastMat = faces;
