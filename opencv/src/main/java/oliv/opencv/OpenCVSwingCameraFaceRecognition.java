@@ -33,10 +33,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class OpenCVSwingCameraFaceRecognition {
 
-	class FaceDetectDemo {
+	class FaceDetector {
 
 		CascadeClassifier faceDetector;
-		public FaceDetectDemo() {
+		public FaceDetector() {
 			// Create a face detector from the cascade file in the resources directory.
 			String cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
 			System.out.println(String.format("Looking for the resource file %s", cascadeResource));
@@ -99,9 +99,7 @@ public class OpenCVSwingCameraFaceRecognition {
 			faceDetections.toList().stream().forEach(rect -> {
 				System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
 			});
-
 			System.out.println(String.format(">> Detected %s face(s)", faceDetections.toArray().length));
-
 			// Draw a green bounding box around each face. Or whatever you want ;)
 			for (Rect rect : faceDetections.toArray()) {
 				Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0), 3);
@@ -110,7 +108,7 @@ public class OpenCVSwingCameraFaceRecognition {
 		}
 	}
 
-	private static FaceDetectDemo faceDetector = null;
+	private static FaceDetector faceDetector = null;
 
 	private ScheduledExecutorService timer;
 	private VideoCapture camera = null;
@@ -129,7 +127,7 @@ public class OpenCVSwingCameraFaceRecognition {
 
 	public OpenCVSwingCameraFaceRecognition() {
 
-		faceDetector = new FaceDetectDemo();
+		faceDetector = new FaceDetector();
 
 		// Input Option (problems with Swing dialogs in JDK 11, like FileChooser)
 		String option = System.getProperty("input.source", "CAMERA");
