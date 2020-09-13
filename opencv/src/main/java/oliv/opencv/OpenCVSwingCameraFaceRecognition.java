@@ -90,16 +90,19 @@ public class OpenCVSwingCameraFaceRecognition {
 		}
 
 		public Mat detect(Mat image) throws CvException {
-//			System.out.println("Starting face detection");
+			System.out.println("Starting face detection");
 			CascadeClassifier faceDetector = new CascadeClassifier(this.cascadeResource);
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
+			System.out.println("Face detection - 1");
 			MatOfRect faceDetections = new MatOfRect();
+			System.out.println("Face detection - 2");
 			try {
 				faceDetector.detectMultiScale(image, faceDetections);
 			} catch (CvException oops) {
 				throw oops;
 			}
+			System.out.println("Face detection - 3");
 			faceDetections.toList().stream().forEach(rect -> {
 				System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
 			});
