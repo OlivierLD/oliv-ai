@@ -184,7 +184,8 @@ class ServiceHandler(BaseHTTPRequestHandler):
 
 
 machine_name = "127.0.0.1"
-# CLI parameters
+# CLI parameters. All optional.
+# Use python3 http_server_skeleton.py --machine-name:$(hostname -I) --port:8080
 MACHINE_NAME_PRM_PREFIX = "--machine-name:"
 PORT_PRM_PREFIX = "--port:"
 
