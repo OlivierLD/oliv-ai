@@ -64,7 +64,7 @@ public class OpenCVSwingCamera {
 		boolean fromCamera = option.equals("CAMERA");
 
 		// For the user button
-		final String userButtonLabel = "Take Snapshot";
+		final String userButtonLabel = "Snap!";
 		Runnable userAction = () -> {
 			// See usage in then process method
 			takeSnapshot = true;
@@ -212,6 +212,14 @@ public class OpenCVSwingCamera {
 		} else {
 			original = frame.clone();
 		}
+
+		if (swingFrame.isFlipVChecked()) {
+			Utils.flipVertically(original);
+		}
+		if (swingFrame.isFlipHChecked()) {
+			Utils.flipHorizontally(original);
+		}
+
 		// Rotation?
 		if (swingFrame.isRot90Selected()) {
 			Utils.rotate_90n(original, Utils.AngleX90._90);

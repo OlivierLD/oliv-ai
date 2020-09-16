@@ -153,4 +153,10 @@ public final class Utils {
 			Core.flip(img, img, 1);
 		}
 	}
+	public static void flipHorizontally(Mat img) {
+		Core.flip(img, img, 1);
+	}
+	public static void flipVertically(Mat img) {
+		Core.flip(img, img, 0);
+	}
 }

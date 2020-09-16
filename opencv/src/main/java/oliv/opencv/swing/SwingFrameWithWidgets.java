@@ -41,6 +41,11 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	private JCheckBox contoursCheckBox = null;
 	private JCheckBox contoursOnNewImageCheckBox = null;
 
+	private JCheckBox flipVCheckBox = null;
+	private final static String FLIP_V_LABEL = "Flip V";
+	private JCheckBox flipHCheckBox = null;
+	private final static String FLIP_H_LABEL = "Flip H";
+
 	private JButton userButton = null;
 	private String userButtonLabel = null;
 	private Runnable userButtonAction = null;
@@ -185,8 +190,8 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		});
 		zoomSlider.setToolTipText("Zoom factor");
 
-		JPanel twoCBPanel = new JPanel();
-		twoCBPanel.setLayout(new GridBagLayout());
+		JPanel severalCBPanel = new JPanel();
+		severalCBPanel.setLayout(new GridBagLayout());
 
 		grayCheckBox = new JCheckBox("To Gray");
 		grayCheckBox.setSelected(false);
@@ -197,8 +202,15 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		invertCheckBox = new JCheckBox(INVERT_LABEL);
 		invertCheckBox.setSelected(false);
 
+		flipVCheckBox = new JCheckBox(FLIP_V_LABEL);
+		flipVCheckBox.setSelected(false);
+
+		flipHCheckBox = new JCheckBox(FLIP_H_LABEL);
+		flipHCheckBox.setSelected(false);
+
 		if (userButtonLabel != null) {
 			userButton = new JButton(userButtonLabel); // TODO Use user-provided label
+			userButton.setToolTipText("Take a snapshot"); // TODO Same as above
 			userButton.addActionListener(e -> {
 				// Use user-provided Consumer
 				if (userButtonAction != null) {
@@ -311,7 +323,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
 
-		twoCBPanel.add(grayCheckBox, new GridBagConstraints(0,
+		severalCBPanel.add(grayCheckBox, new GridBagConstraints(0,
 				0,
 				1,
 				1,
@@ -321,7 +333,27 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
 
-		twoCBPanel.add(invertCheckBox, new GridBagConstraints(1,
+		severalCBPanel.add(invertCheckBox, new GridBagConstraints(1,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+
+		severalCBPanel.add(flipVCheckBox, new GridBagConstraints(2,
+				0,
+				1,
+				1,
+				1.0,
+				0.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.NONE,
+				new Insets(0, 0, 0, 0), 0, 0));
+
+		severalCBPanel.add(flipHCheckBox, new GridBagConstraints(3,
 				0,
 				1,
 				1,
@@ -332,7 +364,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 				new Insets(0, 0, 0, 0), 0, 0));
 
 		if (userButton != null) {
-			twoCBPanel.add(userButton, new GridBagConstraints(2,
+			severalCBPanel.add(userButton, new GridBagConstraints(4,
 					0,
 					1,
 					1,
@@ -343,7 +375,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 					new Insets(0, 0, 0, 0), 0, 0));
 		}
 
-		bottomPanel.add(twoCBPanel, new GridBagConstraints(1,
+		bottomPanel.add(severalCBPanel, new GridBagConstraints(1,
 				0,
 				1,
 				1,
@@ -519,6 +551,12 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	}
 	public boolean isInvertChecked() {
 		return this.invertCheckBox.isSelected();
+	}
+	public boolean isFlipVChecked() {
+		return this.flipVCheckBox.isSelected();
+	}
+	public boolean isFlipHChecked() {
+		return this.flipHCheckBox.isSelected();
 	}
 	public boolean isBlurChecked() {
 		return this.blurCheckBox.isSelected();
