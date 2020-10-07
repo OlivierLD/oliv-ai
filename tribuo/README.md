@@ -13,7 +13,7 @@
          -e https_proxy=http://www-proxy.us.oracle.com:80 \
          https://archive.ics.uci.edu/ml/machine-learning-databases/iris/bezdekIris.data
   ```
-- Classification:
+- Run Classification sample:
   ```
   $ ../gradlew runClassification --console plain --no-daemon
   ``` 
