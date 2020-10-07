@@ -128,6 +128,7 @@ zoom = False
 scale = 25  # Zoom scale. Percent of the original (radius). 50 => 100%
 
 keepLooping = True
+# No ROI selection. Make sure the image is big enough (digits take all the width).
 print("+----------------------------------------------------+")
 print("| Type Q, q or Ctrl+C to exit the loop               |")
 print("| Type S or s to take a snapshot                     |")
