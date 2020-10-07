@@ -3,14 +3,8 @@
 # Handwritten figures recognition => classification
 # also see https://www.tensorflow.org/api_docs/python/tf/keras and similar pages.
 #
-# Similar to sample.05.1.py, but with YOUR own images, read from the camera.
-# Model training.h5 must already exist
-# Uses OpenCV to reshape the images as expected by the model
-#
-#     SHOW ONE OR MORE HAND-WRITTEN CHARACTERS TO THE CAMERA (will split)
-#     HIT 'S' TO HAVE IT RECOGNIZED
-#
-#     REQUIRES THE MODEL 'training.h5' TO BE AVAILABLE
+# Shows how to split several characters from ONE single image.
+# No recognition done here.
 #
 # Great doc at
 # https://medium.com/@ashok.tankala/build-the-mnist-model-with-your-own-handwritten-digits-using-tensorflow-keras-and-python-f8ec9f871fd3
@@ -69,7 +63,7 @@ def process_image(image, show_all_steps=False, kernel_size=15):
         cv2.imshow("Edged", edged)
 
     if True:
-        threshold_value = 127  # 127: dark conditions, 200: good light conditions
+        threshold_value = 60  # 127  # 127: dark conditions, 200: good light conditions
         _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
         if show_all_steps:
             cv2.imshow('Threshed', thresh)
@@ -112,6 +106,7 @@ def process_image(image, show_all_steps=False, kernel_size=15):
         #
         if show_all_steps:
             cv2.imshow("Digit {}".format(idx), roi)
+            # TODO Those images could be sent to the model for recognition
         #
         # cv2.rectangle(saved_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.rectangle(saved_image, (x - padding, y - padding), (x + w + (2 * padding), y + h + (2 * padding)),
@@ -143,7 +138,7 @@ while keepLooping:
     _, frame = camera.read()
     time.sleep(0.1)
     try:
-        original_image = frame;
+        original_image = frame
         if mirror:
             original_image = cv2.flip(original_image, 1)
 
@@ -171,7 +166,7 @@ while keepLooping:
     if key == ord('q'):  # select the image window and hit 'q' to quit
         keepLooping = False
     if key == ord('s'):  # Take snapshot
-        print('\t>> Taking snapshot -')  # And invoke model
+        print('\t>> Taking snapshot -')  # And invoke model?
         process_image(original_image, True)
 
 # Releasing resources
