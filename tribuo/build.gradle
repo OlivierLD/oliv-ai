@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'oliv.ai'
+version '1.0'
+// Tribuo was released with Java 15, but compatibility with Java 11 should do.
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation ("org.tribuo:tribuo-all:4.0.1@pom") {
+        transitive = true // for Groovy
+        // isTransitive = true // for Kotlin
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
