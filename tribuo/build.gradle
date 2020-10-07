@@ -19,3 +19,16 @@ dependencies {
     }
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+task runClassification(type: JavaExec, dependsOn: classes, description: 'Runs the classification 101') {
+    main = 'tribuo.Classification101'
+    workingDir "."
+    classpath sourceSets.main.runtimeClasspath
+    classpath configurations.runtime
+}
+
+runClassification.doFirst {
+    println "--------------------------------------------------------------------------------------"
+    println ">>> Run like this: gradlew runClassification --console plain --no-daemon"
+    println "--------------------------------------------------------------------------------------"
+}
