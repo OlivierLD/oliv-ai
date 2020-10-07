@@ -62,7 +62,7 @@ DEBUG = False
 model = None
 try:
     print("\t\tLoading the model...")
-    model = tf.keras.models.load_model('training.h5')
+    model = tf.keras.models.load_model('training.h5')  # Here!
     print(">> Model is now loaded")
 except OSError as ose:
     print('Model not found?')
@@ -139,6 +139,8 @@ def process_image(image, show_all_steps=False, kernel_size=15):
         cv2.imshow('Grayed', gray)
     last_image = gray
 
+    # TODO Suggest contrast & brightness?
+
     blurred = cv2.GaussianBlur(last_image, (kernel_size, kernel_size), 0)
     if show_all_steps:
         cv2.imshow('Blurred', blurred)
@@ -151,7 +153,11 @@ def process_image(image, show_all_steps=False, kernel_size=15):
         cv2.imshow("Edged", edged)
 
     if True:
-        threshold_value = 127  # 127: dark conditions, 200: good light conditions
+        #  60: put some light on!
+        # 127: dark conditions,
+        # 200: good light conditions,
+        # the darker the image is, the lower the number should be.
+        threshold_value = 60  # 127, 200
         _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
         if show_all_steps:
             cv2.imshow('Threshed', thresh)
