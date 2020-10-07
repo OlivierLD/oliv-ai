@@ -638,6 +638,7 @@ Then we need to install the required Python packages (to do once):
 ```
 $ pip install tensorflow
 $ pip install keras
+$ pip install imutils
 $ pip install numpy
 $ pip install matplotlib
 $ pip install pandas
