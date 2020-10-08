@@ -89,7 +89,7 @@ Here is a non exhaustive list of the Jupyter Notebooks and Python scripts we pro
 - **03.training.ipynb**, _in Python_, training the network above, with the data seen in the first step, with many graphics
 - **04.regularization.ipynb**, _in Python_, all the way, to finally saving the model, with many graphics.
 - **05.final.model.ipynb**, _in Python_, recapitulation of all the above
-- **NeuralNetworks.ipynb**, _in Java_, various small demos showing Neurons, Activation Functions, rules implementation...
+- **NeuralNetworks.ipynb**, _in Java_ **with graphics**, various small demos showing Neurons, Activation Functions, rules implementation...
 - **data.one.neuron.ipynb**, _in Java_, showing how _one_ neuron would operate on a dataset.
 
 </td>
