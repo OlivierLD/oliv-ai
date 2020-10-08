@@ -70,8 +70,12 @@ And from a browser anywhere on the network of the Raspberry Pi, `raspberry-pi` b
  
 Come back here soon.
 
+## For Scala
 - For Scala, see [this](https://index.scala-lang.org/jupyter-scala/jupyter-scala/spark-stubs-2/0.4.2?target=_2.11), [this](https://index.scala-lang.org/jupyter-scala/jupyter-scala/protocol/0.1.8?target=_2.12), and [this](https://almond.sh/).
-    - The ones above mention `coursier`. Go ahead, it will not leave anything on your system.
+    - The ones above mention `coursier`. Go ahead, it will not leave anything on your system after you're done.
 - [This](https://medium.com/@bogdan.cojocar/how-to-run-scala-and-spark-in-the-jupyter-notebook-328a80090b3b) too (for Spark).
+
+Once the Scala Kernel is installed as explained above, just start your `jupyter notebook`
+as usual, and you will have the possibility to create Scala Notebooks.
 
 ---
