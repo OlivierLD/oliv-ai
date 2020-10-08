@@ -63,6 +63,7 @@ def process_image(image, show_all_steps=False, kernel_size=15):
         cv2.imshow("Edged", edged)
 
     if True:
+        # TODO Make this s runtime parameter
         threshold_value = 60  # 127  # 127: dark conditions, 200: good light conditions
         _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
         if show_all_steps:

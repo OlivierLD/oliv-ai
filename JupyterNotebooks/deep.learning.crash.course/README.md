@@ -948,7 +948,7 @@ to copy them into new images, and process them for recognition as before.
 This is what `sample.05.22.py` is doing.
 > _Note_: You can use
 > ```
->  $ ./sample.05.22.py [--show-all-steps] [--in-french]
+>  $ ./sample.05.22.py [--show-all-steps] [--in-french] [--threshold:60]
 > ```
 
 ### An example of objects recognition

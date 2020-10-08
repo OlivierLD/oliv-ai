@@ -92,7 +92,7 @@ def apply_model(image, show_all_steps=False, img_index=None, kernel_size=15):
     last_image = blurred
 
     if True:
-        threshold_value = 127  # 127: dark conditions, 200: good light conditions
+        threshold_value = light_threshold  # 127: dark conditions, 200: good light conditions
         _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
         if show_all_steps:
             cv2.imshow('Threshed{}'.format('' if img_index is None else '-{}'.format(img_index)), thresh)
@@ -157,7 +157,8 @@ def process_image(image, show_all_steps=False, kernel_size=15):
         # 127: dark conditions,
         # 200: good light conditions,
         # the darker the image is, the lower the number should be.
-        threshold_value = 60  # 127, 200
+        # This s runtime parameter
+        threshold_value = light_threshold  # 127, 200
         _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
         if show_all_steps:
             cv2.imshow('Threshed', thresh)
@@ -259,12 +260,18 @@ scale = 25  # Zoom scale. Percent of the original (radius). 50 => 100%
 
 show_process_steps = False
 in_french = False
-if len(sys.argv) > 1:
-    for i in range(1, len(sys.argv)):
-        if sys.argv[i] == '--show-all-steps':
+light_threshold = 127
+LIGHT_THRESHOLD_PREFIX = "--threshold:"
+
+if len(sys.argv) > 0:  # Script name + X args
+    for arg in sys.argv:
+        if arg == '--show-all-steps':
             show_process_steps = True
-        elif sys.argv[i] == '--in-french':
+        elif arg == '--in-french':
             in_french = True
+        elif arg[:len(LIGHT_THRESHOLD_PREFIX)] == LIGHT_THRESHOLD_PREFIX:
+            light_threshold = int(arg[len(LIGHT_THRESHOLD_PREFIX):])
+
 print("+----------------------------------------------------+")
 print("| Type Q, q or Ctrl+C to exit the loop               |")
 print("| Type S or s to take a snapshot                     |")
