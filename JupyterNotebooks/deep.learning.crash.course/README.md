@@ -116,7 +116,7 @@ For example, think about this:
 
 Ask a computer: "I have 2 watches, one is stopped, the other is 5 minutes ahead, which one is the most accurate?".
 
-Depending on the program you are using, the computer may very well reply: "The stopped one. It gives the right time twice a day; the other watch is always wrong.".
+Depending on the way the program you are using has been written, the computer may very well reply: "The stopped one. It gives the right time twice a day; the other watch is always wrong.".
 And this is not absurd. It is just wrong.
 
 Artificial Intelligence means to address this kind of "wrong" answer.
