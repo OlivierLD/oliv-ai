@@ -82,4 +82,11 @@ And from a browser anywhere on the network of the Raspberry Pi, `raspberry-pi` b
 Once the Scala Kernel is installed as explained above, just start your `jupyter notebook`
 as usual, and you will have the possibility to create Scala Notebooks.
 
+- Graphics in a Scala Notebook, try this: <https://medium.com/swlh/plotting-in-jupyter-notebooks-with-scala-and-evilplot-aacab63a896>
+    - Install `Ivy`
+    - Add on top of your Notebook:
+    ```
+    import $ivy.`com.cibo::evilplot-repl:0.7.0`
+    ``` 
+
 ---
