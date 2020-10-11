@@ -18,7 +18,7 @@ Install Jupyter on the Raspberry Pi is easy:
 ```
  $ sudo pip3 install jupyter
 ```
-or
+or (to install required packages)
 ```
 sudo su -
 apt-get update
