@@ -27,8 +27,9 @@ $ ./bin/pyspark
 ```
 > Note: Make sure you've modified the `bin/pyspark` so it uses `python3`.
 
-Execute the following lines
-Optional:
+Execute the following lines:
+
+_Optional:_
 ```python
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("spark-test").getOrCreate()
