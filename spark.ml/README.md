@@ -10,6 +10,7 @@ Start ot as indicated in `https://github.com/OlivierLD/raspberry-coffee/tree/mas
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
 df364841cbd9        oliv-spark:latest   "/bin/bash"         9 minutes ago       Up 9 minutes        0.0.0.0:8080->8080/tcp   vigorous_brown
+$
 $ docker cp ~/Desktop/.../sparkm.ml/duocar-raw-part-01.zip df364841cbd9:/workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/ai-data.zip
 $
 ```
@@ -28,13 +29,17 @@ $ ./bin/pyspark
 
 Execute the following lines
 Optional:
-```
+```python
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("spark-test").getOrCreate()
 ```
 Then
-```
-rides = spark.read.csv("file:///workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/duocar/raw/rides/", sep=",", header=True, inferSchema=True)
+```python
+FILE_LOCATION = "file:///workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/duocar/raw/rides/"
+rides = spark.read.csv(FILE_LOCATION, \
+                       sep=",", \
+                       header=True, \
+                       inferSchema=True)
 rides.printSchema()
 ```
 
@@ -61,7 +66,11 @@ root
 #### Same in Scala
 In `./bin/spark-shell`, run 
 ```scala
-val rides = spark.read.option("delimiter", ",").option("inferSchema", true).option("header", true).csv("file:///workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/duocar/raw/rides/")
+val FILE_LOCATION = "file:///workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/duocar/raw/rides/"
+val rides = spark.read.option("delimiter", ",")
+                  .option("inferSchema", true)
+                  .option("header", true)
+                  .csv(FILE_LOCATION)
 rides.count()
 rides.printSchema()
 ```
