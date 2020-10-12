@@ -1,0 +1,29 @@
+plugins {
+  id 'java'
+  id 'scala'
+  id 'idea'
+  id 'maven'
+  id 'com.github.johnrengelman.shadow'
+}
+
+group = 'oliv.ai'
+version = '1.0'
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+//  maven { url "https://raw.githubusercontent.com/OlivierLD/raspberry-coffee/repository" }
+  maven { url "https://oss.sonatype.org/content/groups/public" }
+}
+
+dependencies {
+  // https://mvnrepository.com/artifact/org.apache.spark/spark-core
+  compile group: 'org.apache.spark', name: 'spark-core_2.12', version: '3.0.1'
+  // https://mvnrepository.com/artifact/org.apache.spark/spark-sql
+  compile group: 'org.apache.spark', name: 'spark-sql_2.12', version: '3.0.1'
+}
+
+shadowJar {
+  zip64 true
+}
+
