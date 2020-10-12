@@ -67,10 +67,11 @@ root
 In `./bin/spark-shell`, run 
 ```scala
 val FILE_LOCATION = "file:///workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/duocar/raw/rides/"
-val rides = spark.read.option("delimiter", ",")
-                  .option("inferSchema", true)
-                  .option("header", true)
-                  .csv(FILE_LOCATION)
+val rides = spark.read
+                 .option("delimiter", ",")
+                 .option("inferSchema", true)
+                 .option("header", true)
+                 .csv(FILE_LOCATION)
 rides.count()
 rides.printSchema()
 ```
