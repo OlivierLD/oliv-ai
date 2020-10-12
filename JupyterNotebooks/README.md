@@ -88,5 +88,6 @@ as usual, and you will have the possibility to create Scala Notebooks.
     ```
     import $ivy.`com.cibo::evilplot-repl:0.7.0`
     ``` 
+- [Maven repo](https://mvnrepository.com/artifact/com.cibo/evilplot-repl) for EvilPlot.
 
 ---
