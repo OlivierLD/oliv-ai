@@ -90,4 +90,7 @@ as usual, and you will have the possibility to create Scala Notebooks.
     ``` 
 - [Maven repo](https://mvnrepository.com/artifact/com.cibo/evilplot-repl) for EvilPlot.
 
+# Misc bintz
+- Spark Jupyter notebook: <https://medium.com/@am.benatmane/setting-up-a-spark-environment-with-jupyter-notebook-and-apache-zeppelin-on-ubuntu-e12116d6539e>
+
 ---

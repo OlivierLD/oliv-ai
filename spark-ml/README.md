@@ -3,7 +3,7 @@ The goal is to reproduce what was done during the Cloudera class I took in Oct-2
 
 The docker image we will need can be built as indicated at <https://github.com/OlivierLD/raspberry-coffee/tree/master/docker>.
 Use `./image.builder.sh`, option `9`.
-Start ot as indicated in `https://github.com/OlivierLD/raspberry-coffee/tree/master/docker/misc`.
+Start it as indicated in `https://github.com/OlivierLD/raspberry-coffee/tree/master/docker/misc`.
 
 #### Transfer the data to the docker image
 ```
@@ -11,7 +11,7 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
 df364841cbd9        oliv-spark:latest   "/bin/bash"         9 minutes ago       Up 9 minutes        0.0.0.0:8080->8080/tcp   vigorous_brown
 $
-$ docker cp ~/Desktop/.../sparkm.ml/duocar-raw-part-01.zip df364841cbd9:/workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/ai-data.zip
+$ docker cp ~/Desktop/.../sparkm-ml/duocar-raw-part-01.zip df364841cbd9:/workdir/spark-3.0.1-bin-hadoop2.7-hive1.2/ai-data.zip
 $
 ```
 
