@@ -7,6 +7,10 @@
 # pip3 install tensorflow
 # pip3 install numpy
 # pip3 install scikit-learn
+#
+# You may also want to use a syntax like "python3 -m pip install tensorflow"
+#
+# Optionally (may cause problems):
 # pip3 install pydot
 # pip3 install pydotplus
 # pip3 install graphviz

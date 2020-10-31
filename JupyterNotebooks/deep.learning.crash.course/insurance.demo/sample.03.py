@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 # Insurance Company model training, over-fitting?
 # Saves the model at the end

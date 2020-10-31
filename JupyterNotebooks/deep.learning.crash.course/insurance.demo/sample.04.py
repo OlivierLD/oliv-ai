@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 # Insurance Company model training
 # Saves the model at the end
@@ -97,7 +96,7 @@ model.add(Dropout(dropout))
 # Last layer, SoftMax, as many neurons as categories we want (3)
 model.add(Dense(num_categories, name='SoftmaxLayer', activation='softmax'))
 
-plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)   # , dpi=100)
+# plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)   # , dpi=100)
 
 model.compile(loss='sparse_categorical_crossentropy',
               optimizer='adam',
