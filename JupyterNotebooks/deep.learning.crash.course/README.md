@@ -105,6 +105,7 @@ Here is a non exhaustive list of the Jupyter Notebooks and Python scripts we pro
 </tr>
 </table>
 
+---
 ### Oct 31, 2020
 Upgraded Notebooks and Python3 scripts to recent versions:
 - TensorFlow 2.3.1
@@ -121,6 +122,8 @@ Preforms the exact same operations (and some others) as the Jupyter Notebooks ab
 
 ##### TODO
 Java version of TensorFlow, see [here](https://www.tensorflow.org/api_docs/java/org/tensorflow/package-summary).
+
+---
 
 ### Deep Learning and AI, where it fits
 And even AI (Artificial Intelligence) itself is part of the even bigger picture called Data Science.
@@ -268,10 +271,12 @@ If we plot this on the diagram (red-yellow-green), we have:
 ![Objects detection](./img/object-detection.jpg)
 
 ### Back to our example: Deep - supervised - machine learning
+- _Deep_ means that we will be using Neural Networks
+- _Supervised_ means that the training data contain the expected result (`red`, `green`, `yellow`). _Unsupervised_ would mean that the training would also have to discover the classification categories. 
 
 The `model` will replace the `rules` we had before.
 
-It will be able to make predictions like this:
+It will be able to make predictions (actually _classifications_) like this:
 
 ![Model](./img/Model.png)
 
