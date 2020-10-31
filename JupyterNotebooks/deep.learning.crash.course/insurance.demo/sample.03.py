@@ -7,6 +7,7 @@ import warnings
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
+# package scikit-learn
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, Activation
 import os.path
@@ -14,18 +15,20 @@ import subprocess as sp
 import sys
 
 sys.path.append('../')
-import tf_utils
+# import tf_utils
 
 warnings.filterwarnings('ignore')
 
-print("Panda version", pd.__version__)
+print("Pandas version", pd.__version__)
 
-tf.logging.set_verbosity(tf.logging.ERROR)
+# tf.logging.set_verbosity(tf.logging.ERROR)
 print("TensorFlow version", tf.__version__)
 
 # let's see what compute devices we have available, hopefully a GPU
-sess = tf_utils.get_TF_session()
-devices = sess.list_devices()
+# sess = tf_utils.get_TF_session()
+# devices = sess.list_devices()
+devices = tf.config.list_physical_devices()
+
 print("----- D E V I C E S -----")
 for d in devices:
     print(d.name)
@@ -33,7 +36,8 @@ print("-------------------------")
 
 # a small sanity check, does tf seem to work ok?
 hello = tf.constant('Hello TF!')
-print(sess.run(hello))
+# print(sess.run(hello))
+print(hello)
 
 print("Keras version", keras.__version__)
 
@@ -55,7 +59,8 @@ if not found_data:
 df = pd.read_csv('./insurance-customers-1500.csv', sep=';')
 y = df['group']  # This will be holding the expected output
 df.drop('group', axis='columns', inplace=True)  # Remove it from the input parameters
-X = df.as_matrix()
+# X = df.as_matrix()  # Not available anymore in Pandas 1.1.x
+X = df.to_numpy()
 
 df.head()
 

@@ -8,7 +8,7 @@ import warnings
 import pandas as pd
 import numpy as np
 import seaborn as sns
-import tensorflow as tf
+# import tensorflow as tf
 import os.path
 import subprocess as sp
 import sys
@@ -21,8 +21,8 @@ print("Numpy", np.__version__)
 
 print("Seaborn", sns.__version__)
 
-tf_version = tf.__version__
-print("TensorFlow", tf_version)
+# tf_version = tf.__version__
+# print("TensorFlow", tf_version)
 
 found_data = False
 if os.path.isfile('./insurance-customers-1500.csv'):
@@ -30,8 +30,8 @@ if os.path.isfile('./insurance-customers-1500.csv'):
 
 if not found_data:
     print("Data file insurance-customers-1500.csv is not here")
-    userInput = input("Do you want to download it now ? Y/n > ")
-    if userInput == '' or userInput == 'y' or userInput == 'Y':
+    user_input = input("Do you want to download it now ? Y/n > ")
+    if user_input == '' or user_input == 'y' or user_input == 'Y':
         print("Downloading...")
         sp.run(["curl", "-O",
                 "https://raw.githubusercontent.com/DJCordhose/deep-learning-crash-course-notebooks/master/data/insurance-customers-1500.csv"])

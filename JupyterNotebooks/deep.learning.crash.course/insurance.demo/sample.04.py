@@ -6,34 +6,40 @@
 import warnings
 import pandas as pd
 import tensorflow as tf
-from tensorflow.python import keras
-from tensorflow.python.keras.callbacks import TensorBoard
+# from tensorflow.python import keras
+from tensorflow import keras
+# from tensorflow.python.keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import TensorBoard
 from sklearn.model_selection import train_test_split
-from tensorflow.python.keras.layers import Dense, Dropout, BatchNormalization, Activation
-from tensorflow.python.keras.utils.vis_utils import plot_model
+# from tensorflow.python.keras.layers import Dense, Dropout, BatchNormalization, Activation
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, Activation
+# from tensorflow.python.keras.utils.vis_utils import plot_model
+from tensorflow.keras.utils import plot_model
 import os.path
 import subprocess as sp
 import sys
 from time import time
 sys.path.append('../')
-import tf_utils
+# import tf_utils
 
 warnings.filterwarnings('ignore')
 
 print("Panda version", pd.__version__)
 
-sess = tf_utils.get_TF_session()
+# sess = tf_utils.get_TF_session()
 
-try:
-    tf.logging.set_verbosity(tf.logging.ERROR)
-except Exception as ex:
-    print("Ooops {}".format(ex))
-finally:
-    print("Moving on")
+# try:
+#     tf.logging.set_verbosity(tf.logging.ERROR)
+# except Exception as ex:
+#     print("Ooops {}".format(ex))
+# finally:
+#     print("Moving on")
 
 print("TensorFlow version", tf.__version__)
 
-devices = sess.list_devices()
+# sess = tf_utils.get_TF_session()
+# devices = sess.list_devices()
+devices = tf.config.list_physical_devices()
 print("----- D E V I C E S -----")
 for d in devices:
     print(d.name)
@@ -41,7 +47,8 @@ print("-------------------------")
 
 # a small sanity check, does tf seem to work ok?
 hello = tf.constant('Hello TF!')
-print(sess.run(hello))
+# print(sess.run(hello))
+print(hello)
 
 print("Keras version", keras.__version__)
 
@@ -64,7 +71,8 @@ if not found_data:
 df = pd.read_csv('./insurance-customers-1500.csv', sep=';')
 y = df['group']
 df.drop('group', axis='columns', inplace=True)
-X = df.as_matrix()
+# X = df.as_matrix()
+X = df.to_numpy()
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42, stratify=y)
 print("Training (X and y) shapes, Test (X and y) shapes")
@@ -89,7 +97,7 @@ model.add(Dropout(dropout))
 # Last layer, SoftMax, as many neurons as categories we want (3)
 model.add(Dense(num_categories, name='SoftmaxLayer', activation='softmax'))
 
-plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)   # , dpi=100)
 
 model.compile(loss='sparse_categorical_crossentropy',
               optimizer='adam',
@@ -188,6 +196,7 @@ print("Training Loss {}, Quality {}%".format(train_loss, 100 * train_accuracy))
 test_loss, test_accuracy = model.evaluate(X_test, y_test, batch_size=BATCH_SIZE)
 print("Test Loss {}, Quality {}%".format(test_loss, 100 * test_accuracy))
 
-print("Saving the model")
+print("Saving the model...")
 model.save('insurance.h5')
-print("Done")
+print("Done!")
+print("Model ready to be consumed")
