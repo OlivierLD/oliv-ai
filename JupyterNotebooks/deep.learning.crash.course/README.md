@@ -105,6 +105,23 @@ Here is a non exhaustive list of the Jupyter Notebooks and Python scripts we pro
 </tr>
 </table>
 
+### Oct 31, 2020
+Upgraded Notebooks and Python3 scripts to recent versions:
+- TensorFlow 2.3.1
+- Keras 2.4.0
+- Pandas 1.1.4
+
+#### Insurance Demo
+##### Python Jupyter Notebooks
+See `01.data.ipynb`, `02.intro.ipynb`, `03.training.ipynb`, `04.regularization.ipynb`, `05.final.model.ipynb`.
+
+##### Python3 scripts
+Preforms the exact same operations (and some others) as the Jupyter Notebooks above, see
+`sample.00.py`, `sample.01.py`, `sample.03.py`, `sample.04.py`, `sample.05.apply.model.py`. 
+
+##### TODO
+Java version of TensorFlow, see [here](https://www.tensorflow.org/api_docs/java/org/tensorflow/package-summary).
+
 ### Deep Learning and AI, where it fits
 And even AI (Artificial Intelligence) itself is part of the even bigger picture called Data Science.
 
