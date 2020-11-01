@@ -22,8 +22,8 @@ import warnings
 import subprocess as sp
 import platform
 
-sys.path.append('../../')
-import tf_utils
+# sys.path.append('../../')
+# import tf_utils
 
 warnings.filterwarnings('ignore')
 
@@ -52,8 +52,7 @@ if not loadOnly:
     print("And then we'll see if it is working...")
     print("Let's go!")
 
-sess = tf_utils.get_TF_session()
-devices = sess.list_devices()
+devices = tf.config.list_physical_devices()
 print("----- D E V I C E S -----")
 for d in devices:
     print(d.name)
