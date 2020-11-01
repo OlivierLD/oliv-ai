@@ -194,7 +194,7 @@ while keepLooping:
                 message = "It's a {}, (I'm {:2.0f}% sure).".format(y_test[test_idx], 100 * predictions[test_idx][np.argmax(predictions[test_idx])])
                 print(message)
                 print("-----------------------------")
-                if platform.system() == 'Darwin':
+                if platform.system() == 'Darwin':  # Bonus ;)
                     # for voice list, see https://gist.github.com/mculp/4b95752e25c456d425c6
                     # also, try 'say -v ?'
                     sp.run(['say', message])
