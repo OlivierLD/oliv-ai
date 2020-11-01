@@ -112,6 +112,8 @@ Upgraded Notebooks and Python3 scripts to recent versions:
 - Keras 2.4.0
 - Pandas 1.1.4
 
+> Note: Python 3.9, released Oct 27, 2020, is _not_ compatible with TensorFlow 2.3.1.
+
 #### Insurance Demo
 ##### Python Jupyter Notebooks
 See `01.data.ipynb`, `02.intro.ipynb`, `03.training.ipynb`, `04.regularization.ipynb`, `05.final.model.ipynb`.

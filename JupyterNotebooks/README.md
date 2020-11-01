@@ -30,6 +30,7 @@ sudo pip3 install jupyter
 sudo apt-get clean
 ```
 > See also the [Jupyter Installation](https://jupyter.org/install) guide.
+> Other systems have different installation processes (brew, etc...).
 
 The default language for Jupyter is Python. To have more languages available, you need to install what's called `kernels`.
 Java kernel, Scala kernel, etc.
