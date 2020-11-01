@@ -28,8 +28,8 @@ import platform
 # import matplotlib.pyplot as plt
 # import matplotlib.image as mpimg
 
-sys.path.append('../')
-import tf_utils
+# sys.path.append('../')
+# import tf_utils
 
 warnings.filterwarnings('ignore')
 
@@ -39,8 +39,7 @@ print("Keras version", tf.keras.__version__)
 
 print("{} script arguments.".format(len(sys.argv)))
 
-sess = tf_utils.get_TF_session()
-devices = sess.list_devices()
+devices = tf.config.list_physical_devices()
 print("----- D E V I C E S -----")
 for d in devices:
     print(d.name)

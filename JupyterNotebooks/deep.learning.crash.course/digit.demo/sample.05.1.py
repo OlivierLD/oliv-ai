@@ -16,10 +16,11 @@ import matplotlib.pyplot as plt
 import random
 import sys
 import warnings
-from tensorflow.python.keras.utils.vis_utils import plot_model
+# from tensorflow.python.keras.utils.vis_utils import plot_model
+# from tensorflow.keras.utils import plot_model
 
-sys.path.append('../')
-import tf_utils
+# sys.path.append('../')
+# import tf_utils
 
 warnings.filterwarnings('ignore')
 
@@ -28,6 +29,7 @@ print("TensorFlow version", tf_version)
 print("Keras version", tf.keras.__version__)
 
 print("{} script arguments.".format(len(sys.argv)))
+print("For help, use {} --help".format(sys.argv[0]))
 
 # Evaluate user's parameters
 loadOnly = False  # Load model, do not train it (if it is there already)
@@ -49,8 +51,7 @@ if not loadOnly:
     print("The network has 2 layers, 512, and then 10 neurons, fully connected.")
     print("Let's go!")
 
-sess = tf_utils.get_TF_session()
-devices = sess.list_devices()
+devices = tf.config.list_physical_devices()
 print("----- D E V I C E S -----")
 for d in devices:
     print(d.name)

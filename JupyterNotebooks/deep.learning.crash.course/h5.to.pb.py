@@ -9,7 +9,7 @@ from tensorflow.python.saved_model import tag_constants
 # Function to export Keras model to Protocol Buffer format
 # Inputs:
 #       path_to_h5: Path to Keras h5 model
-#       export_path: Path to store Protocol Buffer model
+#       export_path: Path to store Protocol Buffer model (directory)
 
 
 def export_h5_to_pb(path_to_h5, export_path):

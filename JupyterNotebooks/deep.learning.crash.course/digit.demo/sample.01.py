@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Continuous capture
+# Continuous capture, OpenCV
 #
 # https://pypi.org/project/opencv-python/
 #

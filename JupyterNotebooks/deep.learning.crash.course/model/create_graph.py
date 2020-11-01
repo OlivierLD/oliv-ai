@@ -5,6 +5,8 @@ from __future__ import print_function
 
 import tensorflow as tf
 
+print("TensorFlow version", tf.__version__)
+
 x = tf.placeholder(tf.float32, name='input')
 y_ = tf.placeholder(tf.float32, name='target')
 
@@ -15,7 +17,7 @@ y = x * W + b
 y = tf.identity(y, name='output')
 
 loss = tf.reduce_mean(tf.square(y - y_))
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
+optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.01)
 train_op = optimizer.minimize(loss, name='train')
 
 init = tf.global_variables_initializer()

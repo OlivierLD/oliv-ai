@@ -6,6 +6,7 @@
 # pip3 install pandas
 # pip3 install tensorflow
 # pip3 install numpy
+# pip3 install seaborn
 # pip3 install scikit-learn
 #
 # You may also want to use a syntax like "python3 -m pip install tensorflow"
@@ -17,3 +18,16 @@
 #
 # You may need to install graphviz on your system: https://graphviz.org/download/
 #
+# You need a Python version lower than 3.8 (like 3.7.3, 3.7.9)
+# -----------------------------------------------------
+# brew update
+# brew install pyenv
+# pyenv install 3.7.3
+# pyenv global 3.7.3
+# python --version
+#
+# brew list | grep python
+# Or
+# brew install python@3.7
+# or
+# brew reinstall python@3.7

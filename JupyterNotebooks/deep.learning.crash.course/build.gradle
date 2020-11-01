@@ -14,19 +14,6 @@ repositories {
   maven { url "https://oss.sonatype.org/content/groups/public" }
 }
 
-//sourceSets {
-//  main {
-//    java {
-//      srcDir 'src/main/java'
-//    }
-//  }
-//  test {
-//    java {
-//      srcDir 'tests'
-//    }
-//  }
-//}
-
 dependencies {
 //  compile 'com.pi4j:pi4j-core:1.1'
 //  compile 'comm:rxtx:1.0'

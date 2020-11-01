@@ -18,9 +18,11 @@
 - `sample.05.21.py`
     - Similar to `sample.05.1.py`, but with YOUR own images, read from the camera.
     - Model `training.h5` must already exist
-    - Uses OpenCV to reshape the images as expected by the model
+    - Uses OpenCV to read and reshape the images as expected by the model
+        - ![Setting](../img/settings.jpg)
         - SHOW AN HAND-WRITTEN CHARACTER TO THE CAMERA
         - HIT 'S' TO HAVE IT RECOGNIZED
+        - More details [here](../README.md#your-own-hand-written-digits-recognition).
 - `sample.05.21.py`, WIP
     - Reads a string of several digits, and speaks the result.
 - `convnet/sample.01.py`
