@@ -60,13 +60,13 @@ while keepLooping:
             im2arr = np.array(img)
             im2arr = im2arr.reshape(1, 28, 28, 1)
             pred = model.predict_classes(im2arr)
-            precision = model.predict(im2arr)
-            print("Prediction: it looks like a ", pred, " (", precision[0][np.argmax(precision)] * 100, "% sure ), Nb predictions:", len(precision))
+            prediction = model.predict(im2arr)
+            print("Prediction: it looks like a ", pred, " (", prediction[0][np.argmax(prediction)] * 100, "% sure ), Nb predictions:", len(prediction))
             if platform.system() == 'Darwin':
                 # for voice list, see https://gist.github.com/mculp/4b95752e25c456d425c6
                 # also, try 'say -v ?'
                 sp.run(['say',
-                        'It looks like a ' + np.array2string(pred) + ' to me, I\'m {:2.0f}% sure'.format(precision[0][np.argmax(precision)] * 100)])
+                        'It looks like a ' + np.array2string(pred) + ' to me, I\'m {:2.0f}% sure'.format(prediction[0][np.argmax(prediction)] * 100)])
             plt.imshow(mpimg.imread(userInput))
             # plt.imshow(img, cmap=plt.cm.binary)
             plt.show()

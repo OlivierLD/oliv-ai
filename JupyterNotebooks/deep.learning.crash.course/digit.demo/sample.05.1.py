@@ -10,12 +10,14 @@
 # For the figures images, see https://github.com/myleott/mnist_png
 # images are 28px x 28px big.
 #
+import platform
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import random
 import sys
 import warnings
+import subprocess as sp
 # from tensorflow.python.keras.utils.vis_utils import plot_model
 # from tensorflow.keras.utils import plot_model
 
@@ -35,13 +37,13 @@ print("For help, use {} --help".format(sys.argv[0]))
 loadOnly = False  # Load model, do not train it (if it is there already)
 if len(sys.argv) > 1 and sys.argv[1] == '--help':
     print("\nUsage is ")
-    print("\tpython {} [--help | L]".format(sys.argv[0]))
-    print("\tL is to Load the already trained model.")
+    print("\tpython {} [--help | --load-model]".format(sys.argv[0]))
+    print("\t--load-model is to Load the already trained model.")
     print("\tNo parameter will train (and save) the model.")
     print("\t--help will display this content.\n")
     sys.exit()
 
-if len(sys.argv) > 1 and sys.argv[1] == 'L':
+if len(sys.argv) > 1 and sys.argv[1] == '--load-model':
     loadOnly = True
     print("Will load the model, not train it.")
 
@@ -189,9 +191,13 @@ while keepLooping:
                 print("Best match, category", np.argmax(predictions[test_idx]),
                       predictions[test_idx][np.argmax(predictions[test_idx])])
                 print("-----------------------------")
-                print("It's a", y_test[test_idx],
-                      "({:2.0f}% sure).".format(100 * predictions[test_idx][np.argmax(predictions[test_idx])]))
+                message = "It's a {}, (I'm {:2.0f}% sure).".format(y_test[test_idx], 100 * predictions[test_idx][np.argmax(predictions[test_idx])])
+                print(message)
                 print("-----------------------------")
+                if platform.system() == 'Darwin':
+                    # for voice list, see https://gist.github.com/mculp/4b95752e25c456d425c6
+                    # also, try 'say -v ?'
+                    sp.run(['say', message])
         except ValueError:
             print("Bad integer..., try again")
     else:
