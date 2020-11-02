@@ -112,7 +112,35 @@ Upgraded Notebooks and Python3 scripts to recent versions:
 - Keras 2.4.0
 - Pandas 1.1.4
 
-> Note: Python 3.9, released Oct 27, 2020, is _not_ compatible with TensorFlow 2.3.1.
+`> Note: Python 3.9, released Oct 27, 2020, is _not_ compatible with TensorFlow 2.3.1.
+> 
+> **If you see in your Notebook**, after a cell like
+> ```
+> import sys
+> print(sys.version)
+> 
+> !{sys.executable} -m pip install tensorflow
+> ``` 
+> **a message like**
+> ```
+> 3.9.0 (default, Oct 27 2020, 14:15:17) 
+> [Clang 12.0.0 (clang-1200.0.32.21)]
+> ERROR: Could not find a version that satisfies the requirement tensorflow (from versions: none)
+> ERROR: No matching distribution found for tensorflow
+> ```
+> it probably mean that the version of your Python is not compatible with Tensorflow.
+>
+> To run the right version of Python in Jupyter:
+> ```
+> virtualenv -p python3.7 py_37_env
+> source py_37_env/bin/activate
+> pip install ipykernel
+> python -m ipykernel install --user --name=py_37_env
+> jupyter notebook
+> ```
+> Then make sure the type of notebook is `py_37_env`...
+>
+> _Note_: You can change the Kernel of an existing Notebook, by going to `Kernel` > `Change kernel` > `py_37_env`.  
 
 #### Insurance Demo
 ##### Python Jupyter Notebooks
