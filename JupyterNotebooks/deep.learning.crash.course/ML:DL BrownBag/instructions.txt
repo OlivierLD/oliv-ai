@@ -1,0 +1,50 @@
+==== Before starting ====
+From ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course
+jupyter notebook
+
+From ~repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/insurance.demo/tfjs
+node server.js
+
+Get the TensorFlowPlayground.Cheat.Sheet ready
+
+Training digit images: in ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/mnist_png
+
+Load in sublime:
+From ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/insurance.demo/tfjs
+sublime .
+
+in PyCharm, display sample.05.1.py & Co
+
+Open a console in ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/digit.demo
+
+==========================
+
+For OpenCV (time permitting):
+from ~/repos/raspberry-coffee/opencv:
+$ export JAVA_HOME=`/usr/libexec/java_home -v 9.0.1`
+$ ../gradlew tasks --all
+$ ../gradlew runOlivSwingCamera
+$ ../gradlew continuousFaceDetect
+or
+$ ./swing.camera.sh
+
+curl behind a firewall: curl -x http://www-proxy-hqdc.us.oracle.com:80 -fsSL xxxx
+
+==== All the runnables ====
+Function/Rule for the Car Insurance Demo
+http://localhost:8888/notebooks/NeuralNetworks.ipynb
+
+One neuron at work:
+Python -> http://localhost:8888/notebooks/NeuronSample.ipynb
+Java -> http://localhost:8888/notebooks/NeuralNetworks.ipynb
+Web -> https://olivierld.github.io/nn/one.neuron.webcomp.html
+
+Train the car insurance demo network:
+http://localhost:8888/notebooks/05.final.model.ipynb
+
+Run the Web Car Insurance demo:
+-> localhost:8080/index.html
+
+Hand-written character recognition:
+Training (with explanations) and first run: sample.05.1.py
+Running live, with the webcam: sample.05.21.py

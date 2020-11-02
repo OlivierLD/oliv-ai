@@ -339,6 +339,9 @@ TensorFlow playground at <https://playground.tensorflow.org>
 - Try also [this](https://www.desmos.com/calculator/fiqkgpg9pv), or [this](https://www.wolframalpha.com/examples/mathematics/plotting-and-graphics/).    
 - See also the spreadsheet `neuron.ods`
     
+> See a more complex playground example [here](TF.playground.md), with more layers and more neurons.
+> The corresponding spreadsheet is `nn.ods` (in this repo).
+    
 ##### Quick remark here:
 In the figure above, we have in input a triplet of values: `(10, 6, 8)`.
 And the output is `17`.
