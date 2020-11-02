@@ -128,9 +128,9 @@ Upgraded Notebooks and Python3 scripts to recent versions:
 > ERROR: Could not find a version that satisfies the requirement tensorflow (from versions: none)
 > ERROR: No matching distribution found for tensorflow
 > ```
-> it probably mean that the version of your Python is not compatible with Tensorflow.
+> it probably means that the version of your Python is not compatible with Tensorflow.
 >
-> To run the right version of Python in Jupyter:
+> To run the right version of Python in Jupyter, you can use `virtualenv`:
 > ```
 > virtualenv -p python3.7 py_37_env
 > source py_37_env/bin/activate
