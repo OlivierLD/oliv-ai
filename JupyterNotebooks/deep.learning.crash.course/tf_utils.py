@@ -1,5 +1,8 @@
 import tensorflow as tf
-
+#
+# @Deprecated
+# Use if you want to run in v1 mode...
+#
 tf_version = tf.__version__
 print("TensorFlow", tf_version)
 
