@@ -3,7 +3,7 @@
 Let's say you've stop the training at that point:
 ![Example](./img/TF.playground.example.01.png)
 
-To see the **Bias** of a neuron, hover the move over the bottom left small square of each neuron:
+To see the **Bias** of a neuron, hover the mouse over the bottom left small square of each neuron:
 ![Example](./img/TF.playground.example.02.png)
 
 To see the **Weight**, hover the mouse over the incoming connector:
@@ -18,5 +18,5 @@ This can be captured in a spreadsheet, like that:
 - Features (on the left) are the input values
 - Result (on the right) is the calculated result.
 
-> The training consist in trying _all_ possible values for _all then weights_ and _all the bias_, to find the expected result.
-> > This is Supervised Learning, we know what value we are expecting for each data.  
+> The training consist in trying _all_ possible values for _all the weights_ and _all the bias_, to find the expected result.
+> > This is Supervised Learning, we know what value we are expecting for each data ([x, y] => color).  
