@@ -1,6 +1,6 @@
 ### How to understand TF Playground output
 
-Let's say you've stop the training at that point:
+Let's say you've stopped the training at that point, and you want to see the parameters of your network:
 ![Example](./img/TF.playground.example.01.png)
 
 To see the **Bias** of a neuron, hover the mouse over the bottom left small square of each neuron:
