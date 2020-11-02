@@ -2,7 +2,7 @@
 Learning AI, ML, DL, etc.
 
 #### About the Raspberry Pi
-Did several tests, specially since RaspiOS 64-bits was released, running TensorFlow - installing ot actually - is not always as stragthforward as expected.
+Did several tests, specially since RaspiOS 64-bits was released, running TensorFlow - installing it actually - is not always as stragthforward as expected.
 
 Trying the Docker route.
 
