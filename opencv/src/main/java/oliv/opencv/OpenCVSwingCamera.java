@@ -15,7 +15,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.MissingFormatArgumentException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -350,6 +351,9 @@ public class OpenCVSwingCamera {
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		System.out.println(String.format("Running OpenCV %s", Core.getVersionString()));
+
+		Properties props = System.getProperties();
+		props.forEach((name, value) -> System.out.println(String.format("%s: %s", name, value)));
 
 		new OpenCVSwingCamera();
 

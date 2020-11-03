@@ -2,16 +2,26 @@ package oliv.opencv;
 
 import cv.utils.Utils;
 import oliv.opencv.swing.SwingFrameWithWidgets;
-import org.opencv.core.*;
+import org.opencv.core.Core;
+import org.opencv.core.CvException;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -149,7 +159,7 @@ public class OpenCVSwingCameraFaceRecognition {
 
 	private static SwingFrameWithWidgets swingFrame = null;
 
-	private final static int DEFAULT_FRAME_WIDTH =  800;
+	private final static int DEFAULT_FRAME_WIDTH =  960;
 	private final static int DEFAULT_FRAME_HEIGHT = 760;
 	private final static int DEFAULT_IMAGE_WIDTH =  800;
 	private final static int DEFAULT_IMAGE_HEIGHT = 600;
@@ -315,6 +325,14 @@ public class OpenCVSwingCameraFaceRecognition {
 		} else {
 			original = frame.clone();
 		}
+
+		if (swingFrame.isFlipVChecked()) {
+			Utils.flipVertically(original);
+		}
+		if (swingFrame.isFlipHChecked()) {
+			Utils.flipHorizontally(original);
+		}
+
 		// Rotation?
 		if (swingFrame.isRot90Selected()) {
 			Utils.rotate_90n(original, Utils.AngleX90._90);
@@ -442,7 +460,6 @@ public class OpenCVSwingCameraFaceRecognition {
 		// load the OpenCV native library
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
 
 		new OpenCVSwingCameraFaceRecognition();
 

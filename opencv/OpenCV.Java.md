@@ -20,6 +20,7 @@ OpenCV: can not spin main run loop from other thread, set OPENCV_AVFOUNDATION_SK
 OpenCV: camera failed to properly initialize!
 ```
 Then you need to add those keys in `/Library/Java/JavaVirtualMachines/jdk-[Your-JDK].jdk/Contents/Info.plist`: 
+> This behaves weirdly sometimes...
 ```xml
          <!-- Added for OpenCV -->
          <key>NSCameraUsageDescription</key>
