@@ -19,12 +19,15 @@ repositories {
     // Also see https://mvnrepository.com/artifact/org.openpnp/opencv, https://mvnrepository.com/artifact/com.quickbirdstudios/opencv/4.0.1 ?
 }
 
+def opencvVersion = "4.5.0_2"
+// Use ${opencvVersion} below, when needed.
 
 // Note: use "$ gradle dependencies" to visualize them.
 dependencies {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
         print "On Mac"
-        implementation fileTree(dir: '/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/', include: ['*.jar']) // Mac
+//        implementation fileTree(dir: "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/", include: ['*.jar']) // Mac
+        implementation fileTree(dir: "/usr/local/share/java/opencv4/", include: ['*.jar']) // Mac
     } else {
         print "Assuming Raspberry Pi"
         implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
@@ -73,8 +76,9 @@ ext.mainClassNameContinuousPathDetect = 'oliv.opencv.OpenCVContinuousPathDetecti
 tasks.withType(JavaExec) {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
         // For Mac
-        systemProperty "java.library.path", "/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
-//      systemProperty "java.library.path", "/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/" // Mac
+        systemProperty "java.library.path", "/usr/local/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
+//      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
+//      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/" // Mac
     } else {
         systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
     }

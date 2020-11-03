@@ -127,8 +127,8 @@ public class OpenCVSwingCamera {
 	}
 
 	protected void startCamera() {
+
 		this.camera = new VideoCapture();  // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
-		System.out.println(String.format("Camera opened: %s", this.camera.isOpened()));
 
 		if (!this.cameraActive) {
 
@@ -139,6 +139,23 @@ public class OpenCVSwingCamera {
 			boolean hSet = this.camera.set(Videoio.CAP_PROP_FRAME_HEIGHT, VIDEO_HEIGHT);
 			System.out.println(String.format("Setting video frame size to %.02f x %.02f => W set: %s, H set: %s", VIDEO_WIDTH, VIDEO_HEIGHT, wSet, hSet));
 			System.out.println(String.format(">> Capture size WxH: %.02f x %.02f", this.camera.get(Videoio.CAP_PROP_FRAME_WIDTH), this.camera.get(Videoio.CAP_PROP_FRAME_HEIGHT)));
+
+			boolean ok = false;
+			int nbTry = 0;
+			while (!ok  && nbTry < 5) {
+				nbTry++;
+				ok = this.camera.isOpened();
+				if (!ok) {
+					System.out.println(String.format("Waiting for the camera to open... (try %d)", nbTry));
+					try {
+						Thread.sleep(1_000L);
+					} catch (InterruptedException ie) {
+						System.err.println("Oops");
+						ie.printStackTrace();
+					}
+				}
+			}
+			System.out.println(String.format("Camera opened: %s", this.camera.isOpened()));
 
 			if (this.camera.isOpened()) {
 				this.cameraActive = true;
@@ -169,6 +186,7 @@ public class OpenCVSwingCamera {
 				this.camera.read(frame);
 			} catch (Exception e) {
 				System.err.println("Exception during camera capture: " + e);
+				e.printStackTrace();
 			}
 		}
 //		System.out.println(String.format("Read image from camera %d x %d", frame.width(), frame.height()));
@@ -186,6 +204,7 @@ public class OpenCVSwingCamera {
 				this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
 			} catch (InterruptedException e) {
 				System.err.println("Exception when stopping the frame camera, will try to release the camera now... " + e);
+				e.printStackTrace();
 			}
 		}
 
@@ -304,7 +323,12 @@ public class OpenCVSwingCamera {
 			lastMat = newMat;
 		}
 
-		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+		try {
+			swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+		} catch (Throwable throwable) {
+			// This can happen when the camera has just been started.
+			throwable.printStackTrace();
+		}
 
 		if (takeSnapshot) {
 			takeSnapshot = false; // Reset
@@ -320,9 +344,12 @@ public class OpenCVSwingCamera {
 	}
 
 	public static void main(String... args) {
+		System.out.println(String.format("Running java %s", System.getProperty("java.version")));
+
 		// load the OpenCV native library
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.out.println(String.format("Running OpenCV %s", Core.getVersionString()));
 
 		new OpenCVSwingCamera();
 

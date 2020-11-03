@@ -799,6 +799,7 @@ An image can be a complex object, it can be seen as a 3 dimension matrix (width,
 How can a neuron deal with such an object?
 
 > Note: For images manipulation, we will be also using `OpenCV`. There are some [OpenCV resources](../../opencv) in this repo, in Java and Python.
+> You may need to build the `OpenCV` binaries for your system (explained in the link above).
 
 #### Preparing the data
 Data preparation is this process that reshapes the input data so they're easier to ingest by the network.

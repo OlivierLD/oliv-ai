@@ -18,3 +18,6 @@ Unzip it, then run
 ```
 $ ./labelimage.sh ./inception5h ./img/mug.jpeg 
 ```
+
+### ML with Tensorflow, from Manning
+- TF.v2 repo: <https://github.com/chrismattmann/MLwithTensorFlow2ed/tree/master/TFv2/>

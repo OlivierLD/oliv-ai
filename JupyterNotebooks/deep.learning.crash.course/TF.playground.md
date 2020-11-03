@@ -19,4 +19,12 @@ This can be captured in a spreadsheet, like that:
 - Result (on the right) is the calculated result.
 
 > The training consist in trying _all_ possible values for _all the weights_ and _all the bias_, to find the expected result.
-> > This is Supervised Learning, we know what value we are expecting for each data ([x, y] => color).  
+> > This is Supervised Learning, we know what value we are expecting for each data ([x, y] => color).
+> 
+> The difference between what's found and what's expected is called the `loss` (available in many screenshots, like the ones above, at the top right).
+> There are:
+> - loss on the _training_ data
+> - loss on the _test_ data
+> 
+> Ideally, for an accurate model, they should be the same.
+> > Note: Beware of `overfitting` a model!   

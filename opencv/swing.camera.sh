@@ -2,13 +2,16 @@
 CP=./build/libs/opencv-1.0-all.jar
 JAVA_LIB_PATH=
 DARWIN=$(uname -a | grep Darwin)  # Mac ?
-#
+SUDO=
+# Paths can be different...
 if [[ "$DARWIN" != "" ]]
 then
-  CP="$CP:/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/opencv-430.jar" # Mac
-  JAVA_LIB_PATH="/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4"         # For Mac
+  SUDO="sudo "
+  # export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.7)
+  CP="$CP:/usr/local/share/java/opencv4/opencv-450.jar" # Mac
+  JAVA_LIB_PATH="/usr/local/share/java/opencv4/"        # For Mac
 else  # Assume Raspberry Pi
-  CP="$CP:/usr/local/share/java/opencv4/opencv-430.jar" # RPi
+  CP="$CP:/usr/local/share/java/opencv4/opencv-450.jar" # RPi
   JAVA_LIB_PATH="/usr/local/share/java/opencv4"         # RPi
 fi
 #CP="$CP:/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/opencv-430.jar" # Mac
@@ -26,4 +29,4 @@ JAVA_OPTS="-Dinput.source=CAMERA"
 REMOTE_DEBUG_FLAGS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
 #
 # JAVA_OPTS="${JAVA_OPTS} ${REMOTE_DEBUG_FLAGS}"
-java -cp ${CP} -Djava.library.path=${JAVA_LIB_PATH} ${JAVA_OPTS} ${CLASS}
+${SUDO}java -cp ${CP} -Djava.library.path=${JAVA_LIB_PATH} ${JAVA_OPTS} ${CLASS}

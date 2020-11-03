@@ -52,11 +52,14 @@ sudo apt-get install build-essential cmake ant
 - Download the last sources from <https://opencv.org/releases/>
   - Can be a `wget https://github.com/opencv/opencv/archive/4.3.0.zip`
     - or `wget https://github.com/opencv/opencv/archive/4.4.0.zip`...
+    - or `wget https://github.com/opencv/opencv/archive/4.5.0.zip`...
+    - or see for yourself at <https://opencv.org/releases/>, as mentioned above.
   - `mv 4.3.0.zip opencv-4.3.0.zip`
 - `unzip opencv-4.3.0.zip`
 - `cd opencv-4.3.0`
 - `mkdir build`
 - `cd build`
+- Make sure your `$JAVA_HOME` is set
 - Make it (this one takes time, like hours...):
 ```
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -72,7 +75,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 - `sudo make`
 - `sudo make install`
 
-Quick test, from python
+After that, quick test, from Python
 ```
 $ python3
 
@@ -97,6 +100,8 @@ total 20M
 1075459 640K -rw-r--r-- 1 root root 639K Apr 30 10:09 opencv-430.jar
 pi@rpi-buster:~/opencv-4.3.0/build $ 
 ``` 
+> Note the paths above may change if you are not on Debian on Raspi OS.
+> The `gradle` script(s) would be impacted.
 
 JavaFX was removed from JDK 11, it's to be referred to as a module...
 
