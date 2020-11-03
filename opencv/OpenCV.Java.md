@@ -12,6 +12,24 @@ brew behind a firewall:
 all_proxy=http://www-proxy-hqdc.us.oracle.com:80 brew install --build-from-source opencv
 ```
 
+### Camera access
+On Mac, if you see a message like this:
+```
+OpenCV: not authorized to capture video (status 0), requesting...
+OpenCV: can not spin main run loop from other thread, set OPENCV_AVFOUNDATION_SKIP_AUTH=1 to disable authorization request and perform it in your application.
+OpenCV: camera failed to properly initialize!
+```
+Then you need to add those keys in `/Library/Java/JavaVirtualMachines/jdk-[Your-JDK].jdk/Contents/Info.plist`: 
+```xml
+         <!-- Added for OpenCV -->
+         <key>NSCameraUsageDescription</key>
+         <string>OpenCV</string>
+         <key>NSMicrophoneUsageDescription</key>
+         <string>OpenCV</string>
+         <!---------------------->
+```
+
+
 ### JavaFX, Swing, etc
 JavaFX was removed from Java 11.
 - See how to fix that [here](https://www.youtube.com/watch?time_continue=157&v=WtOgoomDewo&feature=emb_logo),
