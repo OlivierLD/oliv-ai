@@ -154,6 +154,11 @@ See in [`build.gradle`](./build.gradle).
 ```
  ../gradlew runFX
 ```
+And others:
+```
+ ../gradlew tasks --all
+. . .
+```
 
 ### Custom Java code
 > Using Java Swing for the GUI.

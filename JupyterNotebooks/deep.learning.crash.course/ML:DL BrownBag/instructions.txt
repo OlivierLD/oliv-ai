@@ -21,7 +21,7 @@ Open a console in ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.
 
 For OpenCV (time permitting):
 from ~/repos/raspberry-coffee/opencv:
-$ export JAVA_HOME=`/usr/libexec/java_home -v 9.0.1`
+$ export JAVA_HOME=`/usr/libexec/java_home -v 9.0.1`   # At least 9. Higher versions would do it too.
 $ ../gradlew tasks --all
 $ ../gradlew runOlivSwingCamera
 $ ../gradlew continuousFaceDetect
