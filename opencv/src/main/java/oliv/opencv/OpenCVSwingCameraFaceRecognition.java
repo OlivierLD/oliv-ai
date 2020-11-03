@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class OpenCVSwingCameraFaceRecognition {
 
+	private final static boolean VERBOSE = "true".equals(System.getProperty("fr.verbose"));
 	class FaceDetector {
 
 		String cascadeResource;
@@ -90,7 +91,9 @@ public class OpenCVSwingCameraFaceRecognition {
 		}
 
 		public Mat detect(Mat image) throws CvException {
-			System.out.println("Starting face detection");
+			if (VERBOSE) {
+				System.out.println("Starting face detection");
+			}
 			CascadeClassifier faceDetector = new CascadeClassifier(this.cascadeResource);
 			if (false) {
 				String imageToProcess =
@@ -105,24 +108,34 @@ public class OpenCVSwingCameraFaceRecognition {
 
 			// Detect faces in the image.
 			// MatOfRect is a special container class for Rect.
-			System.out.println("Face detection - 1");
+			if (VERBOSE) {
+				System.out.println("Face detection - 1");
+			}
 			MatOfRect faceDetections = new MatOfRect();
-			System.out.println("Face detection - 2");
+			if (VERBOSE) {
+				System.out.println("Face detection - 2");
+			}
 			try {
 				faceDetector.detectMultiScale(image, faceDetections);
 			} catch (CvException oops) {
 				throw oops;
 			}
-			System.out.println("Face detection - 3");
-			faceDetections.toList().stream().forEach(rect -> {
-				System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
-			});
-			System.out.println(String.format(">> Detected %s face(s)", faceDetections.toArray().length));
+			if (VERBOSE) {
+				System.out.println("Face detection - 3");
+			}
+			if (VERBOSE) {
+				faceDetections.toList().forEach(rect -> {
+					System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
+				});
+				System.out.println(String.format(">> Detected %s face(s)", faceDetections.toArray().length));
+			}
 			// Draw a green bounding box around each face. Or whatever you want ;)
 			for (Rect rect : faceDetections.toArray()) {
 				Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0), 3);
 			}
-			System.out.println("\t\t\t>>> Face detection. End");
+			if (VERBOSE) {
+				System.out.println("\t\t\t>>> Face detection. End");
+			}
 			return image;
 		}
 	}
@@ -390,11 +403,13 @@ public class OpenCVSwingCameraFaceRecognition {
 		try {
 			Mat faces = faceDetector.detect(lastMat);
 //			faceDetector.run();
-			System.out.println("\t\tYeeeeees!");
+			if (VERBOSE) {
+				System.out.println("\t\tYeeeeees!");
+			}
 			lastMat = faces;
 		} catch (CvException cvEx) {
-			// No face...
-//			System.err.println(cvEx.toString());
+			// No face?...
+			System.err.println(cvEx.toString());
 		}
 		try {
 			swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
@@ -416,9 +431,18 @@ public class OpenCVSwingCameraFaceRecognition {
 	}
 
 	public static void main(String... args) {
+		String javaVersion = System.getProperty("java.version");
+		System.out.println(String.format("Running java %s", javaVersion));
+		if (javaVersion.startsWith("15")) {
+			System.out.println("------------------------------------------------------------------");
+			System.out.println("Warning: I had problems running the Face Detection with Java 15...");
+			System.out.println("------------------------------------------------------------------");
+		}
+
 		// load the OpenCV native library
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
 
 		new OpenCVSwingCameraFaceRecognition();
 
