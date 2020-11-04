@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Continuous capture, counts fingers.
+# Continuous capture, finger count.
 # Works better on a unified background
 #
 # https://pypi.org/project/opencv-python/
@@ -30,11 +30,53 @@ height = 640
 camera.set(3, width)
 camera.set(4, height)
 
+ZOOM_PRM = "--zoom:"
+ALL_STEPS_PRM = "--all-steps:"
+SCALE_PRM = "--scale:"
+CONTRAST_BRIGHTNESS_PRM = "--contrast-brightness:"
+BLUR_PRM = "--blur:"
+BLUR_KERNEL_SIZE_PRM = "--blur-kernel-size:"
+CANNY_PRM = "--canny:"
+HELP_PRM = "--help"
+
 mirror = True
 zoom = False
 verbose_contour = False
 scale = 25  # Zoom scale. Percent of the original (radius). 50 => 100%
 show_all_steps = False
+contrast_brightness = False
+blur = False
+blur_kernel_size = 15
+canny = False
+
+for arg in sys.argv:
+    if arg[:len(ZOOM_PRM)] == ZOOM_PRM:
+        zoom = "true" == arg[len(ZOOM_PRM):]
+    elif arg[:len(ALL_STEPS_PRM)] == ALL_STEPS_PRM:
+        show_all_steps = "true" == arg[len(ALL_STEPS_PRM):]
+    elif arg[:len(SCALE_PRM)] == SCALE_PRM:
+        scale = int(arg[len(SCALE_PRM):])
+    elif arg[:len(CONTRAST_BRIGHTNESS_PRM)] == CONTRAST_BRIGHTNESS_PRM:
+        contrast_brightness = "true" == arg[len(CONTRAST_BRIGHTNESS_PRM):]
+    elif arg[:len(BLUR_PRM)] == BLUR_PRM:
+        blur = "true" == arg[len(BLUR_PRM):]
+    elif arg[:len(CANNY_PRM)] == CANNY_PRM:
+        canny = "true" == arg[len(CANNY_PRM):]
+    elif arg[:len(BLUR_KERNEL_SIZE_PRM)] == BLUR_KERNEL_SIZE_PRM:
+        blur_kernel_size = int(arg[len(BLUR_KERNEL_SIZE_PRM):])
+    elif arg[:len(HELP_PRM)] == HELP_PRM:
+        print("Usage is:")
+        print("\t{}".format(sys.argv[0]))
+        print("\t\t--zoom:true|false")
+        print("\t\t--all-steps:true|false")
+        print("\t\t--scale:[0..50]")
+        print("\t\t--contrast-brightness:true|false")
+        print("\t\t--blur:true|false")
+        print("\t\t--blur-kernel-size:xx (default 15)")
+        print("\t\t--canny:true|false")
+        sys.exit(0)
+
+print("zoom:{}, all-steps:{}, scale:{}, contrast&brightness:{}, blur:{}, blurKernelSize:{}, canny:{}".format(zoom, show_all_steps, scale, contrast_brightness, blur, blur_kernel_size, canny))
 
 
 def distance(pt_a, pt_b):
@@ -46,6 +88,7 @@ def distance(pt_a, pt_b):
 
 print("+----------------------------------------------------+")
 print("| Type Q, q or Ctrl+C to exit the loop               |")
+print("| Type S to save the image (TODO)                    |")
 print("| > Select the main image before hitting a key... ;) |")
 print("+----------------------------------------------------+")
 keepLooping = True
@@ -79,7 +122,7 @@ while keepLooping:
         last_image = image
 
         # Contrasts & Brightness
-        if False:
+        if contrast_brightness:
             alpha = 1.5  # Contrast control (1.0-3.0)
             beta = 0     # Brightness control (0-100)
             adjusted = cv2.convertScaleAbs(last_image, alpha=alpha, beta=beta)
@@ -92,14 +135,14 @@ while keepLooping:
             cv2.imshow('Gray', img_gray)
         last_image = img_gray
 
-        if False:
-            kernel_size = 15
+        if blur:
+            kernel_size = blur_kernel_size
             blurred = cv2.GaussianBlur(last_image, (kernel_size, kernel_size), 0)
             if show_all_steps:
                 cv2.imshow('Blurred', blurred)
             last_image = blurred
 
-        if False:
+        if canny:
             edged = cv2.Canny(last_image, 50, 200, 255)
             if show_all_steps:
                 cv2.imshow("Edged", edged)
