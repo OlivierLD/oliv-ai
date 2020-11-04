@@ -15,8 +15,6 @@
 #
 # pip install opencv-python
 #
-# About matlibplot: https://stackoverflow.com/questions/28269157/plotting-in-a-non-blocking-way-with-matplotlib
-#
 import sys
 import time
 import warnings

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
-# Handwritten figures recognition => classification
+# With OpenCV
+# Interactive hand-written figures recognition => classification
 # also see https://www.tensorflow.org/api_docs/python/tf/keras and similar pages.
 #
 # Similar to sample.05.1.py, but with YOUR own images, read from the camera.
@@ -20,8 +21,6 @@
 # https://pypi.org/project/opencv-python/
 #
 # pip install opencv-python
-#
-# About matlibplot: https://stackoverflow.com/questions/28269157/plotting-in-a-non-blocking-way-with-matplotlib
 #
 import tensorflow as tf
 import numpy as np

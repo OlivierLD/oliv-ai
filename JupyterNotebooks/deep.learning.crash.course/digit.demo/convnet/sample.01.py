@@ -4,11 +4,13 @@
 # Matplotlib doc at https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.html
 # also see https://www.tensorflow.org/api_docs/python/tf/keras and similar pages.
 #
-# Model training. Convolutional Network (aka convnet)
+# Model training. Similar to `Notebooks/mnist.01.ipynb, but with Convolutional Network (aka convnet)
 # Model can be saved from here too.
 #
 # For the figures images, see https://github.com/myleott/mnist_png
 # images are 28px x 28px big.
+#
+# Will provide interactive recognition, from the MNIST data.
 #
 import tensorflow as tf
 from tensorflow.keras import models
@@ -32,20 +34,25 @@ print("TensorFlow version", tf_version)
 print("Keras version", tf.keras.__version__)
 
 print("{} script arguments.".format(len(sys.argv)))
+if len(sys.argv) > 1:
+    print("---------------------------------")
+    for arg in range(len(sys.argv)):
+        print("#{}: {}".format(arg, sys.argv[arg]))
+    print("---------------------------------")
 
 # Evaluate user's parameters
-loadOnly = False  # Load model, do not train it (if it is there already)
+loadOnly = False  # True: Load model, do not train it (if it is there already)
 if len(sys.argv) > 1 and sys.argv[1] == '--help':
     print("\nUsage is ")
-    print("\tpython {} [--help | L]".format(sys.argv[0]))
-    print("\tL is to Load the already trained model.")
+    print("\tpython {} [--help | --load-only]".format(sys.argv[0]))
+    print("\t--load-only is to Load the already trained model (convnet.h5).")
     print("\tNo parameter will train (and save) the model.")
     print("\t--help will display this content.\n")
     sys.exit()
 
-if len(sys.argv) > 1 and sys.argv[1] == 'L':
+if len(sys.argv) > 1 and sys.argv[1] == '--load-only':
     loadOnly = True
-    print("Will load the model, not train it.")
+    print(">> Will load the model, not train it.")
 
 if not loadOnly:
     print("We are going to train a network to recognize handwritten figures.")
@@ -121,8 +128,9 @@ if not loadOnly:  # Model to be trained
         # subplot.set_title(i + start_idx)
         plt.show()
     #
-    # Define model here
-    # =================
+    # ======================================
+    # Define model/network architecture here
+    # ======================================
     #
     model = models.Sequential()
     model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1), name='Conv2D-one'))
@@ -239,7 +247,7 @@ while keep_looping:
                     100 * predictions[test_idx][np.argmax(predictions[test_idx])]))
                 print("-----------------------------")
                 say_it = True
-                if say_it and platform.system() == 'Darwin':  # On Mac (use speech on Debian/Raspbian)
+                if say_it and platform.system() == 'Darwin':  # On Mac (TODO use speech on Debian/Raspbian)
                     sp.run(['say',
                             'It looks like a {} to me, I\'m {:2.0f}% sure'.format(str(np.argmax(predictions[test_idx])),
                                                                                   100 * predictions[test_idx][np.argmax(

@@ -27,7 +27,7 @@
 - `sample.05.21.py`, WIP
     - Reads a string of several digits, and speaks the result.
 - `convnet/sample.01.py`
-    - Digits recognition, Model training with a Convolutional Network (aka convnet)
+    - Digits recognition (from the MNIST db), Model training with a Convolutional Network (aka convnet)
     - Model can be saved from here too.
 - `sample.06.py`
     - Images recognition, like dresses, shirts, shoes, etc.
