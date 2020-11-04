@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
-# Continuous capture
+# Continuous capture, counts fingers.
+# Works better on a unified background
 #
 # https://pypi.org/project/opencv-python/
 #
@@ -22,7 +23,7 @@ print("OpenCV version", cv2.__version__)
 print("{} script arguments.".format(len(sys.argv)))
 
 # The core of the program
-camera = cv2.VideoCapture(1)
+camera = cv2.VideoCapture(0)   # (1) for the WebCam, usually
 
 width = 640
 height = 640
