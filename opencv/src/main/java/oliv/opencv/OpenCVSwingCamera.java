@@ -325,7 +325,11 @@ public class OpenCVSwingCamera {
 		}
 
 		try {
-			swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+			if (lastMat.size().height > 0 && lastMat.size().width > 0) {
+				swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+			} else {
+				System.out.println("...No image yet.");
+			}
 		} catch (Throwable throwable) {
 			// This can happen when the camera has just been started.
 			throwable.printStackTrace();

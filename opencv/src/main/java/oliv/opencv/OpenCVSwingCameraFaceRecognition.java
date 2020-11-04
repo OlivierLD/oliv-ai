@@ -430,7 +430,11 @@ public class OpenCVSwingCameraFaceRecognition {
 			System.err.println(cvEx.toString());
 		}
 		try {
-			swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+			if (lastMat.size().height > 0 && lastMat.size().width > 0) {
+				swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+			} else {
+				System.out.println("...No image yet.");
+			}
 		} catch (Throwable throwable) {
 			System.err.println(throwable.toString());
 		}
