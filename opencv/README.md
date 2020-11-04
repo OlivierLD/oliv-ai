@@ -1,4 +1,11 @@
 ## OpenCV in Java and Python
+This module is about `OpenCV`.
+
+`OpenCV` is an Open Source project that can be used to rework images,
+statically (rework one image) or dynamically (rework all frames grabbed from a camera).
+This module contains numerous examples, in Python and Java, showing to perform those operations,
+in order to prepare images before they're processed by a trained model.
+> See about this last point the `Hand-written Digit Recognition` demo, in `JupyterNotebooks/deep.learning.crash.course/digit.demo`.
 
 ### Good resources, OpenCV & JavaFX
 - <https://opencv-java-tutorials.readthedocs.io/en/latest/index.html>
