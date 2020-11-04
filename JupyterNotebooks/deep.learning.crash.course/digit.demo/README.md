@@ -1,7 +1,7 @@
 ## Summary of the Python scripts
 - `sample.01.py` Continuous Camera Capture, **_No Processing_**.
 - `sample.05.1.py`
-    - Can be used (see runtime options) to train the model (`training.h5`)
+    - Can be used (see runtime options, run `python3 sample.05.1.py --help`) to train the model (`training.h5`)
     - Will use images taken from the training data set to evaluate the digits it represents
 - `sample.05.2.py`
     - Similar to `sample.05.1.py`, but with _your_ own images, from the file system.
