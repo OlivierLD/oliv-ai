@@ -297,12 +297,15 @@ If we plot this on the diagram (red-yellow-green), we have:
 > - detect objects on the road
 > - recognize them (cars, bikes, pedestrians, traffic lights, curbs, etc)
 > - classify them, to then make the right decision (brake, turn right, slow down, etc)
+>   - For example, if you see a curb, you should change direction. A bike would go away from your path, but if you are expecting the curb to do the same, it could take a while...
 
 ![Objects detection](./img/object-detection.jpg)
 
 ### Back to our example: Deep - supervised - machine learning
 - _Deep_ means that we will be using Neural Networks
-- _Supervised_ means that the training data contain the expected result (`red`, `green`, `yellow`). _Unsupervised_ would mean that the training would also have to discover the classification categories. 
+- _Supervised_ means that the training data contain the expected result (`red`, `green`, `yellow`) along with the coordinates.
+    - Like `(40 years old, 120 mph max speed, 10 Kmiles per year) => 'green'`. 
+- _Unsupervised_ would mean that the training would also have to discover the classification categories. 
 
 The `model` will replace the `rules` we had before.
 
