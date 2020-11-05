@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Handwritten figures recognition => classification
+# SEVERAL Handwritten figures recognition => classification
 # also see https://www.tensorflow.org/api_docs/python/tf/keras and similar pages.
 #
 # Similar to sample.05.1.py, but with YOUR own images, read from the camera.
@@ -140,16 +140,17 @@ def process_image(image, show_all_steps=False, kernel_size=15):
 
     # TODO Suggest contrast & brightness?
 
-    blurred = cv2.GaussianBlur(last_image, (kernel_size, kernel_size), 0)
-    if show_all_steps:
-        cv2.imshow('Blurred', blurred)
-    last_image = blurred
+    if False:   # Blurred?
+        blurred = cv2.GaussianBlur(last_image, (kernel_size, kernel_size), 0)
+        if show_all_steps:
+            cv2.imshow('Blurred', blurred)
+        last_image = blurred
 
     edged = cv2.Canny(last_image, 50, 200, 255)
     last_image = edged
 
     if show_all_steps:
-        cv2.imshow("Edged", edged)
+        cv2.imshow("Canny Edged", edged)
 
     if True:
         #  60: put some light on!
