@@ -17,14 +17,15 @@
     Copied from micro_speech from the TensorFlow Lite samples.
     Saved here to preserve the original.
 
-    Micro_speech on Arduino Nano BLE Sense
+    Micro_speech on Arduino Nano 33 BLE Sense
 
  NOTE:
  =====
     See output command in arduino_command_responder.cpp.
     See in there how to do something smart...
 
- Stuck in upload mode: double-click on the reset button ! ;)    
+ Stuck in upload mode: double-click on the reset button ! ;)  
+ And MacOS Catalina sux again...  
 
 */
 
