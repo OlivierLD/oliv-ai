@@ -11,16 +11,20 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  ==============================================================================*/
+  ============================================================================== */
 
 /*
     Copied from micro_speech from the TensorFlow Lite samples.
     Saved here to preserve the original.
 
-    Micro_speech on Arduino Nanao BLE Sense
+    Micro_speech on Arduino Nano BLE Sense
 
+ NOTE:
+ =====
     See output command in arduino_command_responder.cpp.
     See in there how to do something smart...
+
+ Stuck in upload mode: double-click on the reset button ! ;)    
 
 */
 

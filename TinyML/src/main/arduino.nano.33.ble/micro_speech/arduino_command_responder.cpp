@@ -70,7 +70,7 @@ void RespondToCommand(tflite::ErrorReporter* error_reporter,
       digitalWrite(LEDR, LOW);  // Red for no.
     }
 
-    if (false && found_command[0] == 's') {
+    if (false && found_command[0] == 's') { // Warning, read the line <=
       last_command_time = current_time;
       digitalWrite(LEDR, LOW);  // Red AND Green for silence
       digitalWrite(LEDG, LOW);  // Green for yes.
