@@ -18,6 +18,7 @@
     Saved here to preserve the original.
 
     Micro_speech on Arduino Nano 33 BLE Sense
+    Look in the Serial Console for some output.
 
  NOTE:
  =====
@@ -25,7 +26,7 @@
     See in there how to do something smart...
 
  Stuck in upload mode: double-click on the reset button ! ;)  
- And MacOS Catalina sux again...  
+ Do not use the precompiled versions of Arduino_TensorFlowLite... it caused Serial port problem when uploading the sketch.
 
 */
 
@@ -74,6 +75,8 @@ void setup() {
   static tflite::MicroErrorReporter micro_error_reporter;
   error_reporter = &micro_error_reporter;
 
+//  Serial.println("Starting MicroSpeech");
+
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
   model = tflite::GetModel(g_model);
@@ -85,6 +88,11 @@ void setup() {
                          TFLITE_SCHEMA_VERSION);
     return;
   }
+//  TF_LITE_REPORT_ERROR(error_reporter,
+//                       "Model provided is schema version %d IS equal "
+//                       "to supported version %d.",
+//                       model->version(), 
+//                       TFLITE_SCHEMA_VERSION);
 
   // Pull in only the operation implementations we need.
   // This relies on a complete list of all the ops needed by this graph.

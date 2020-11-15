@@ -31,7 +31,7 @@ void RespondToCommand(tflite::ErrorReporter* error_reporter,
                       uint8_t score, 
                       bool is_new_command) {
   static bool is_initialized = false;
-  if (!is_initialized) {
+  if (!is_initialized) { // First time
     pinMode(LED_BUILTIN, OUTPUT);
     // Pins for the built-in RGB LEDs on the Arduino Nano 33 BLE Sense
     pinMode(LEDR, OUTPUT);
@@ -44,42 +44,64 @@ void RespondToCommand(tflite::ErrorReporter* error_reporter,
     digitalWrite(LEDG, HIGH);
     digitalWrite(LEDB, HIGH);
     is_initialized = true;
-  }
+
+//    Serial.println("Starting MicroSpeech");
+//    Serial.println("--------------------");
+}
   static int32_t last_command_time = 0;
   static int count = 0;
   static int certainty = 220;
 
   if (is_new_command) {
 
-// yes, no, unknown, silence, ...
-    
-    TF_LITE_REPORT_ERROR(error_reporter, "Are you talking to me? Heard %s (%d) @%dms", found_command,
-                         score, current_time);
+// yes, no, unknown, silence, ..., plus possibly up, down, left, right (<= warning: up and unknown begin with the same 'u'), see in the training model, and in micro_features_micro_model_settings.cpp
+    // 3 leds available: R, G, B
+    TF_LITE_REPORT_ERROR(error_reporter, ">> Are you talking to me? Heard %s (score %d / %d) @%d ms",
+                         found_command, score, certainty, current_time);
     // If we hear a command, light up the appropriate LED
-    if (found_command[0] == 'y') {
+    if (found_command[0] == 'y') { // Yes
       Serial.println("\tYYYYYYES!!");
-      
       last_command_time = current_time;
       digitalWrite(LEDG, LOW);  // Green for yes.
     }
 
-    if (found_command[0] == 'n') {
+    if (found_command[0] == 'n') { // No
       Serial.println("\tNNNNNNNNO!");
-
       last_command_time = current_time;
       digitalWrite(LEDR, LOW);  // Red for no.
     }
 
     if (false && found_command[0] == 's') { // Warning, read the line <=
+      Serial.println("\t ...Silence");
       last_command_time = current_time;
       digitalWrite(LEDR, LOW);  // Red AND Green for silence
-      digitalWrite(LEDG, LOW);  // Green for yes.
+      digitalWrite(LEDG, LOW); 
     }
 
-    if (found_command[0] == 'u') {
+    if (found_command[0] == 'u' && found_command[1] == 'n') { // Unknown
       last_command_time = current_time;
       digitalWrite(LEDB, LOW);  // Blue for unknown
     }
+
+//    if (found_command[0] == 'u' && found_command[1] == 'p') { // Up
+//      Serial.println("\tUP!");
+//      last_command_time = current_time;
+//    }
+//
+//    if (found_command[0] == 'd') { // Down
+//      Serial.println("\tDOWN!");
+//      last_command_time = current_time;
+//    }
+//
+//    if (found_command[0] == 'l') { // Left
+//      Serial.println("\tLEFT!");
+//      last_command_time = current_time;
+//    }
+//
+//    if (found_command[0] == 'r') { // Right
+//      Serial.println("\tRIGHT!");
+//      last_command_time = current_time;
+//    }
   }
 
   // If last_command_time is non-zero but was >3 seconds ago, zero it

@@ -19,5 +19,9 @@ const char* kCategoryLabels[kCategoryCount] = {
     "silence",
     "unknown",
     "yes",
-    "no",
+    "no" /* , Update kCategoryCount if uncommenting those next ones
+    "up",
+    "down",
+    "left",
+    "right" */
 };
