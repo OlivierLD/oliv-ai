@@ -1,6 +1,10 @@
 ## Oliv AI
 Learning AI, ML, DL, etc.
 
+> “Any intelligent fool can make things bigger and more complex... It takes a touch of genius and a lot of courage to move in the opposite direction.” 
+>
+> - Albert Einstein 
+
 #### About the Raspberry Pi
 Did several tests, specially since RaspiOS 64-bits was released, running TensorFlow - installing it actually - is not always as straigthforward as expected.
 
@@ -54,6 +58,21 @@ TensorFlow version 2.2.0
 TensorFlow/Keras version 2.3.0-tf
 >>> exit()
 root@4c8d410e8b57:/# 
+```
+Connected as above, you can do a
+```
+$ python3
+>>> help("modules")
+. . .
+
+>>> import tensorflow as tf
+
+>>> from tensorflow import keras
+>>> from tensorflow.keras import layers
+
+>>> print(tf.__version__)
+>>> print(keras.__version__)
+
 ```
 
 There you go!
