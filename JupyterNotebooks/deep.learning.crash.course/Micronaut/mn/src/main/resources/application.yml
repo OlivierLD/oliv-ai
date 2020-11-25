@@ -1,0 +1,6 @@
+micronaut:
+  application:
+    name: mn
+python-config:
+  python-folder: "python"
+  keras-model: "training.h5"
