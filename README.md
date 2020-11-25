@@ -79,6 +79,8 @@ There you go!
 
 Do also check
 ```
+$ docker pull tensorflow/tensorflow:nightly-py3-jupyter
 $ docker run -it -p 8888:8888 tensorflow/tensorflow:nightly-py3-jupyter
 ```
-It comes with cool tutorials and examples.
+This will start the container, and a Jupyter notebook server. It comes with cool tutorials and examples.
+Reach the server from your browser (port `8888` here), using the URL that shows up in the docker console.
