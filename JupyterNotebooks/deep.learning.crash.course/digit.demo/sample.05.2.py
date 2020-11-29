@@ -94,12 +94,10 @@ while keepLooping:
                 im2arr = im2arr.reshape(1, 28, 28, 1)
                 pred = model.predict_classes(im2arr)
                 precision = model.predict(im2arr)
-                print("Prediction: it looks like a ",
+                print("Prediction: it looks like a {} ( {}% sure ), Nb predictions: {}".format(
                       str(int(pred[0])),
-                      " (",
                       precision[0][np.argmax(precision)] * 100,
-                      "% sure ), Nb predictions:",
-                      len(precision))
+                      len(precision)))
                 if platform.system() == 'Darwin':
                     sp.run(['say',
                             'It looks like a ' +

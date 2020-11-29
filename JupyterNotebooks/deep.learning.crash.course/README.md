@@ -142,6 +142,11 @@ Upgraded Notebooks and Python3 scripts to recent versions:
 >
 > _Note_: You can change the Kernel of an existing Notebook, by going to `Kernel` > `Change kernel` > `py_37_env`.  
 
+> _Note_: From a Notebook, you can also do a
+> ```
+> !pip install tensorflow
+> ```
+
 #### Insurance Demo
 ##### Python Jupyter Notebooks
 See `01.data.ipynb`, `02.intro.ipynb`, `03.training.ipynb`, `04.regularization.ipynb`, `05.final.model.ipynb`.
