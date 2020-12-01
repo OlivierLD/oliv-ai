@@ -396,6 +396,7 @@ For this particular case, you could prevent overfitting by simply stopping the t
 In the code above, you applied the `TextVectorization` layer to the dataset before feeding text to the model. If you want to make your model capable of processing raw strings (for example, to simplify deploying it), you can include the `TextVectorization` layer inside your model. To do so, you can create a new model using the weights you just trained.
 """
 
+dummy = user_input("Saving first model (hit [return]) :")
 try:
     model.save("model_01.h5")
 except Exception as ex:
@@ -407,6 +408,7 @@ export_model = tf.keras.Sequential([
   model,
   layers.Activation('sigmoid')
 ])
+# export_model.summary()    # Does not work on this one. Needs to be built or fit first...
 
 export_model.compile(
     loss=losses.BinaryCrossentropy(from_logits=False), optimizer="adam", metrics=['accuracy']
@@ -416,6 +418,10 @@ print(">> Evaluating exported model")
 # Test it with `raw_test_ds`, which yields raw strings
 loss, accuracy = export_model.evaluate(raw_test_ds)
 print(accuracy)
+
+export_model.build()  # Required for Summary
+print("Summary of the exported model")
+export_model.summary()
 
 """### Inference on new data
 
