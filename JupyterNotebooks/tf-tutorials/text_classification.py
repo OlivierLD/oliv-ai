@@ -21,6 +21,7 @@
 
 This tutorial demonstrates text classification starting from plain text files stored on disk. You'll train a binary classifier to perform sentiment analysis on an IMDB dataset. At the end of the notebook, there is an exercise for you to try, in which you'll train a multiclass classifier to predict the tag for a programming question on Stack Overflow.
 """
+print(">> Text Classification, Let's go!")
 
 import matplotlib.pyplot as plt
 import os
@@ -36,10 +37,20 @@ from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 
 import sys
 import os
+from os import path
 
-print("Proxies:")
-print("HTTP_PROXY:  {}".format(os.environ['HTTP_PROXY']))
-print("HTTPS_PROXY: {}".format(os.environ['HTTPS_PROXY']))
+print(">> Done with imports...")
+
+print("--- Proxies ---")
+try:
+    print("HTTP_PROXY:  {}".format(os.environ['HTTP_PROXY']))
+except KeyError:
+    print("HTTP_PROXY:  Not set")
+try:
+    print("HTTPS_PROXY: {}".format(os.environ['HTTPS_PROXY']))
+except KeyError:
+    print("HTTPS_PROXY:  Not set")
+print("---------------")
 
 
 print("Python version")
@@ -73,7 +84,24 @@ Let's download and extract the dataset, then explore the directory structure.
 # export HTTP_PROXY and HTTPS_PROXY
 #
 
-response = user_input("Download the data ? Y|n > ")
+content = os.listdir(".")
+print("Current folder's content:\n{}".format(content))
+
+DATASET_FOLDER = "./aclImdb"
+
+data_exists = False
+if path.exists(DATASET_FOLDER):
+    data_exists = True
+    response = user_input("Delete existing data ? y|N > ")
+    if response.lower() == 'y':
+        shutil.rmtree(DATASET_FOLDER)
+        data_exists = False
+
+response = "Y"
+if data_exists:
+    response = user_input("Re-download the dataset ? Y|n > ")
+else:
+    print("Now downloading the dataset")
 if response.lower() != 'n':
     url = "https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
     dataset = tf.keras.utils.get_file("aclImdb_v1.tar.gz", url,
@@ -85,13 +113,14 @@ if response.lower() != 'n':
 
     os.listdir(dataset_dir)
 else:
-    dataset_dir = "aclImdb"
+    dataset_dir = DATASET_FOLDER
 
 train_dir = os.path.join(dataset_dir, 'train')
 os.listdir(train_dir)
 
 """The `aclImdb/train/pos` and `aclImdb/train/neg` directories contain many text files, each of which is a single movie review. Let's take a look at one of them."""
 
+dummy = user_input("Sample data (hit [return]) :")
 sample_file = os.path.join(train_dir, 'pos/1181_9.txt')
 with open(sample_file) as f:
     print(f.read())
@@ -113,8 +142,12 @@ main_directory/
 To prepare a dataset for binary classification, you will need two folders on disk, corresponding to `class_a` and `class_b`. These will be the positive and negative movie reviews, which can be found in  `aclImdb/train/pos` and `aclImdb/train/neg`. As the IMDB dataset contains additional folders, you will remove them before using this utility.
 """
 
+dummy = user_input("Removing {}/unsup (hit [return]) :".format(train_dir))
 remove_dir = os.path.join(train_dir, 'unsup')
-shutil.rmtree(remove_dir)
+try:
+    shutil.rmtree(remove_dir)
+except FileNotFoundError:
+    print("{} not found, moving on.".format(remove_dir))
 
 """Next, you will use the `text_dataset_from_directory` utility to create a labeled `tf.data.Dataset`. [tf.data](https://www.tensorflow.org/guide/data) is a powerful collection of tools for working with data. 
 
@@ -126,6 +159,7 @@ The IMDB dataset has already been divided into train and test, but it lacks a va
 batch_size = 32
 seed = 42
 
+dummy = user_input("Setting training data (hit [return]) :")
 raw_train_ds = tf.keras.preprocessing.text_dataset_from_directory(
     'aclImdb/train', 
     batch_size=batch_size, 
@@ -178,12 +212,13 @@ As you saw above, the reviews contain various HTML tags like `<br />`. These tag
 Note: to prevent [train/test skew](https://developers.google.com/machine-learning/guides/rules-of-ml#training-serving_skew) (also know as train/serving skew), it is important to preprocess the data identically at train and test time. To facilitate this, the `TextVectorization` layer can be included directly inside your model, as shown later in this tutorial.
 """
 
+
 def custom_standardization(input_data):
-  lowercase = tf.strings.lower(input_data)
-  stripped_html = tf.strings.regex_replace(lowercase, '<br />', ' ')
-  return tf.strings.regex_replace(stripped_html,
-                                  '[%s]' % re.escape(string.punctuation),
-                                  '')
+    lowercase = tf.strings.lower(input_data)
+    stripped_html = tf.strings.regex_replace(lowercase, '<br />', ' ')
+    return tf.strings.regex_replace(stripped_html,
+                                      '[%s]' % re.escape(string.punctuation),
+                                      '')
 
 """Next, you will create a `TextVectorization` layer. you will use this layer to standardize, tokenize, and vectorize our data. You set the `output_mode` to `int` to create unique integer indices for each token.
 
@@ -211,8 +246,9 @@ vectorize_layer.adapt(train_text)
 """Let's create a function to see the result of using this layer to preprocess some data."""
 
 def vectorize_text(text, label):
-  text = tf.expand_dims(text, -1)
-  return vectorize_layer(text), label
+    text = tf.expand_dims(text, -1)
+    return vectorize_layer(text), label
+
 
 # retrieve a batch (of 32 reviews and labels) from the dataset
 text_batch, label_batch = next(iter(raw_train_ds))
@@ -255,6 +291,7 @@ test_ds = test_ds.cache().prefetch(buffer_size=AUTOTUNE)
 It's time to create our neural network:
 """
 
+dummy = user_input("Now creating the model (hit [return]) :")
 embedding_dim = 16
 
 model = tf.keras.Sequential([
@@ -289,6 +326,7 @@ model.compile(loss=losses.BinaryCrossentropy(from_logits=True),
 You will train the model by passing the `dataset` object to the fit method.
 """
 
+dummy = user_input("Training the model (hit [return]) :")
 epochs = 10
 history = model.fit(
     train_ds,
@@ -300,6 +338,7 @@ history = model.fit(
 Let's see how the model performs. Two values will be returned. Loss (a number which represents our error, lower values are better), and accuracy.
 """
 
+dummy = user_input("Evaluating the model (hit [return]) :")
 loss, accuracy = model.evaluate(test_ds)
 
 print("Loss: ", loss)
@@ -357,6 +396,12 @@ For this particular case, you could prevent overfitting by simply stopping the t
 In the code above, you applied the `TextVectorization` layer to the dataset before feeding text to the model. If you want to make your model capable of processing raw strings (for example, to simplify deploying it), you can include the `TextVectorization` layer inside your model. To do so, you can create a new model using the weights you just trained.
 """
 
+try:
+    model.save("model_01.h5")
+except Exception as ex:
+    print("Error saving model: {}".format(ex))
+
+print(">> Now exporting the model, Sigmoid activation function")
 export_model = tf.keras.Sequential([
   vectorize_layer,
   model,
@@ -367,6 +412,7 @@ export_model.compile(
     loss=losses.BinaryCrossentropy(from_logits=False), optimizer="adam", metrics=['accuracy']
 )
 
+print(">> Evaluating exported model")
 # Test it with `raw_test_ds`, which yields raw strings
 loss, accuracy = export_model.evaluate(raw_test_ds)
 print(accuracy)
@@ -376,13 +422,16 @@ print(accuracy)
 To get predictions for new examples, you can simply call `model.predict()`.
 """
 
+dummy = user_input("Putting the model to work (hit [return]) :")
+
 examples = [
   "The movie was great!",
   "The movie was okay.",
   "The movie was terrible..."
 ]
 
-export_model.predict(examples)
+predictions = export_model.predict(examples)
+print("For sentences\n{}\nprediction is \n{}".format(examples, predictions))
 
 """Including the text preprocessing logic inside your model enables you to export a model for production that simplifies deployment, and reduces the potential for [train/test skew](https://developers.google.com/machine-learning/guides/rules-of-ml#training-serving_skew).
 
@@ -434,3 +483,13 @@ If you get stuck, you can find a solution [here](https://github.com/tensorflow/e
 
 This tutorial introduced text classification from scratch. To learn more about the text classification workflow in general, we recommend reading [this guide](https://developers.google.com/machine-learning/guides/text-classification/) from Google Developers.
 """
+
+print("Saving the model")
+# See https://www.tensorflow.org/tutorials/keras/save_and_load
+try:
+    export_model.save('text_classification_model')   #, save_format='tf')
+    print("Model was saved")
+except Exception as ex:
+    print("Error saving the exported model: {}".format(ex))
+
+print("--- Done! ---")
