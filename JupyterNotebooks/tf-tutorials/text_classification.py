@@ -33,7 +33,14 @@ from tensorflow.keras import layers
 from tensorflow.keras import losses
 from tensorflow.keras import preprocessing
 from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
+
 import sys
+import os
+
+print("Proxies:")
+print("HTTP_PROXY:  {}".format(os.environ['HTTP_PROXY']))
+print("HTTPS_PROXY: {}".format(os.environ['HTTPS_PROXY']))
+
 
 print("Python version")
 print(sys.version)
@@ -44,7 +51,7 @@ def user_input(prompt):
         value = input(prompt)
         return value
     except KeyboardInterrupt as ki:
-        print("Keyboard Interrupt... Exiting.")
+        print("\nKeyboard Interrupt... Exiting.")
         sys.exit(1)
 
 
@@ -61,17 +68,24 @@ You'll use the [Large Movie Review Dataset](https://ai.stanford.edu/~amaas/data/
 Let's download and extract the dataset, then explore the directory structure.
 """
 
+#
+# Set proxy if needed
+# export HTTP_PROXY and HTTPS_PROXY
+#
 
-dummy = user_input("Now about to download the data, hit [return] ")
-url = "https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
-dataset = tf.keras.utils.get_file("aclImdb_v1.tar.gz", url,
-                                    untar=True, cache_dir='.',
-                                    cache_subdir='')
-dataset_dir = os.path.join(os.path.dirname(dataset), 'aclImdb')
+response = user_input("Download the data ? Y|n > ")
+if response.lower() != 'n':
+    url = "https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
+    dataset = tf.keras.utils.get_file("aclImdb_v1.tar.gz", url,
+                                        untar=True, cache_dir='.',
+                                        cache_subdir='')
 
-dummy = user_input("Download completed, now listing the aclImdb folder, hit [return] ")
+    dataset_dir = os.path.join(os.path.dirname(dataset), 'aclImdb')
+    dummy = user_input("Download completed in {}, now listing the aclImdb folder, hit [return] ".format(dataset_dir))
 
-os.listdir(dataset_dir)
+    os.listdir(dataset_dir)
+else:
+    dataset_dir = "aclImdb"
 
 train_dir = os.path.join(dataset_dir, 'train')
 os.listdir(train_dir)
