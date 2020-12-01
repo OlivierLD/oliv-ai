@@ -33,10 +33,19 @@ from tensorflow.keras import layers
 from tensorflow.keras import losses
 from tensorflow.keras import preprocessing
 from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
+import sys
+
+print("Python version")
+print(sys.version)
+
 
 def user_input(prompt):
-    value = input(prompt)
-    return value
+    try:
+        value = input(prompt)
+        return value
+    except KeyboardInterrupt as ki:
+        print("Keyboard Interrupt... Exiting.")
+        sys.exit(1)
 
 
 print("TensorFlow version {}".format(tf.__version__))
