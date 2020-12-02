@@ -1,4 +1,10 @@
-# This is the pure Python equivalent of text_classification.ipynb
+# This is the pure Python equivalent of text_classification.ipynb,
+# found at https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/keras/text_classification.ipynb#scrollTo=nQauv38Lnok3
+# Can be copied to your Google Drive to be modified and messed with.
+#
+# My copy at https://colab.research.google.com/drive/1ySPklzrWNhK9XNzrrNJ_MCZkNzp0luEW#scrollTo=XBNyWry4rJnb, model will be zipped for download.
+# WiP at https://colab.research.google.com/drive/1OHBedJv8aqg1hpeKlf5DBfPuVYGFZinO#scrollTo=-6adt4Rype8Z
+#
 ##### Copyright 2019 The TensorFlow Authors.
 """
 
@@ -120,7 +126,7 @@ if response.lower() == 'y':
 else:
     dataset_dir = DATASET_FOLDER
 
-train_dir = os.path.join(dataset_dir, 'train')
+train_dir = os.path.join(dataset_dir, 'train')  # Takes care of the File.separator
 os.listdir(train_dir)
 
 """
