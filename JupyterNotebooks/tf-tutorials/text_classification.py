@@ -30,7 +30,9 @@ This tutorial demonstrates text classification starting from plain text files st
 print(">> Text Classification, Let's go!")
 
 import matplotlib.pyplot as plt
+import sys
 import os
+from os import path
 import re
 import shutil
 import string
@@ -40,10 +42,6 @@ from tensorflow.keras import layers
 from tensorflow.keras import losses
 from tensorflow.keras import preprocessing
 from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
-
-import sys
-import os
-from os import path
 
 print(">> Done with imports...")
 

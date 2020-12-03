@@ -17,4 +17,32 @@ Then, upload the `model.zip` that was previously downloaded.
 > _Note:_ you could also save that archive on somewhere on the web, and download it from its URL, as did for the 
 > datasets used in the previous Notebook.
 
-  
+See in the code the way we need to re-define the `custom_standardization`, and use it during the `load_model`:
+```python
+import re
+import strings
+
+@tf.keras.utils.register_keras_serializable(
+    package='Custom', name=None
+)
+def custom_standardization(input_data):
+  lowercase = tf.strings.lower(input_data)
+  stripped_html = tf.strings.regex_replace(lowercase, '<br />', ' ')
+  return tf.strings.regex_replace(stripped_html,
+                                  '[%s]' % re.escape(string.punctuation),
+                                  '')
+
+model = None
+with tf.keras.utils.custom_object_scope({'custom_standardization': custom_standardization}):
+  model = tf.keras.models.load_model('text_classification_model')  # Folder
+```
+
+The archived model will be un-zipped in the code, by the Notebook itself.
+
+Model will then be reloaded from its un archived directory, and predictions will be sent to it.
+
+## Resources
+- [Define, Train, Export the model](https://colab.research.google.com/drive/1ySPklzrWNhK9XNzrrNJ_MCZkNzp0luEW?usp=sharing)
+- [LoadingModel.ipynb](https://colab.research.google.com/drive/1OHBedJv8aqg1hpeKlf5DBfPuVYGFZinO?usp=sharing)
+
+---
