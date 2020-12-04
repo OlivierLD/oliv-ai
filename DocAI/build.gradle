@@ -1,0 +1,135 @@
+plugins {
+    id 'java'
+    id 'application' // -> provides the 'run' task. See mainClassName
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'com.github.johnrengelman.shadow'
+}
+
+// Application plugin doc at https://docs.gradle.org/current/userguide/application_plugin.html
+
+group 'oliv.opencv'
+version '1.0'
+
+//sourceCompatibility = 1.9
+//targetCompatibility = 1.9
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    // Also see https://mvnrepository.com/artifact/org.openpnp/opencv, https://mvnrepository.com/artifact/com.quickbirdstudios/opencv/4.0.1 ?
+}
+
+def opencvVersion = "4.5.0_2"
+// Use ${opencvVersion} below, when needed.
+
+// Note: use "$ gradle dependencies" to visualize them.
+dependencies {
+    if (System.getProperty("os.name").indexOf("Mac") > -1) {
+        print "On Mac"
+//        implementation fileTree(dir: "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/", include: ['*.jar']) // Mac
+        implementation fileTree(dir: "/usr/local/share/java/opencv4/", include: ['*.jar']) // Mac
+    } else {
+        print "Assuming Raspberry Pi"
+        implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
+    }
+    compile 'com.google.code.gson:gson:2.8.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+javafx {
+    version = "12"
+    modules = [ 'javafx.controls',
+                'javafx.swing',
+                'javafx.fxml' ]
+}
+
+task listJars {
+    doLast {
+        configurations.compile.each {
+            File file -> println "${file} => ${file.name}"
+        }
+    }
+}
+
+shadowJar {
+    zip64 true
+}
+
+
+if (!hasProperty('mainClassName')) {
+    println "No mainClassName, using default"
+    ext.mainClassName = 'oliv.opencv.OpenCVSwing'
+//} else {
+//    println ">> Found mainClassName: $mainClassName"
+//    ext.mainClassName = mainClassName
+}
+
+
+mainClassName = 'oliv.opencv.OpenCVSwing'
+ext.mainClassNameOliv101 = 'oliv.opencv.OpenCV101'
+ext.mainClassNameOlivSwing = 'oliv.opencv.OpenCVSwing'
+ext.mainClassNameOlivSwingCamera = 'oliv.opencv.OpenCVSwingCamera'
+ext.mainClassNameFaceDetect = 'oliv.opencv.FaceRecognitionSample'
+ext.mainClassNameContinuousFaceDetect = 'oliv.opencv.OpenCVContinuousFaceDetection'
+ext.mainClassNameContinuousPathDetect = 'oliv.opencv.OpenCVContinuousPathDetection'
+// More
+ext.openCVSwingCameraFaceRecognition = "oliv.opencv.OpenCVSwingCameraFaceRecognition"
+
+
+tasks.withType(JavaExec) {
+    if (System.getProperty("os.name").indexOf("Mac") > -1) {
+        // For Mac
+        systemProperty "java.library.path", "/usr/local/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
+//      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
+//      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/" // Mac
+    } else {
+        systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
+    }
+    if (System.getProperty('DEBUG', 'false') == 'true') {
+        jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
+    }
+}
+
+//task run01(type: JavaExec, ) {
+//    classpath = configurations.runtime
+//    classpath sourceSets.main.runtimeClasspath
+//    main = 'it.polito.elite.teaching.cv.HelloCV'
+//    workingDir "."
+//}
+//
+
+// Could not use gradlew run -PmainClassName=oliv.opencv.OpenCV101
+task runOliv101(type:JavaExec) {
+    main = mainClassNameOliv101
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runOlivSwing(type:JavaExec) {
+    main = mainClassNameOlivSwing
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runOlivSwingCamera(type:JavaExec) {
+    main = mainClassNameOlivSwingCamera
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task continuousPathDetect(type:JavaExec) {
+    main = mainClassNameContinuousPathDetect
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task faceDetect(type:JavaExec) {
+    main = mainClassNameFaceDetect
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task continuousFaceDetect(type:JavaExec) {
+    main = mainClassNameContinuousFaceDetect
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task continuousSwingFaceDetect(type:JavaExec) {
+    main = openCVSwingCameraFaceRecognition
+    classpath = sourceSets.main.runtimeClasspath
+}

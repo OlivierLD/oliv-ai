@@ -30,7 +30,7 @@ public class OpenCVSwing {
 	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "path.jpg";
 	private final static String IMAGE_02 = IMAGE_SOURCE_PATH + File.separator + "path.2.png";
 
-	private final static long WAIT = 10_000L;
+	private final static long WAIT = 5_000L;
 
 	private static SwingFrame swingFrame = null;
 
@@ -202,6 +202,8 @@ public class OpenCVSwing {
 		// load the OpenCV native library
 		System.out.println("Loading " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+		System.out.println(String.format("Loading %s from %s", IMAGE_02, System.getProperty("user.dir")));
 
 //		process(IMAGE_01);
 		process(IMAGE_02);

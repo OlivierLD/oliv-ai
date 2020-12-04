@@ -2,8 +2,9 @@ rootProject.name = 'oliv.ai'
 //
 include "TensorFlow"
 include "JupyterNotebooks:deep.learning.crash.course"
+include 'DocAI'
 include 'opencv'
-include 'oliv-opencv'
+//include 'oliv-opencv'
 include 'TinyML'
 include 'tribuo'
 include 'spark-ml'
