@@ -1,7 +1,11 @@
-package oliv.opencv.swing;
+package docai.opencv.swing;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -16,8 +20,8 @@ public class SwingFrame extends JFrame {
 
 	public SwingFrame() {
 		initComponents();
-		this.setSize(new Dimension(1200, 600));
-		this.setPreferredSize(new Dimension(1200, 600));
+		this.setSize(new Dimension(400, 500));
+		this.setPreferredSize(new Dimension(400, 500));
 		this.setTitle("OpenCV");
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

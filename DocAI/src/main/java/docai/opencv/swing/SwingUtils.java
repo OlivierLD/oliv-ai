@@ -1,4 +1,4 @@
-package oliv.opencv.swing;
+package docai.opencv.swing;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;

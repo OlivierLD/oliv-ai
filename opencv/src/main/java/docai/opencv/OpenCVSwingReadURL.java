@@ -1,18 +1,11 @@
-package oliv.opencv;
+package docai.opencv;
 
 import cv.utils.Utils;
-import oliv.opencv.swing.SwingFrame;
+import docai.opencv.swing.SwingFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 import java.awt.Dimension;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Oliv did it.

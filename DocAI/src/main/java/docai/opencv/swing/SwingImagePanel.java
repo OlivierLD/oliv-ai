@@ -1,4 +1,4 @@
-package oliv.opencv.swing;
+package docai.opencv.swing;
 
 import java.awt.*;
 

@@ -139,8 +139,9 @@ public final class Utils {
 	public enum AngleX90 {
 		_0, _90, _180, _270
 	}
+
 	public static void rotate_90n(Mat img, AngleX90 angle) {
-		if (angle == AngleX90._270) {
+		if (angle.equals(AngleX90._270)) {
 			// Rotate clockwise 270 degrees
 			Core.transpose(img, img);
 			Core.flip(img, img, 0);

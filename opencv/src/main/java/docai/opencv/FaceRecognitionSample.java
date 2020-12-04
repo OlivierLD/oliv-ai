@@ -1,4 +1,4 @@
-package oliv.opencv;
+package docai.opencv;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;

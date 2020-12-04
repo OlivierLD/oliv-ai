@@ -1,4 +1,4 @@
-package oliv.opencv;
+package docai.opencv;
 
 import cv.utils.Utils;
 import org.opencv.core.Core;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import oliv.opencv.swing.SwingFrame;
+import docai.opencv.swing.SwingFrame;
 
 /**
  * Oliv did it.

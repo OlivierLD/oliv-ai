@@ -1,51 +1,47 @@
-package oliv.opencv;
+package docai.opencv;
 
 import cv.utils.Utils;
-import oliv.opencv.swing.SwingFrameWithWidgets;
-import oliv.opencv.swing.SwingUtils;
+import docai.opencv.swing.SwingFrameWithWidgets;
 import org.opencv.core.Core;
 import org.opencv.core.CvException;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
 
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-import java.util.MissingFormatArgumentException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Oliv did it.
- * Basic OpenCV image manipulations on frames returned by the Camera, or a static image
- * See -Dinput.source
- * Display images in a Swing JPanel, with widgets to interact with some OpenCV options
- *
+ * OpenCV image manipulations on frames returned by the Camera
+ * Display images in a Swing JPanel
+ * Detect the faces on the last processed image (depends on the checkboxes in the Swing UI)
  */
-public class OpenCVSwingCamera {
+public class OpenCVContinuousFaceDetection {
 
 	private ScheduledExecutorService timer;
 	private VideoCapture camera = null;
 	private boolean cameraActive = false;
-	private final static int cameraId = 0;
+	private static int cameraId = 0;
+
+	private static CascadeClassifier faceDetector;
+	private static boolean verbose = "true".equals(System.getProperty("face.verbose"));
 
 	private static SwingFrameWithWidgets swingFrame = null;
 
@@ -54,34 +50,21 @@ public class OpenCVSwingCamera {
 	private final static int DEFAULT_IMAGE_WIDTH =  800;
 	private final static int DEFAULT_IMAGE_HEIGHT = 600;
 
-	private static boolean takeSnapshot = false;
-	private final static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss.SSS");
+	public OpenCVContinuousFaceDetection() {
 
-	public OpenCVSwingCamera() {
+		// Create face detector
+		String cascadeResource = getClass().getResource("/lbpcascade_frontalface.xml").getPath(); // It comes in the opencv repo.
+		System.out.println(String.format("Looking for the resource file %s", cascadeResource));
+		if (cascadeResource == null) {
+			throw new RuntimeException("lbpcascade_frontalface.xml not found where expected");
+		}
+		faceDetector = new CascadeClassifier(cascadeResource);
 
-		// Input Option (problems with Swing dialogs in JDK 11, like FileChooser)
-		String option = System.getProperty("input.source", "CAMERA");
-		// If "input.source" != 'CAMERA', then we assume it is the image URL.
-		boolean fromCamera = option.equals("CAMERA");
-
-		// For the user button
-		final String userButtonLabel = "Snap!";
-		Runnable userAction = () -> {
-			// See usage in then process method
-			takeSnapshot = true;
-		};
-
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println(String.format("Screen Dimensions: w %d h %d", screenSize.width, screenSize.height));
-
-		swingFrame = new SwingFrameWithWidgets(Math.min(DEFAULT_FRAME_WIDTH, screenSize.width),
-				Math.min(DEFAULT_FRAME_HEIGHT, screenSize.height),
-				DEFAULT_IMAGE_WIDTH,
-				DEFAULT_IMAGE_HEIGHT,
-				userButtonLabel,
-				userAction);
-		int x = (int) ((screenSize.getWidth() - swingFrame.getWidth()) / 2);
-		int y = (int) ((screenSize.getHeight() - swingFrame.getHeight()) / 2);
+		// Swing frame, for display
+		swingFrame = new SwingFrameWithWidgets(DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT, DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - swingFrame.getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() - swingFrame.getHeight()) / 2);
 		swingFrame.setLocation(x, y);
 		swingFrame.setVisible(true);
 
@@ -93,43 +76,15 @@ public class OpenCVSwingCamera {
 				System.exit(0);
 			}
 		});
-
-		if (fromCamera) {
-			startCamera();
-		} else {
-			// option contains the image URL
-			try {
-				URL imageURL = new URL(option); // Validity check
-				startOneImageProcessor(option);
-			} catch (MalformedURLException mue) {
-				JOptionPane.showMessageDialog(swingFrame, String.format("Bad URL: %s", option), "Bad URL", JOptionPane.ERROR_MESSAGE);
-			}
-		}
+		startCamera();
 	}
 
-	private final static double VIDEO_WIDTH = DEFAULT_IMAGE_WIDTH;
-	private final static double VIDEO_HEIGHT = DEFAULT_IMAGE_HEIGHT;
-
-	protected void startOneImageProcessor(String imageURL) {
-		// Display it,
-		Mat image;
-		try {
-			image = Utils.readMatFromURL(imageURL);
-			process(image);
-			// grab a frame every 33 ms (30 frames/sec)
-			Runnable frameGrabber = () -> process(image);
-
-			this.timer = Executors.newSingleThreadScheduledExecutor();
-			this.timer.scheduleAtFixedRate(frameGrabber, 0, 33, TimeUnit.MILLISECONDS);
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(swingFrame, String.format("Reading image URL\n%s:\n%s", imageURL, ex.toString()), "Image URL", JOptionPane.ERROR_MESSAGE);
-			ex.printStackTrace();
-		}
-	}
+	private final static double VIDEO_WIDTH = (double)DEFAULT_IMAGE_WIDTH;
+	private final static double VIDEO_HEIGHT = (double)DEFAULT_IMAGE_HEIGHT;
 
 	protected void startCamera() {
-
-		this.camera = new VideoCapture();  // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
+		this.camera = new VideoCapture(); // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
+		System.out.println(String.format("Camera opened: %s", this.camera.isOpened()));
 
 		if (!this.cameraActive) {
 
@@ -141,33 +96,17 @@ public class OpenCVSwingCamera {
 			System.out.println(String.format("Setting video frame size to %.02f x %.02f => W set: %s, H set: %s", VIDEO_WIDTH, VIDEO_HEIGHT, wSet, hSet));
 			System.out.println(String.format(">> Capture size WxH: %.02f x %.02f", this.camera.get(Videoio.CAP_PROP_FRAME_WIDTH), this.camera.get(Videoio.CAP_PROP_FRAME_HEIGHT)));
 
-			boolean ok = false;
-			int nbTry = 0;
-			while (!ok  && nbTry < 5) {
-				nbTry++;
-				ok = this.camera.isOpened();
-				if (!ok) {
-					System.out.println(String.format("Waiting for the camera to open... (try %d)", nbTry));
-					try {
-						Thread.sleep(1_000L);
-					} catch (InterruptedException ie) {
-						System.err.println("Oops");
-						ie.printStackTrace();
-					}
-				}
-			}
-			System.out.println(String.format("Camera opened: %s", this.camera.isOpened()));
-
 			if (this.camera.isOpened()) {
 				this.cameraActive = true;
-
 				// grab a frame every 33 ms (30 frames/sec)
-				Runnable frameGrabber = () -> process(grabFrame());
+				Runnable frameGrabber = () -> {
+					process(grabFrame());
+				};
 
 				this.timer = Executors.newSingleThreadScheduledExecutor();
 				this.timer.scheduleAtFixedRate(frameGrabber, 0, 33, TimeUnit.MILLISECONDS);
 			} else {
-				System.err.println("Impossible to open the camera connection...");
+				System.err.println("Cannot open the camera connection...");
 			}
 		} else {
 			this.cameraActive = false;
@@ -187,7 +126,6 @@ public class OpenCVSwingCamera {
 				this.camera.read(frame);
 			} catch (Exception e) {
 				System.err.println("Exception during camera capture: " + e);
-				e.printStackTrace();
 			}
 		}
 //		System.out.println(String.format("Read image from camera %d x %d", frame.width(), frame.height()));
@@ -205,56 +143,30 @@ public class OpenCVSwingCamera {
 				this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
 			} catch (InterruptedException e) {
 				System.err.println("Exception when stopping the frame camera, will try to release the camera now... " + e);
-				e.printStackTrace();
 			}
 		}
 
-		if (this.camera != null && this.camera.isOpened()) {
+		if (this.camera.isOpened()) {
 			this.camera.release();
 		}
 	}
 
 	private static byte saturate(double val) {
 		int iVal = (int) Math.round(val);
-		iVal = Math.min(255, Math.max(iVal, 0));
+		iVal = iVal > 255 ? 255 : (iVal < 0 ? 0 : iVal);
 		return (byte) iVal;
 	}
 
 	public static void process(Mat frame) {
 
 		Mat original; // For the contours, if needed.
-
-		// Zoom slider
-		double zoomFactor = swingFrame.getZoomValue();
-		if (zoomFactor != 1) {
+		if (swingFrame.isDivideChecked()) {
 			original = new Mat();
-			Imgproc.resize(frame, original, new Size(Math.round(frame.width() * zoomFactor), Math.round(frame.height() * zoomFactor)));
+			Imgproc.resize(frame, original, new Size(frame.width() / 2, frame.height() / 2));
 		} else {
 			original = frame.clone();
 		}
-
-		if (swingFrame.isFlipVChecked()) {
-			Utils.flipVertically(original);
-		}
-		if (swingFrame.isFlipHChecked()) {
-			Utils.flipHorizontally(original);
-		}
-
-		// Rotation?
-		if (swingFrame.isRot90Selected()) {
-			Utils.rotate_90n(original, Utils.AngleX90._90);
-		} else if (swingFrame.isRot180Selected()) {
-			Utils.rotate_90n(original, Utils.AngleX90._180);
-		} else if (swingFrame.isRot270Selected()) {
-			Utils.rotate_90n(original, Utils.AngleX90._270);
-		}
-
-		Mat newMat;
-		if (swingFrame.isDivideChecked()) {
-			newMat = new Mat();
-			Imgproc.resize(original, newMat, new Size(Math.round(original.width() / 2), Math.round(original.height() / 2)));
-			original = newMat;
-		}
+		Mat newMat = null;
 		Mat lastMat = original;
 
 		// Brightness & Contrast
@@ -323,43 +235,33 @@ public class OpenCVSwingCamera {
 			Core.bitwise_not(lastMat, newMat);
 			lastMat = newMat;
 		}
-
-		try {
-			if (lastMat.size().height > 0 && lastMat.size().width > 0) {
-				swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
-			} else {
-				System.out.println("...No image yet.");
-			}
-		} catch (Throwable throwable) {
-			// This can happen when the camera has just been started.
-			throwable.printStackTrace();
+		// Apply face detection here
+		// Detect faces in the image.
+		// MatOfRect is a special container class for Rect.
+		MatOfRect faceDetections = new MatOfRect();
+		faceDetector.detectMultiScale(lastMat, faceDetections);
+		if (verbose) {
+			faceDetections.toList().stream().forEach(rect -> {
+				System.out.println(String.format("Rect WxH, (x,y) %d x %d, (%d, %d)", rect.width, rect.height, rect.x, rect.y));
+			});
+			System.out.println(String.format(">> Detected %s face(s)", faceDetections.toArray().length));
 		}
 
-		if (takeSnapshot) {
-			takeSnapshot = false; // Reset
-			// Store image here
-			final Mat toStore = lastMat;
-			Thread storer = new Thread(() -> {
-				String fileName = String.format("snap_%s.jpg", SDF.format(new Date()));
-				Imgcodecs.imwrite(fileName, toStore);
-				System.out.println(String.format("\tImage %s created", fileName));
-			}, "ImageStorer");
-			storer.start();
+		// Draw a bounding box around each face.
+		for (Rect rect : faceDetections.toArray()) {
+			Imgproc.rectangle(lastMat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0), 3);
 		}
+
+		// Display final image
+		swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("OpenCV %s", Core.getVersionString()));
 	}
 
 	public static void main(String... args) {
-		System.out.println(String.format("Running java %s", System.getProperty("java.version")));
-
 		// load the OpenCV native library
 		System.out.println("Loading lib " + Core.NATIVE_LIBRARY_NAME);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		System.out.println(String.format("Running OpenCV %s", Core.getVersionString()));
 
-		Properties props = System.getProperties();
-		props.forEach((name, value) -> System.out.println(String.format("%s: %s", name, value)));
-
-		new OpenCVSwingCamera();
+		new OpenCVContinuousFaceDetection();
 
 		System.out.println("On its way!");
 	}

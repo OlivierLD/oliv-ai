@@ -1,13 +1,9 @@
-package oliv.opencv;
+package docai.opencv;
 
 import cv.utils.Utils;
-import oliv.opencv.swing.SwingFrame;
-import oliv.opencv.swing.SwingFrameWithWidgets;
+import docai.opencv.swing.SwingFrame;
 import org.opencv.core.Core;
-import org.opencv.core.CvException;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;

@@ -58,22 +58,22 @@ shadowJar {
 
 if (!hasProperty('mainClassName')) {
     println "No mainClassName, using default"
-    ext.mainClassName = 'oliv.opencv.OpenCVSwing'
+    ext.mainClassName = 'docai.opencv.OpenCVSwing'
 //} else {
 //    println ">> Found mainClassName: $mainClassName"
 //    ext.mainClassName = mainClassName
 }
 
 
-mainClassName = 'oliv.opencv.OpenCVSwing'
-ext.mainClassNameOliv101 = 'oliv.opencv.OpenCV101'
-ext.mainClassNameOlivSwing = 'oliv.opencv.OpenCVSwing'
-ext.mainClassNameOlivSwingCamera = 'oliv.opencv.OpenCVSwingCamera'
-ext.mainClassNameFaceDetect = 'oliv.opencv.FaceRecognitionSample'
-ext.mainClassNameContinuousFaceDetect = 'oliv.opencv.OpenCVContinuousFaceDetection'
-ext.mainClassNameContinuousPathDetect = 'oliv.opencv.OpenCVContinuousPathDetection'
+mainClassName = 'docai.opencv.OpenCVSwing'
+ext.mainClassNameOliv101 = 'docai.opencv.OpenCV101'
+ext.mainClassNameOlivSwing = 'docai.opencv.OpenCVSwing'
+ext.mainClassNameOlivSwingCamera = 'docai.opencv.OpenCVSwingCamera'
+ext.mainClassNameFaceDetect = 'docai.opencv.FaceRecognitionSample'
+ext.mainClassNameContinuousFaceDetect = 'docai.opencv.OpenCVContinuousFaceDetection'
+ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetection'
 // More
-ext.openCVSwingCameraFaceRecognition = "oliv.opencv.OpenCVSwingCameraFaceRecognition"
+ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecognition"
 
 
 tasks.withType(JavaExec) {
