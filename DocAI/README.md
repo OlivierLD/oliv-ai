@@ -52,7 +52,8 @@ We use the annotations like
 ]
 ```
 on a document like
-![Original](./FormProcessingSampleData/Contoso/Train/Contoso%202.png)
+
+![Original](./FormProcessingSampleData/Contoso/Train/Contoso2.png)
 
 It can be reworked in several ways (even if not mandatory here)
 

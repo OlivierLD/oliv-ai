@@ -31,8 +31,8 @@ public class OpenCVSwing {
 //	private final static String IMAGE_SOURCE_PATH = "./oliv-ai/DocAI/FormProcessingSampleData/Contoso/Train";
 	private final static String IMAGE_SOURCE_PATH = "./FormProcessingSampleData/Contoso/Train";
 
-	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "Contoso 1.png";
-	private final static String IMAGE_02 = IMAGE_SOURCE_PATH + File.separator + "Contoso 2.png";
+	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "Contoso1.png";
+	private final static String IMAGE_02 = IMAGE_SOURCE_PATH + File.separator + "Contoso2.png";
 
 	private final static long WAIT = 5_000L;
 
