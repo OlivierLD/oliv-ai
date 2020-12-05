@@ -71,6 +71,8 @@ The cropped images (to send for recognition):
 
 ![Amount](./AmountDue.jpg)
 
+An online service like <https://www.newocr.com/> can return the expected data. 
+
 ---
  
 
