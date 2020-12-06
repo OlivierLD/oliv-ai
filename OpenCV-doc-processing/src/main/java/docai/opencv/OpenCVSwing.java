@@ -3,9 +3,14 @@ package docai.opencv;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import cv.utils.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import utils.Utils;
 import docai.opencv.swing.SwingFrame;
-import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -28,7 +33,7 @@ import java.util.List;
  */
 public class OpenCVSwing {
 
-//	private final static String IMAGE_SOURCE_PATH = "./oliv-ai/DocAI/FormProcessingSampleData/Contoso/Train";
+//	private final static String IMAGE_SOURCE_PATH = "./oliv-ai/OpenCV-doc-processing/FormProcessingSampleData/Contoso/Train";
 	private final static String IMAGE_SOURCE_PATH = "./FormProcessingSampleData/Contoso/Train";
 
 	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "Contoso1.png";

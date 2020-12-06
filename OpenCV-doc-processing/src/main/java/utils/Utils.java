@@ -1,4 +1,4 @@
-package cv.utils;
+package utils;
 
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
