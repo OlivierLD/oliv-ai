@@ -10,6 +10,7 @@ labels = [
 import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
+import json
 
 print("TF Version {}".format(tf.__version__))
 
@@ -17,8 +18,8 @@ fashion_mnist = keras.datasets.fashion_mnist
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
 model = keras.Sequential([
-    keras.layers.Flatten(input_shape=(28, 28)),        # 28x28: size of the images - Input
-    keras.layers.Dense(128, activation=tf.nn.relu),    # 128... requires intuition!
+    keras.layers.Flatten(input_shape=(28, 28)),        # 28x28: size of the images - Input, 28x28 = 784
+    keras.layers.Dense(128, activation=tf.nn.relu),    # 128... requires some intuition!
     keras.layers.Dense(10, activation=tf.nn.softmax)   # 10: number of categories  - Output
 ])
 
@@ -27,6 +28,21 @@ model.compile(optimizer=tf.keras.optimizers.Adam(),
               metrics=['accuracy'])
 
 model.fit(train_images, train_labels, epochs=5)
+
+show_details = True
+if show_details:  # Display model details
+    json_string = model.to_json()
+    parsed_json = json.loads(json_string)
+    print("Model, json format:\n{}".format(json.dumps(parsed_json, indent=4)))
+    for layer in model.layers:
+        try:
+            weights = layer.get_weights()[0]
+            biases = layer.get_weights()[1]
+            print("Weights: {}\nBiases: {}".format(weights, biases))
+        except Exception as ex:
+            print("Oops {}".format(ex))
+
+model.summary()
 
 test_loss, test_acc = model.evaluate(test_images, test_labels)
 
@@ -49,11 +65,13 @@ for akeu in range(10):
 
     max_idx = -1
     max_value = -1
+    show_all = False
     for i in range(len(classifications[idx])):
         if classifications[idx][i] > max_value:
             max_value = classifications[idx][i]
             max_idx = i
-        print("{}: {} (idx: {}, value: {})".format(i, classifications[idx][i],max_idx, max_value))
+        if show_all:
+            print("{}: {} (idx: {}, value: {})".format(i, classifications[idx][i],max_idx, max_value))
 
-    print(">> SoftMax said: {}, a {}".format(max_idx, labels[max_idx]))
+    print(">> SoftMax said: {}, a {} ({:.2f}%)".format(max_idx, labels[max_idx], max_value * 100))
     print(">> Actual Label: {}, a {}".format(test_labels[idx], labels[test_labels[idx]]))
