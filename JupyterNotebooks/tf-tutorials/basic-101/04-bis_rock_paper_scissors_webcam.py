@@ -49,9 +49,9 @@ def prepare_image2(img):
     return tf.keras.applications.mobilenet.preprocess_input(image_array_expanded)
 
 
-def apply_model(image, show_all_steps=False, kernel_size=15):
+def apply_model(cv2_image, show_all_steps=False, kernel_size=15):
 
-    last_image = image
+    last_image = cv2_image
 
     last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)
 
@@ -85,7 +85,17 @@ def apply_model(image, show_all_steps=False, kernel_size=15):
 
     time.sleep(0.5)
 
-    classes = model.predict([ prepared_image ], batch_size=10)
+    # Save image with OpenCV, read it with Keras (there must be a better way)
+    cv2.imwrite('./snap1.jpg', last_image)
+
+    img = image.load_img('./snap1.jpg', target_size=(150, 150))
+    x = image.img_to_array(img)    # TODO What is that?
+    x = np.expand_dims(x, axis=0)
+
+    images = np.vstack([x])
+    classes = model.predict(images, batch_size=10)
+
+    # classes = model.predict([ prepared_image ], batch_size=10)
     # print("File {} => {}".format(path, classes))
     result = -1
     for i in range(len(classes[0])):  # Look for the 1.
