@@ -6,7 +6,7 @@
 #
 # pip install opencv-python
 #
-# About matlibplot: https://stackoverflow.com/questions/28269157/plotting-in-a-non-blocking-way-with-matplotlib
+# About matplotlib: https://stackoverflow.com/questions/28269157/plotting-in-a-non-blocking-way-with-matplotlib
 #
 import sys
 import time
@@ -16,7 +16,7 @@ import tensorflow as tf
 import numpy as np
 import subprocess as sp
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+# import matplotlib.image as mpimg
 import platform
 from keras_preprocessing import image
 from PIL import Image
@@ -34,26 +34,25 @@ print("Keras version", tf.keras.__version__)
 
 print("{} script arguments.".format(len(sys.argv)))
 
-labels = [ "Paper", "Rock", "Scissors" ]
+labels = ["Paper", "Rock", "Scissors"]
 
 
 # A test...
 def prepare_image2(img):
     # convert the color from BGR to RGB then convert to PIL array
-    cvt_image =  cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    cvt_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     im_pil = Image.fromarray(cvt_image)
 
     # resize the array (image) then PIL image
     im_resized = im_pil.resize((224, 224))
     img_array = image.img_to_array(im_resized)
-    image_array_expanded = np.expand_dims(img_array, axis = 0)
+    image_array_expanded = np.expand_dims(img_array, axis=0)
     return tf.keras.applications.mobilenet.preprocess_input(image_array_expanded)
 
 
 def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
-
     last_image = cv2_image
-    last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)   # Not mandatory
+    last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)  # Not mandatory
 
     # gray = cv2.cvtColor(last_image, cv2.COLOR_BGR2GRAY)
     # if show_all_steps:
@@ -90,7 +89,7 @@ def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
     cv2.imwrite('./snap1.jpg', last_image)
 
     img = image.load_img('./snap1.jpg', target_size=(150, 150))
-    x = image.img_to_array(img)    # TODO What is that?
+    x = image.img_to_array(img)  # TODO What is that?
     x = np.expand_dims(x, axis=0)
 
     images = np.vstack([x])
@@ -118,20 +117,19 @@ def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
 # Now we start the job
 rps_model = None
 try:
-    print("\t\tLoading the model...")
+    print(">> Loading the model...")
     rps_model = tf.keras.models.load_model('rps.h5')
     print(">> Model is now loaded")
 except OSError as ose:
-    print('Model not found?')
+    print('>> Model not found?')
     print(ose)
     sys.exit(1)
-
 
 # The core of the program
 camera = cv2.VideoCapture(0)
 
-width = 640
-height = 640
+width = 320  # 640
+height = 320  # 640
 camera.set(3, width)
 camera.set(4, height)
 
@@ -146,6 +144,8 @@ print("+----------------------------------------------------+")
 keep_looping = True
 show_cropped = False
 use_roi = False
+original_image = None
+
 while keep_looping:
 
     _, frame = camera.read()
@@ -180,24 +180,29 @@ while keep_looping:
         keep_looping = False
     if key == ord('s'):  # Take snapshot
         print('\t>> Taking snapshot -')  # And invoke model
-        image_to_process = original_image
-        if use_roi:
-            # Select ROI
-            # Nice ROI summary: https://www.learnopencv.com/how-to-select-a-bounding-box-roi-in-opencv-cpp-python/
-            roi = cv2.selectROI(original_image, showCrosshair=False, fromCenter=False)  # Interactive selection TODO: How to force a square?
-            if DEBUG:
-                print("ROI: {}".format(roi))
-                print("Selected ROI: {} {} {} {}".format(int(roi[1]), int(roi[1] + roi[3]), int(roi[0]), int(roi[0] + roi[2])))
-            try:
-                cropped_image = original_image[int(roi[1]):int(roi[1] + roi[3]), int(roi[0]):int(roi[0] + roi[2])]
-                if show_cropped:
-                    cv2.imshow('Selected ROI', cropped_image)
-                    time.sleep(0.5)
-                image_to_process = cropped_image
-            except Exception as ex:  # ROI was canceled?
-                print("Oops! {}".format(ex))
-                print("Ok, canceled.")
-        apply_model(image_to_process, rps_model, False)
+        if original_image is not None:
+            image_to_process = original_image
+            if use_roi:
+                # Select ROI
+                # Nice ROI summary: https://www.learnopencv.com/how-to-select-a-bounding-box-roi-in-opencv-cpp-python/
+                roi = cv2.selectROI("Select ROI", original_image, showCrosshair=False,
+                                    fromCenter=False)  # Interactive selection TODO: How to force a square?
+                if DEBUG:
+                    print("ROI: {}".format(roi))
+                    print("Selected ROI: {} {} {} {}".format(int(roi[1]), int(roi[1] + roi[3]), int(roi[0]),
+                                                             int(roi[0] + roi[2])))
+                try:
+                    cropped_image = original_image[int(roi[1]):int(roi[1] + roi[3]), int(roi[0]):int(roi[0] + roi[2])]
+                    if show_cropped:
+                        cv2.imshow('Selected ROI', cropped_image)
+                        time.sleep(0.5)
+                    image_to_process = cropped_image
+                except Exception as ex:  # ROI was canceled?
+                    print("Oops! {}".format(ex))
+                    print("Ok, canceled.")
+            apply_model(image_to_process, rps_model, False)
+        else:
+            print("No image available yet...")
 
 # Releasing resources
 camera.release()
