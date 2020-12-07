@@ -27,7 +27,7 @@ DEBUG = True
 
 print("Let's go!")
 
-# Usual yada-yada
+# Usual version yada-yada
 print("OpenCV version", cv2.__version__)
 print("TensorFlow version", tf.__version__)
 print("Keras version", tf.keras.__version__)
@@ -53,7 +53,7 @@ def prepare_image2(img):
 def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
 
     last_image = cv2_image
-    last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)
+    last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)   # Not mandatory
 
     # gray = cv2.cvtColor(last_image, cv2.COLOR_BGR2GRAY)
     # if show_all_steps:
@@ -116,10 +116,10 @@ def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
 
 
 # Now we start the job
-model = None
+rps_model = None
 try:
     print("\t\tLoading the model...")
-    model = tf.keras.models.load_model('rps.h5')
+    rps_model = tf.keras.models.load_model('rps.h5')
     print(">> Model is now loaded")
 except OSError as ose:
     print('Model not found?')
@@ -197,7 +197,7 @@ while keep_looping:
             except Exception as ex:  # ROI was canceled?
                 print("Oops! {}".format(ex))
                 print("Ok, canceled.")
-        apply_model(image_to_process, model, False)
+        apply_model(image_to_process, rps_model, False)
 
 # Releasing resources
 camera.release()
