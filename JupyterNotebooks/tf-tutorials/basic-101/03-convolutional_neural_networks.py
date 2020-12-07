@@ -29,10 +29,10 @@ size_y = transformed_image.shape[1]
 # This filter detects edges nicely
 # It creates a filter that only passes through sharp edges and straight lines.
 # Experiment with different values for fun effects.
-#filter = [ [0, 1, 0], [1, -4, 1], [0, 1, 0]]
+#   filter = [ [0, 1, 0], [1, -4, 1], [0, 1, 0]]
 # A couple more filters to try for fun!
-filter_1 = [ [-1, -2, -1], [0, 0, 0], [1, 2, 1]]
-filter_2 = [ [-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
+filter_1 = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]
+filter_2 = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
  # If all the digits in the filter don't add up to 0 or 1, you
 # should probably do a weight to get it to do so
 # so, for example, if your weights are 1,1,1 1,2,1 1,1,1
