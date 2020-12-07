@@ -37,6 +37,7 @@ print("{} script arguments.".format(len(sys.argv)))
 labels = [ "Paper", "Rock", "Scissors" ]
 
 
+# A test...
 def prepare_image2(img):
     # convert the color from BGR to RGB then convert to PIL array
     cvt_image =  cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -49,10 +50,9 @@ def prepare_image2(img):
     return tf.keras.applications.mobilenet.preprocess_input(image_array_expanded)
 
 
-def apply_model(cv2_image, show_all_steps=False, kernel_size=15):
+def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
 
     last_image = cv2_image
-
     last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)
 
     # gray = cv2.cvtColor(last_image, cv2.COLOR_BGR2GRAY)
@@ -73,19 +73,20 @@ def apply_model(cv2_image, show_all_steps=False, kernel_size=15):
     #     last_image = thresh
     #
     # reworked = cv2.resize(255 - last_image, (150, 150))
-    reworked = cv2.resize(last_image, (150, 150))
-    last_image = reworked
+    # reworked = cv2.resize(last_image, (150, 150))
+    # last_image = reworked
 
     # last_image = (last_image[...,::-1].astype(np.float32)) / 255.0
     # prepared_image = prepare_image2(last_image)
-    prepared_image = last_image
+    # prepared_image = last_image
 
-    # Show the image, as it's been transformed to be processed
-    cv2.imshow("As transformed for processing", last_image)
+    if show_all_steps:
+        # Show the image, as it's been transformed to be processed
+        cv2.imshow("As transformed for processing", last_image)
+        #
+        time.sleep(0.5)
 
-    time.sleep(0.5)
-
-    # Save image with OpenCV, read it with Keras (there must be a better way)
+    # Save image with OpenCV, read it with Keras (TODO there must be a better way)
     cv2.imwrite('./snap1.jpg', last_image)
 
     img = image.load_img('./snap1.jpg', target_size=(150, 150))
@@ -105,13 +106,13 @@ def apply_model(cv2_image, show_all_steps=False, kernel_size=15):
     plt.imshow(last_image)
     plt.axis('Off')
     plt.title(labels[result])
-    plt.show()
+    plt.show(block=False)
 
-    # if platform.system() == 'Darwin':
-    #     sp.run(['say',
-    #             'It looks like a ' +
-    #             str(int(pred[0])) +
-    #             ' to me, I\'m {:2.0f}% sure'.format(precision[0][np.argmax(precision)] * 100)])
+    message = 'It looks like a {} to me'.format(labels[result])
+    print(message)
+    if platform.system() == 'Darwin':
+        sp.run(['say',
+                message])
 
 
 # Now we start the job
@@ -142,13 +143,15 @@ print("+----------------------------------------------------+")
 print("| Type Q, q or Ctrl+C to exit the loop               |")
 print("| > Select the main image before hitting a key... ;) |")
 print("+----------------------------------------------------+")
-keepLooping = True
-while keepLooping:
+keep_looping = True
+show_cropped = False
+use_roi = False
+while keep_looping:
 
     _, frame = camera.read()
     time.sleep(0.1)
     try:
-        original_image = frame;
+        original_image = frame
         if mirror:
             original_image = cv2.flip(original_image, 1)
 
@@ -167,30 +170,34 @@ while keepLooping:
             original_image = cv2.resize(cropped, (img_width, img_height))
 
         # Original image
-        cv2.imshow('Original', original_image)
+        cv2.imshow('Hit S to take snapshot, Q to quit', original_image)
     except Exception as ex:
         print("Oops! {}".format(ex))
 
     key = cv2.waitKey(1) & 0xFF
     # print("Key : {}".format(key))
     if key == ord('q'):  # select the image window and hit 'q' to quit
-        keepLooping = False
+        keep_looping = False
     if key == ord('s'):  # Take snapshot
         print('\t>> Taking snapshot -')  # And invoke model
-        # Select ROI
-        # Nice ROI summary: https://www.learnopencv.com/how-to-select-a-bounding-box-roi-in-opencv-cpp-python/
-        roi = cv2.selectROI(original_image, showCrosshair=False, fromCenter=False)  # Interactive selection
-        if DEBUG:
-            print("ROI: {}".format(roi))
-            print("Selected ROI: {} {} {} {}".format(int(roi[1]), int(roi[1] + roi[3]), int(roi[0]), int(roi[0] + roi[2])))
-        try:
-            cropped_image = original_image[int(roi[1]):int(roi[1] + roi[3]), int(roi[0]):int(roi[0] + roi[2])]
-            cv2.imshow('Selected ROI', cropped_image)
-            time.sleep(0.5)
-            apply_model(cropped_image, True)
-        except Exception as ex:  # ROI was canceled?
-            print("Oops! {}".format(ex))
-            print("Ok, canceled.")
+        image_to_process = original_image
+        if use_roi:
+            # Select ROI
+            # Nice ROI summary: https://www.learnopencv.com/how-to-select-a-bounding-box-roi-in-opencv-cpp-python/
+            roi = cv2.selectROI(original_image, showCrosshair=False, fromCenter=False)  # Interactive selection TODO: How to force a square?
+            if DEBUG:
+                print("ROI: {}".format(roi))
+                print("Selected ROI: {} {} {} {}".format(int(roi[1]), int(roi[1] + roi[3]), int(roi[0]), int(roi[0] + roi[2])))
+            try:
+                cropped_image = original_image[int(roi[1]):int(roi[1] + roi[3]), int(roi[0]):int(roi[0] + roi[2])]
+                if show_cropped:
+                    cv2.imshow('Selected ROI', cropped_image)
+                    time.sleep(0.5)
+                image_to_process = cropped_image
+            except Exception as ex:  # ROI was canceled?
+                print("Oops! {}".format(ex))
+                print("Ok, canceled.")
+        apply_model(image_to_process, model, False)
 
 # Releasing resources
 camera.release()
