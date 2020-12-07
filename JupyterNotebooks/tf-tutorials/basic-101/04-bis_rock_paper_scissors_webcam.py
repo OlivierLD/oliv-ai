@@ -29,6 +29,8 @@ print("Let's go!")
 
 # Usual yada-yada
 print("OpenCV version", cv2.__version__)
+print("TensorFlow version", tf.__version__)
+print("Keras version", tf.keras.__version__)
 
 print("{} script arguments.".format(len(sys.argv)))
 
