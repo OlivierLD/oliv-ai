@@ -99,7 +99,7 @@ plt.imshow(newImage)
 plt.show()
 
 
-# Model, for later
+# Model, for later:
 # model = tf.keras.models.Sequential([
 #     tf.keras.layers.Conv2D(64,                        # Nb filters
 #                            (3, 3),                    # Filters' size

@@ -1,123 +1,117 @@
 #!/usr/bin/env python3
 #
-# With OpenCV
-# Interactive hand-written figures recognition => classification
-# also see https://www.tensorflow.org/api_docs/python/tf/keras and similar pages.
-#
-# Similar to sample.05.1.py, but with YOUR own images, read from the camera.
-# Model training.h5 must already exist
-# Uses OpenCV to reshape the images as expected by the model
-#
-#     SHOW AN HAND-WRITTEN CHARACTER TO THE CAMERA
-#     HIT 'S' TO HAVE IT RECOGNIZED
-#
-#     REQUIRES THE MODEL 'training.h5' TO BE AVAILABLE
-#
-# Great doc at
-# https://medium.com/@ashok.tankala/build-the-mnist-model-with-your-own-handwritten-digits-using-tensorflow-keras-and-python-f8ec9f871fd3
-#
-# Interactive: https://ashok.tanka.la/assets/examples/mnist/mnist.html
+# Continuous capture, OpenCV
 #
 # https://pypi.org/project/opencv-python/
 #
 # pip install opencv-python
 #
-import tensorflow as tf
-import numpy as np
+# About matlibplot: https://stackoverflow.com/questions/28269157/plotting-in-a-non-blocking-way-with-matplotlib
+#
 import sys
 import time
 import warnings
-import subprocess as sp
-import platform
 import cv2
-
-# sys.path.append('../')
-# import tf_utils
+import tensorflow as tf
+import numpy as np
+import subprocess as sp
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import platform
+from keras_preprocessing import image
+from PIL import Image
 
 warnings.filterwarnings('ignore')
+
+DEBUG = True
 
 print("Let's go!")
 
 # Usual yada-yada
-tf_version = tf.__version__
-print("TensorFlow version", tf_version)
-print("Keras version", tf.keras.__version__)
 print("OpenCV version", cv2.__version__)
 
 print("{} script arguments.".format(len(sys.argv)))
 
-devices = tf.config.list_physical_devices()
-print("----- D E V I C E S -----")
-for d in devices:
-    print(d.name)
-print("-------------------------")
+labels = [ "Paper", "Rock", "Scissors" ]
 
-DEBUG = False
 
-# Now we start the job
-model = None
-try:
-    print("\t\tLoading the model...")
-    model = tf.keras.models.load_model('training.h5')
-    print(">> Model is now loaded")
-except OSError as ose:
-    print('Model not found?')
-    print(ose)
-    sys.exit(1)
+def prepare_image2(img):
+    # convert the color from BGR to RGB then convert to PIL array
+    cvt_image =  cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    im_pil = Image.fromarray(cvt_image)
 
-THRESHOLD_TYPE = {
-    "BINARY": 0,
-    "BINARY_INVERTED": 1,
-    "TRUNCATED": 2,
-    "TO_ZERO": 3,
-    "TO_ZERO_INVERTED": 4
-}
+    # resize the array (image) then PIL image
+    im_resized = im_pil.resize((224, 224))
+    img_array = image.img_to_array(im_resized)
+    image_array_expanded = np.expand_dims(img_array, axis = 0)
+    return tf.keras.applications.mobilenet.preprocess_input(image_array_expanded)
 
 
 def apply_model(image, show_all_steps=False, kernel_size=15):
 
     last_image = image
-    gray = cv2.cvtColor(last_image, cv2.COLOR_BGR2GRAY)
-    if show_all_steps:
-        cv2.imshow('Grayed', gray)
-    last_image = gray
 
-    blurred = cv2.GaussianBlur(last_image, (kernel_size, kernel_size), 0)
-    if show_all_steps:
-        cv2.imshow('Blurred', blurred)
-    last_image = blurred
+    last_image = cv2.cvtColor(last_image, cv2.COLOR_BGR2RGB)
 
-    if True:
-        threshold_value = 127  # 127: dark conditions, 200: good light conditions
-        _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
-        if show_all_steps:
-            cv2.imshow('Threshed', thresh)
-        last_image = thresh
-
-    reworked = cv2.resize(255 - last_image, (28, 28))
+    # gray = cv2.cvtColor(last_image, cv2.COLOR_BGR2GRAY)
+    # if show_all_steps:
+    #     cv2.imshow('Grayed', gray)
+    # last_image = gray
+    #
+    # blurred = cv2.GaussianBlur(last_image, (kernel_size, kernel_size), 0)
+    # if show_all_steps:
+    #     cv2.imshow('Blurred', blurred)
+    # last_image = blurred
+    #
+    # if True:
+    #     threshold_value = 127  # 127: dark conditions, 200: good light conditions
+    #     _, thresh = cv2.threshold(last_image, threshold_value, 255, THRESHOLD_TYPE["BINARY"])
+    #     if show_all_steps:
+    #         cv2.imshow('Threshed', thresh)
+    #     last_image = thresh
+    #
+    # reworked = cv2.resize(255 - last_image, (150, 150))
+    reworked = cv2.resize(last_image, (150, 150))
     last_image = reworked
+
+    # last_image = (last_image[...,::-1].astype(np.float32)) / 255.0
+    # prepared_image = prepare_image2(last_image)
+    prepared_image = last_image
 
     # Show the image, as it's been transformed to be processed
     cv2.imshow("As transformed for processing", last_image)
 
     time.sleep(0.5)
 
-    # To match the model requirements
-    im2arr = np.array(last_image)
-    im2arr = im2arr.reshape(1, 28, 28, 1)
-    pred = model.predict_classes(im2arr)
-    prediction = model.predict(im2arr)
-    print("Prediction: it looks like a ",
-          str(int(pred[0])),
-          " (",
-          prediction[0][np.argmax(prediction)] * 100,
-          "% sure ), Nb predictions:",
-          len(prediction))
-    if platform.system() == 'Darwin':
-        sp.run(['say',
-                'It looks like a ' +
-                str(int(pred[0])) +
-                ' to me, I\'m {:2.0f}% sure'.format(prediction[0][np.argmax(prediction)] * 100)])
+    classes = model.predict([ prepared_image ], batch_size=10)
+    # print("File {} => {}".format(path, classes))
+    result = -1
+    for i in range(len(classes[0])):  # Look for the 1.
+        if classes[0][i] == 1:
+            result = i
+
+    plt.imshow(last_image)
+    plt.axis('Off')
+    plt.title(labels[result])
+    plt.show()
+
+    # if platform.system() == 'Darwin':
+    #     sp.run(['say',
+    #             'It looks like a ' +
+    #             str(int(pred[0])) +
+    #             ' to me, I\'m {:2.0f}% sure'.format(precision[0][np.argmax(precision)] * 100)])
+
+
+# Now we start the job
+model = None
+try:
+    print("\t\tLoading the model...")
+    model = tf.keras.models.load_model('rps.h5')
+    print(">> Model is now loaded")
+except OSError as ose:
+    print('Model not found?')
+    print(ose)
+    sys.exit(1)
 
 
 # The core of the program
@@ -128,16 +122,15 @@ height = 640
 camera.set(3, width)
 camera.set(4, height)
 
-mirror = False
+mirror = True
 zoom = False
 scale = 25  # Zoom scale. Percent of the original (radius). 50 => 100%
 
-keepLooping = True
 print("+----------------------------------------------------+")
 print("| Type Q, q or Ctrl+C to exit the loop               |")
-print("| Type S or s to take a snapshot                     |")
 print("| > Select the main image before hitting a key... ;) |")
 print("+----------------------------------------------------+")
+keepLooping = True
 while keepLooping:
 
     _, frame = camera.read()
