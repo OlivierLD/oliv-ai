@@ -16,3 +16,12 @@ When OpenCV is needed, you can install it with
 ```
 pip3 install opencv-python
 ```
+
+The script `04-bis_rock_paper_scissors_webcam.py` is extension of `04-image_classifier.py`, it uses
+- A WebCam
+- The model trained in `04-image_classifier.py`
+It takes images from the WebCam to recognize `rock`, `paper`, or `scissors`. 
+
+| Rock | Scissors | Paper |
+|:-------------------:|:-------------------:|:-------------------:|
+| ![Rock](./rock.jpg) | ![Scissors](./scissors.jpg) | ![Paper](./paper.jpg) |

@@ -86,9 +86,9 @@ def apply_model(cv2_image, model, show_all_steps=False, kernel_size=15):
         time.sleep(0.5)
 
     # Save image with OpenCV, read it with Keras (TODO there must be a better way)
-    cv2.imwrite('./snap1.jpg', last_image)
+    cv2.imwrite('snap.jpg', last_image)
 
-    img = image.load_img('./snap1.jpg', target_size=(150, 150))
+    img = image.load_img('snap.jpg', target_size=(150, 150))
     x = image.img_to_array(img)  # TODO What is that?
     x = np.expand_dims(x, axis=0)
 
@@ -128,7 +128,7 @@ except OSError as ose:
 # The core of the program
 camera = cv2.VideoCapture(0)
 
-width = 320  # 640
+width =  320  # 640
 height = 320  # 640
 camera.set(3, width)
 camera.set(4, height)
@@ -178,7 +178,7 @@ while keep_looping:
     # print("Key : {}".format(key))
     if key == ord('q'):  # select the image window and hit 'q' to quit
         keep_looping = False
-    if key == ord('s'):  # Take snapshot
+    if key == ord('s'):  # Take snapshot as it is
         print('\t>> Taking snapshot -')  # And invoke model
         if original_image is not None:
             image_to_process = original_image
