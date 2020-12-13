@@ -63,6 +63,43 @@ The cropped images (to send for recognition):
 
 - An online service like <https://www.newocr.com/> (or Tesseract) can return the expected data.
  
+### Tesseract
+You can also send the original document to Tesseract:
+```
+$ tesseract FormProcessingSampleData/gas.receipt.jpg gas
+```
+And then process the generated `gas.txt`
+```
+ECONO GAS
+
+SERRXHHRKR POO
+
+2907 SAN BRUNO AVE W
+SAN BRUNO ee
+94066
+
+12/87/2020 586788149
+18:20:24 AM
+
+HAKK XRXK KKK 1543
+Visa
+
+INVOICE 6816333
+AUTH 855400
+
+PUMP# 3
+REGULAR CR 8.7646
+PRICE/GAL $3.099
+
+aE Th eal)
+
+CREDIT Ce tenTIG)
+```
+For example:
+```
+$ cat gas.txt | grep INVOICE
+INVOICE 6816333
+```
 
 ---
  
