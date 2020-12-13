@@ -10,7 +10,7 @@
 
 We want to refer to some annotations, stored for now in `annotations.json`.
 Those annotations describe the position (`[x,y]`) and size (`[w,h]`) of the zones of a graphical document
-we want to process, like `Invoice Number`, `Due Date`, `Amount`, etc.
+we want to process, like `Time`, `Date`, `Amount`, etc.
 
 Once identified, we can then crop the corresponding zones, and send the cropped images
 to some ML model for recognition.
