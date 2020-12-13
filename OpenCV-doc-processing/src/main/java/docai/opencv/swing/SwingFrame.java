@@ -16,8 +16,8 @@ public class SwingFrame extends JFrame {
 
 	public SwingFrame() {
 		initComponents();
-		this.setSize(new Dimension(1200, 600));
-		this.setPreferredSize(new Dimension(1200, 600));
+		this.setSize(new Dimension(720, 800));
+		this.setPreferredSize(new Dimension(720, 800));
 		this.setTitle("OpenCV");
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

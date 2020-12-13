@@ -22,56 +22,47 @@ We use the annotations like
 ```json
 [
   {
-    "x": 1020,
-    "y": 120,
-    "w": 110,
-    "h": 38,
-    "cellName": "Invoice#"
-  },
-  {
-    "x": 1000,
-    "y": 225,
-    "w": 140,
-    "h": 31,
+    "x": 230,
+    "y": 360,
+    "w": 155,
+    "h": 30,
     "cellName": "Date"
   },
   {
-    "x": 1000,
-    "y": 267,
-    "w": 140,
-    "h": 31,
-    "cellName": "DueDate"
+    "x": 230,
+    "y": 390,
+    "w": 125,
+    "h": 30,
+    "cellName": "Time"
   },
   {
-    "x": 1000,
-    "y": 311,
-    "w": 165,
-    "h": 49,
-    "cellName": "AmountDue"
+    "x": 400,
+    "y": 770,
+    "w": 140,
+    "h": 40,
+    "cellName": "Total"
   }
 ]
 ```
 on a document like
 
-![Original](./FormProcessingSampleData/Contoso/Train/Contoso2.png)
+![Original](./FormProcessingSampleData/gas.receipt.jpg)
 
 It can be reworked in several ways (even if not mandatory here)
 
-![One](./screenshot_01.png)
-![Three](./screenshot_03.png)
-![Two](./screenshot_02.png)
+|                             |                             |
+|:---------------------------:|:---------------------------:|
+| ![One](./screenshot_01.png) | ![Two](./screenshot_02.png) |
+| ![Three](./screenshot_03.png) | ![Four](./screenshot_04.png) |
 
 The cropped images (to send for recognition):
 
-![Invoce Number](./Invoice%23.jpg)
+| Date | Time | Amount |
+|:----:|:----:|:------:| 
+| ![Date](./Date.jpg) | ![Time](./Time.jpg) | ![Amount](./Total.jpg) |
 
-![Date](./Date.jpg)
-
-![Due Date](./DueDate.jpg)
-
-![Amount](./AmountDue.jpg)
-
-An online service like <https://www.newocr.com/> can return the expected data. 
+- An online service like <https://www.newocr.com/> (or Tesseract) can return the expected data.
+ 
 
 ---
  

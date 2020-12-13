@@ -33,11 +33,10 @@ import java.util.List;
  */
 public class OpenCVSwing {
 
-//	private final static String IMAGE_SOURCE_PATH = "./oliv-ai/OpenCV-doc-processing/FormProcessingSampleData/Contoso/Train";
-	private final static String IMAGE_SOURCE_PATH = "./FormProcessingSampleData/Contoso/Train";
+//	private final static String IMAGE_SOURCE_PATH = "./oliv-ai/OpenCV-doc-processing/FormProcessingSampleData";
+	private final static String IMAGE_SOURCE_PATH = "./FormProcessingSampleData";
 
-	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "Contoso1.png";
-	private final static String IMAGE_02 = IMAGE_SOURCE_PATH + File.separator + "Contoso2.png";
+	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "gas.receipt.jpg";
 
 	private final static long WAIT = 5_000L;
 
@@ -188,10 +187,9 @@ public class OpenCVSwing {
 				System.out.println("Annotation file not found");
 				cells = new ArrayList<>();
 				// Draw cells on the image
-				cells.add(new FormCell(1030, 120, 110, 38).cellName("Invoice#")); // x, y, w, h
-				cells.add(new FormCell(1000, 225, 140, 31).cellName("Date"));
-				cells.add(new FormCell(1000, 267, 140, 31).cellName("Due Date"));
-				cells.add(new FormCell(1000, 311, 165, 49).cellName("Amount Due"));
+				cells.add(new FormCell(230, 360, 155, 30).cellName("Date")); // x, y, w, h
+				cells.add(new FormCell(230, 390, 125, 30).cellName("Time"));
+				cells.add(new FormCell(400, 770, 140, 40).cellName("Total"));
 
 				// Dump form's cells as JSON
 				String content = new Gson().toJson(cells);
@@ -235,8 +233,6 @@ public class OpenCVSwing {
 				Imgproc.putText(image, cell.cellName, new Point(x + 2, y + 12), Imgproc.FONT_HERSHEY_PLAIN, 1.0, new Scalar(255, 0, 0));
 			}
 			swingFrame.plot(Utils.mat2AWTImage(image), "Form Cells");
-
-
 
 			try {
 				Thread.sleep(2 * WAIT);
