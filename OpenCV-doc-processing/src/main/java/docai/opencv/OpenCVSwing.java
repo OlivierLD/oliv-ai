@@ -45,7 +45,7 @@ public class OpenCVSwing {
 	private final static int THRESHOLD_OPTION = 1 << 2;
 	private final static int CANNY_OPTION = 1 << 3;
 
-	private final static int IMAGE_PROCESS_OPTIONS = GRAY_OPTION | /*BLUR_OPTION |*/ THRESHOLD_OPTION | CANNY_OPTION;
+	private final static int IMAGE_PROCESS_OPTIONS = GRAY_OPTION | /*BLUR_OPTION |*/ THRESHOLD_OPTION; // | CANNY_OPTION;
 
 	private static SwingFrame swingFrame = null;
 
@@ -148,6 +148,7 @@ public class OpenCVSwing {
 				// Canny edges
 				Mat canny = new Mat();
 				Imgproc.Canny(image, canny, 10, 100); // From original image
+				currentImage = canny;
 
 				System.out.println("-> Canny Edges");
 				swingFrame.plot(Utils.mat2AWTImage(canny), "Canny Edges");
@@ -210,7 +211,7 @@ public class OpenCVSwing {
 
 				// Crop the cells first, not to see the name and green box
 				Rect cropZone = new Rect(x, y, w, h);
-				Mat croppedImage = image.submat(cropZone);
+				Mat croppedImage = currentImage.submat(cropZone);
 				// Write image in file for now
 				BufferedImage bufferedImage = Utils.mat2AWTImage(croppedImage);
 				try {
