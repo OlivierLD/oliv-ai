@@ -1,11 +1,11 @@
-# From PyImageSearch
-## OCR with Tesseract
+# From a tutorial at [PyImageSearch](https://www.pyimagesearch.com/)
+## OCR with Tesseract and Python
 - Original document [here](https://www.pyimagesearch.com/2020/09/07/ocr-a-document-form-or-invoice-with-tesseract-opencv-and-python/).
 ---
 - [Tesseract project](https://opensource.google/projects/tesseract).
     - [`pytesseract`](https://pypi.org/project/pytesseract/) is a Python wrapper around the `C++` code of Tesseract.
     - There is also a `Tess4J`, wrapper for Java, see [here](https://www.baeldung.com/java-ocr-tesseract).
-- `OpenCV` is used to crop and display the images.
+- `OpenCV` is used to manipulate, crop and display the images before processing by Tesseract.
 
 Required python modules:
 ```
