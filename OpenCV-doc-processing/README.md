@@ -52,8 +52,8 @@ It can be reworked in several ways (even if not mandatory here)
 
 |                             |                             |
 |:---------------------------:|:---------------------------:|
-| ![One](./screenshot_01.png) | ![Two](./screenshot_02.png) |
-| ![Three](./screenshot_03.png) | ![Four](./screenshot_04.png) |
+| ![One](01_original.png) | ![Two](02_gray.png) |
+| ![Three](03_threshed.png) | ![Four](04_cells.png) |
 
 The cropped images (to send for recognition):
 
@@ -100,6 +100,46 @@ For example:
 $ cat gas.txt | grep INVOICE
 INVOICE 6816333
 ```
+
+#### Better
+Run Tesseract with the `threshed` image
+```
+$ tesseract ./03_threshed.png gas
+  Tesseract Open Source OCR Engine v4.1.1 with Leptonica
+```
+The result is different:
+```
+$ cat gas.txt 
+  ECONG GAS
+  
+  HR KARE KAR EE
+  
+  2461 54h BRUNO Ave 4
+  SA BRUNO , CA
+  S4E6F
+  
+  12/07 Shh SSB aad ae
+  TeSeb3 24 An
+  
+  RARE MMKM KAM 1549
+  Wisa
+  
+  THNOTCE BA RS33
+  
+  AUTH BS54ea0
+  
+  PUMP# 3
+  REGULAR CR b. 7645
+  PRICE/ GAL $3.94
+  
+  FUEL TOTAL $ 27,46
+  
+  CREDIT $ 27.46
+  
+  Customer -activaced Purchase, vapture
+  Sequence Humber 16876
+```
+
 
 ---
  

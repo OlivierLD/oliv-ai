@@ -38,7 +38,7 @@ public class OpenCVSwing {
 
 	private final static String IMAGE_01 = IMAGE_SOURCE_PATH + File.separator + "gas.receipt.jpg";
 
-	private final static long WAIT = 5_000L;
+	private final static long WAIT = 5_000L; // 10_000L;
 
 	private final static int GRAY_OPTION = 1;
 	private final static int BLUR_OPTION = 1 << 1;
@@ -113,7 +113,7 @@ public class OpenCVSwing {
 			if ((IMAGE_PROCESS_OPTIONS & BLUR_OPTION) == BLUR_OPTION) {
 				// Gaussian blur
 				double sigmaX = 0d;
-				final Size kSize = new Size(11, 11); // new Size(31, 31);
+				final Size kSize = new Size(3, 3); // new Size(11, 11); // new Size(31, 31);
 				Mat blurred = new Mat();
 				Imgproc.GaussianBlur(currentImage, blurred, kSize, sigmaX);
 
