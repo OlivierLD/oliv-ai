@@ -32,6 +32,10 @@ dependencies {
         print "Assuming Raspberry Pi"
         implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
     }
+
+// https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j
+    compile group: 'net.sourceforge.tess4j', name: 'tess4j', version: '4.5.1'
+
     compile 'com.google.code.gson:gson:2.8.0'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
@@ -74,12 +78,13 @@ ext.mainClassNameContinuousFaceDetect = 'docai.opencv.OpenCVContinuousFaceDetect
 ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetection'
 // More
 ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecognition"
+ext.tesseract101 = "docai.opencv.Tess4J101"
 
 
 tasks.withType(JavaExec) {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
         // For Mac
-        systemProperty "java.library.path", "/usr/local/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
+        systemProperty "java.library.path", "/usr/local/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/:/usr/local/lib"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/" // Mac
     } else {
@@ -101,6 +106,11 @@ tasks.withType(JavaExec) {
 // Could not use gradlew run -PmainClassName=oliv.opencv.OpenCV101
 task runOliv101(type:JavaExec) {
     main = mainClassNameOliv101
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runTesseract101(type:JavaExec) {
+    main = tesseract101
     classpath = sourceSets.main.runtimeClasspath
 }
 
