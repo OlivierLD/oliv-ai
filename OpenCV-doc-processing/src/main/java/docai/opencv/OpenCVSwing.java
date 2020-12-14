@@ -45,7 +45,13 @@ public class OpenCVSwing {
 	private final static int THRESHOLD_OPTION = 1 << 2;
 	private final static int CANNY_OPTION = 1 << 3;
 
-	private final static int IMAGE_PROCESS_OPTIONS = GRAY_OPTION | /*BLUR_OPTION |*/ THRESHOLD_OPTION; // | CANNY_OPTION;
+	private static int imageProcessOptions = 0;
+	static {
+		imageProcessOptions |= GRAY_OPTION;
+//		imageProcessOptions |= BLUR_OPTION;
+		imageProcessOptions |= THRESHOLD_OPTION;
+//		imageProcessOptions |= CANNY_OPTION;
+	}
 
 	private static SwingFrame swingFrame = null;
 
@@ -94,7 +100,7 @@ public class OpenCVSwing {
 				ie.printStackTrace();
 			}
 
-			if ((IMAGE_PROCESS_OPTIONS & GRAY_OPTION) == GRAY_OPTION) {
+			if ((imageProcessOptions & GRAY_OPTION) == GRAY_OPTION) {
 				// convert the image in gray scale
 				Mat gray = new Mat();
 				Imgproc.cvtColor(currentImage, gray, Imgproc.COLOR_BGR2GRAY);
@@ -110,7 +116,7 @@ public class OpenCVSwing {
 				}
 			}
 
-			if ((IMAGE_PROCESS_OPTIONS & BLUR_OPTION) == BLUR_OPTION) {
+			if ((imageProcessOptions & BLUR_OPTION) == BLUR_OPTION) {
 				// Gaussian blur
 				double sigmaX = 0d;
 				final Size kSize = new Size(3, 3); // new Size(11, 11); // new Size(31, 31);
@@ -128,7 +134,7 @@ public class OpenCVSwing {
 				}
 			}
 
-			if ((IMAGE_PROCESS_OPTIONS & THRESHOLD_OPTION) == THRESHOLD_OPTION) {
+			if ((imageProcessOptions & THRESHOLD_OPTION) == THRESHOLD_OPTION) {
 				// threshold
 				Mat threshed = new Mat();
 				Imgproc.threshold(currentImage, threshed, 127, 255, 0);
@@ -144,7 +150,7 @@ public class OpenCVSwing {
 				}
 			}
 
-			if ((IMAGE_PROCESS_OPTIONS & CANNY_OPTION) == CANNY_OPTION) {
+			if ((imageProcessOptions & CANNY_OPTION) == CANNY_OPTION) {
 				// Canny edges
 				Mat canny = new Mat();
 				Imgproc.Canny(image, canny, 10, 100); // From original image
