@@ -4,12 +4,14 @@
 ---
 - [Tesseract project](https://opensource.google/projects/tesseract).
     - [`pytesseract`](https://pypi.org/project/pytesseract/) is a Python wrapper around the `C++` code of Tesseract.
+        - On Raspberry Pi, see [this](https://maker.pro/raspberry-pi/tutorial/optical-character-recognizer-using-raspberry-pi-with-opencv-and-tesseract).
     - There is also a `Tess4J`, wrapper for Java, see [here](https://www.baeldung.com/java-ocr-tesseract).
 - `OpenCV` is used to manipulate, crop and display the images before processing by Tesseract.
 
 Required python modules:
 ```
 pip3 install numpy
+pip3 install imutils
 pip3 install pytesseract
 pip3 install opencv-python
 ```
