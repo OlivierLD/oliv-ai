@@ -64,7 +64,7 @@ print("[INFO] loading images...")
 image = cv2.imread(args["image"])
 template = cv2.imread(args["template"])
 
-# align the images
+# align the images, on the template!!
 print("[INFO] aligning images...")
 aligned = align_images(image, template)
 if args["verbose"] == 'true':
