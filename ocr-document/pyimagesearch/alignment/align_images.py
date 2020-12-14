@@ -53,8 +53,7 @@ def align_images(image,
         ptsA[i] = kpsA[m.queryIdx].pt
         ptsB[i] = kpsB[m.trainIdx].pt
 
-    # compute the homography matrix between the two sets of matched
-    # points
+    # compute the homography matrix between the two sets of matched points
     (H, mask) = cv2.findHomography(ptsA, ptsB, method=cv2.RANSAC)
 
     # use the homography matrix to align the images
