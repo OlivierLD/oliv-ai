@@ -25,30 +25,42 @@ ys = np.array(raw_ys, dtype=float)
 print("X between {} and {}".format(np.min(xs), np.max(xs)))
 print("Y between {} and {}".format(np.min(ys), np.max(ys)))
 
-# Display data
+# Display original data
 if False:
     print("Displaying raw data")
     plt.plot(xs, ys)
     plt.show()
 
-# Model definition
-# model = keras.Sequential([
-#     keras.layers.Dense(units=10, input_shape=[1], kernel_initializer='normal', activation=tf.nn.relu),
-#     keras.layers.Dense(5, kernel_initializer='normal', activation=tf.nn.relu),
-#     keras.layers.Dense(1, kernel_initializer='normal', activation=tf.keras.activations.linear)
-# ])
-model = keras.Sequential([
+# Model definitions
+model_1 = keras.Sequential([
+    keras.layers.Dense(units=10, input_shape=[1], kernel_initializer='normal', activation=tf.nn.relu),
+    keras.layers.Dense(5, kernel_initializer='normal', activation=tf.nn.relu),
+    keras.layers.Dense(1, kernel_initializer='normal', activation=tf.keras.activations.linear)
+])
+model_2 = keras.Sequential([
     keras.layers.Dense(500, input_dim=1, activation=tf.nn.relu),
     keras.layers.Dense(100, activation=tf.nn.relu),
     keras.layers.Dense(50, activation=tf.nn.relu),
     keras.layers.Dense(1)
 ])
+model_3 = keras.Sequential([
+    keras.layers.Dense(500, input_dim=1, activation=tf.nn.relu),
+    keras.layers.Dense(50, activation=tf.nn.relu),
+    keras.layers.Dense(1)
+])
+model_4 = keras.Sequential([
+    keras.layers.Dense(100, input_dim=1, activation=tf.nn.relu),
+    keras.layers.Dense(50, activation=tf.nn.relu),
+    keras.layers.Dense(1)
+])
 
+# Try the different models here
+model = model_4
 
 # model.compile(optimizer='sgd', loss='mean_squared_error')
 model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mse','mae'])
 
-# In english: fit the xs to the ys, and try 500 times
+# In english: fit the xs to the ys, and try X times
 # model.fit(xs, ys, epochs=500)
 model.fit(xs, ys, epochs=20)
 
