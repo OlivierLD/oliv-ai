@@ -13,11 +13,8 @@ Original file is located at
 # !pip install tensorflow==2.2.0
 #
 import tensorflow as tf
-#
 import numpy as np
-#
 import matplotlib.pyplot as plt
-#
 import math
 import time
 #

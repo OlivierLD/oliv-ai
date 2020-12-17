@@ -25,3 +25,5 @@ It takes images from the WebCam to recognize `rock`, `paper`, or `scissors`.
 | Rock | Scissors | Paper |
 |:-------------------:|:-------------------:|:-------------------:|
 | ![Rock](./rock.jpg) | ![Scissors](./scissors.jpg) | ![Paper](./paper.jpg) |
+
+---

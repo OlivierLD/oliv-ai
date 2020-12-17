@@ -23,7 +23,7 @@ print("         'python ocr_form.py -i scans/scan_01.jpg -t form_w4.png [-v true
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True, help="path to input image that we'll align to template")
 ap.add_argument("-t", "--template", required=True, help="path to input template image")
-ap.add_argument("-v", "--verbose", required=False, help="Generates more displays")
+ap.add_argument("-v", "--verbose", required=False, help="Generates more displays", type=boolean)
 args = vars(ap.parse_args())
 
 # create a named tuple which we can use to create locations of the
