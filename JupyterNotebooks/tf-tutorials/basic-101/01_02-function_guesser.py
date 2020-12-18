@@ -8,6 +8,9 @@ from tensorflow import keras
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+# import time
+
+show_details = False
 
 # Read from File (requires 'import json')
 with open('./linear.regression.data.json', mode='r') as f:
@@ -22,14 +25,16 @@ for point in data:
 xs = np.array(raw_xs, dtype=float)
 ys = np.array(raw_ys, dtype=float)
 
-print("X between {} and {}".format(np.min(xs), np.max(xs)))
-print("Y between {} and {}".format(np.min(ys), np.max(ys)))
+print("X in [{}, {}]".format(np.min(xs), np.max(xs)))
+print("Y in [{}, {}]".format(np.min(ys), np.max(ys)))
 
 # Display original data
-if False:
+if show_details:
     print("Displaying raw data")
     plt.plot(xs, ys)
+    plt.legend(["Training data"])
     plt.show()
+    # time.sleep(0.5)   # Give time to close the window
 
 # Model definitions
 model_1 = keras.Sequential([
@@ -54,7 +59,7 @@ model_4 = keras.Sequential([
     keras.layers.Dense(1)
 ])
 
-# Try the different models here
+# Try the different models here...
 model = model_4
 
 # model.compile(optimizer='sgd', loss='mean_squared_error')
@@ -62,9 +67,8 @@ model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mse','mae']
 
 # In english: fit the xs to the ys, and try X times
 # model.fit(xs, ys, epochs=500)
-model.fit(xs, ys, epochs=20)
+model.fit(xs, ys, epochs=20, verbose=(1 if show_details else 0))
 
-show_details = True
 if show_details:  # Display model details
     json_string = model.to_json()
     parsed_json = json.loads(json_string)
@@ -76,8 +80,7 @@ if show_details:  # Display model details
             print("Weights: {}\nBiases: {}".format(weights, biases))
         except Exception:
             print("Oops")
-
-model.summary()
+    model.summary()
 
 
 def frange(start, stop, step):
@@ -89,6 +92,7 @@ def frange(start, stop, step):
 
 new_x = []
 new_y = []
+print("Calculating predictions...")
 for x in frange(np.min(xs), np.max(xs), 0.1):
     new_x.append(x)
     y = model.predict([x])
@@ -99,6 +103,7 @@ pred_ys = np.array(new_y, dtype=float)
 print("Displaying raw and predicted data")
 plt.plot(xs, ys)             # Raw data
 plt.plot(pred_xs, pred_ys)   # Predicted
+plt.legend(["Raw", "Predictions"])
 plt.show()
 
 print("Done!")
