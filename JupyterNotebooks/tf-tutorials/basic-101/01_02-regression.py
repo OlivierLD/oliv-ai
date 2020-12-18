@@ -34,7 +34,7 @@ if show_details:
     plt.plot(xs, ys)
     plt.legend(["Training data"])
     plt.show()
-    # time.sleep(0.5)   # Give time to close the window
+    # time.sleep(0.5)   # Give time to close the window?
 
 # Model definitions
 model_1 = keras.Sequential([
@@ -59,13 +59,13 @@ model_4 = keras.Sequential([
     keras.layers.Dense(1)
 ])
 
-# Try the different models here...
+# Try the different models here... ;)
 model = model_4
 
 # model.compile(optimizer='sgd', loss='mean_squared_error')
-model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mse','mae'])
+model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mse', 'mae'])
 
-# In english: fit the xs to the ys, and try X times
+# In english: fit the xs to the ys, and try X(epochs) times
 # model.fit(xs, ys, epochs=500)
 model.fit(xs, ys, epochs=20, verbose=(1 if show_details else 0))
 
@@ -78,8 +78,8 @@ if show_details:  # Display model details
             weights = layer.get_weights()[0]
             biases = layer.get_weights()[1]
             print("Weights: {}\nBiases: {}".format(weights, biases))
-        except Exception:
-            print("Oops")
+        except Exception as ex:
+            print("Oops {}".format(ex))
     model.summary()
 
 
@@ -93,7 +93,7 @@ def frange(start, stop, step):
 new_x = []
 new_y = []
 print("Calculating predictions...")
-for x in frange(np.min(xs), np.max(xs), 0.1):
+for x in frange(1.5 * np.min(xs), 1.5 * np.max(xs), 0.1):
     new_x.append(x)
     y = model.predict([x])
     new_y.append(y[0][0])
