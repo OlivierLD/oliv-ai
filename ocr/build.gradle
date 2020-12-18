@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'application' // -> provides the 'run' task. See mainClassName
-//    id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'com.github.johnrengelman.shadow'
 }
 
@@ -10,13 +9,9 @@ plugins {
 group 'oliv.ocr'
 version '1.0'
 
-//sourceCompatibility = 1.9
-//targetCompatibility = 1.9
-
 repositories {
     mavenCentral()
     mavenLocal()
-    // Also see https://mvnrepository.com/artifact/org.openpnp/opencv, https://mvnrepository.com/artifact/com.quickbirdstudios/opencv/4.0.1 ?
 }
 
 // Note: use "$ gradle dependencies" to visualize them.
