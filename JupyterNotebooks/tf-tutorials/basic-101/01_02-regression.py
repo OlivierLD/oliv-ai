@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 show_details = False
 
-# Read from File (requires 'import json')
+# Read from File (requires 'import json'). Training data.
 with open('./linear.regression.data.json', mode='r') as f:
     data = json.load(f)
 print("Data were read, {} points".format(len(data)))
@@ -93,6 +93,7 @@ def frange(start, stop, step):
 new_x = []
 new_y = []
 print("Calculating predictions...")
+# Wider range than the training data.
 for x in frange(1.5 * np.min(xs), 1.5 * np.max(xs), 0.1):
     new_x.append(x)
     y = model.predict([x])
