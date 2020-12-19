@@ -269,7 +269,7 @@ public class MSFormRecognizer {
     }
 
     private final static String imageURL = "https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg";
-    private final static String imagePath = "/Users/olivierlediouris/repos/oliv-ai/OpenCV-doc-processing/FormProcessingSampleData/gas.receipt.jpg";
+    private final static String imagePath = "../OpenCV-doc-processing/FormProcessingSampleData/gas.receipt.jpg";
 
     private final static String PROXY_PRM_PREFIX = "--use-proxy:";
     private final static String DETAIL_PRM_PREFIX = "--text-details:";
