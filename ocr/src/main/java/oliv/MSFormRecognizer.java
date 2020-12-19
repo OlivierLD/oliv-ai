@@ -331,7 +331,7 @@ public class MSFormRecognizer {
                 if (verbose) {
                     System.out.println(indented);
                 }
-                // Parse final output, extract field values.
+                // For fun: Parse final output, extract field values.
                 // Look for "#/analyzeResult/documentResults/0/fields/VendorAddress/text
                 // Look for "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text, valueNumber
                 String pathOne = "#/analyzeResult/documentResults/0/fields/VendorAddress/text";
