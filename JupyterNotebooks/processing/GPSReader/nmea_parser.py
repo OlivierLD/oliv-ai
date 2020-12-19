@@ -117,7 +117,7 @@ def gll_parser(nmea_sentence, valid=False):
         time = None  # datetime.time(hours, mins, int(secs), int(microsecs), tzinfo=datetime.timezone.utc)
         if DEBUG or GLL_DEBUG:
             if time is not None:
-              print(time.strftime("%H:%M:%S %z %Z, also %c"))
+                print(time.strftime("%H:%M:%S %z %Z, also %c"))
         # parsed["utc-time"] = time  # Might not be rendered correctly
         itemized_time = {}
         itemized_time["hours"] = hours
@@ -218,7 +218,7 @@ def rmc_parser(nmea_sentence, valid=False):
             date = None  # datetime.datetime(year, month, day, hours, mins, int(secs), 0, tzinfo=datetime.timezone.utc)
             if DEBUG or RMC_DEBUG:
                 if date is not None:
-                  print(date.strftime("%A %d %B %Y %H:%M:%S %z %Z, also %c"))
+                    print(date.strftime("%A %d %B %Y %H:%M:%S %z %Z, also %c"))
             # parsed["utc-date"] = date  # Might not be rendered correctly
             itemized_date = {}
             itemized_date["year"] = year
@@ -368,22 +368,24 @@ def parse_nmea_sentence(nmea_sentence):
                         print("Parsed: {}".format(obj))
                         return obj
             else:
-                raise Exception("Incorrect sentence prefix \"{}\". Should be 6 character long. [{}]".format(sentence_prefix, nmea_sentence))
+                raise Exception(
+                    "Incorrect sentence prefix \"{}\". Should be 6 character long. [{}]".format(sentence_prefix,
+                                                                                                nmea_sentence))
         else:
             raise Exception("Sentence should end with \\r\\n [{}]".format(nmea_sentence))
     else:
         raise Exception("Sentence should start with $ [{}]".format(nmea_sentence))
 
 
-# For tests
-if __name__ == "__main__":
+# For tests, if this class is launched in standalone.
+def tester():
+    print("--------------------------------------")
+    print("{} running as main (for tests)".format(__name__))
+    print("--------------------------------------")
 
     print("Lat: {} => {}".format(37.748911666666665, dec_to_sex(37.748911666666665, NS)))
     print("Lng: {} => {}".format(-122.5071295, dec_to_sex(-122.5071295, EW)))
 
-    print("------------------------------")
-    print("{} running as main (for tests)".format(__name__))
-    print("------------------------------")
     samples = [
         "$IIRMC,092551,A,1036.145,S,15621.845,W,04.8,317,,10,E,A*0D\r\n",
         "$IIMWV,088,T,14.34,N,A*27\r\n",
@@ -408,6 +410,11 @@ if __name__ == "__main__":
                     dec_to_sex(nmea_obj['parsed']['position']['longitude'], EW)))
         except Exception as ex:
             print(">> Ooops! {}".format(ex))
+
+
+# For tests, if this class is launched in standalone.
+if __name__ == "__main__":
+    tester()
 else:
     print("---------------------")
     print("{} NOT running as main, probably imported.".format(__name__))

@@ -33,3 +33,14 @@ mainClassName = 'oliv.MSFormRecognizer'
 shadowJar {
     zip64 true
 }
+
+run {
+    // Use like ../gradlew run -P--use-proxy:true
+    if (project.hasProperty("--use-proxy:true")) {
+        args = ["--use-proxy:true"]
+    }
+    if (project.hasProperty("--text-details:true")) {
+        args = ["--text-details:true"]
+    }
+    jvmArgs '-Djava.util.logging.config.file=./logging.properties'
+}

@@ -1,0 +1,537 @@
+{
+  "status" : "succeeded",
+  "createdDateTime" : "2020-12-19T16:19:25Z",
+  "lastUpdatedDateTime" : "2020-12-19T16:19:33Z",
+  "analyzeResult" : {
+    "version" : "2.1.0",
+    "readResults" : [ {
+      "page" : 1,
+      "angle" : 0.5305,
+      "width" : 720,
+      "height" : 1280,
+      "unit" : "pixel",
+      "lines" : [ {
+        "text" : "ECONO GAS",
+        "boundingBox" : [ 232, 224, 367, 225, 367, 245, 232, 244 ],
+        "words" : [ {
+          "text" : "ECONO",
+          "boundingBox" : [ 233, 225, 311, 225, 311, 246, 233, 245 ],
+          "confidence" : 0.982
+        }, {
+          "text" : "GAS",
+          "boundingBox" : [ 320, 225, 367, 225, 367, 246, 320, 246 ],
+          "confidence" : 0.987
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "XXXXXXXXX7001",
+        "boundingBox" : [ 232, 251, 423, 253, 423, 273, 232, 270 ],
+        "words" : [ {
+          "text" : "XXXXXXXXX7001",
+          "boundingBox" : [ 233, 251, 423, 254, 423, 273, 233, 271 ],
+          "confidence" : 0.953
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "2901 SAN BRUNO AVE W",
+        "boundingBox" : [ 232, 278, 530, 280, 530, 300, 232, 298 ],
+        "words" : [ {
+          "text" : "2901",
+          "boundingBox" : [ 233, 278, 299, 279, 298, 299, 232, 299 ],
+          "confidence" : 0.979
+        }, {
+          "text" : "SAN",
+          "boundingBox" : [ 306, 279, 355, 280, 354, 299, 305, 299 ],
+          "confidence" : 0.987
+        }, {
+          "text" : "BRUNO",
+          "boundingBox" : [ 364, 280, 445, 281, 444, 299, 364, 299 ],
+          "confidence" : 0.981
+        }, {
+          "text" : "AVE",
+          "boundingBox" : [ 454, 281, 503, 281, 502, 300, 453, 300 ],
+          "confidence" : 0.986
+        }, {
+          "text" : "W",
+          "boundingBox" : [ 510, 281, 530, 281, 529, 300, 509, 300 ],
+          "confidence" : 0.968
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "SAN BRUNO",
+        "boundingBox" : [ 231, 306, 368, 307, 367, 327, 231, 325 ],
+        "words" : [ {
+          "text" : "SAN",
+          "boundingBox" : [ 232, 306, 279, 307, 279, 326, 232, 326 ],
+          "confidence" : 0.987
+        }, {
+          "text" : "BRUNO",
+          "boundingBox" : [ 290, 307, 368, 307, 367, 328, 290, 327 ],
+          "confidence" : 0.981
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "CA",
+        "boundingBox" : [ 438, 307, 471, 306, 471, 329, 438, 330 ],
+        "words" : [ {
+          "text" : "CA",
+          "boundingBox" : [ 438, 307, 469, 306, 470, 329, 438, 330 ],
+          "confidence" : 0.988
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "94066",
+        "boundingBox" : [ 231, 335, 308, 336, 308, 355, 231, 354 ],
+        "words" : [ {
+          "text" : "94066",
+          "boundingBox" : [ 232, 335, 308, 336, 307, 356, 232, 355 ],
+          "confidence" : 0.985
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "12/07/2020 586788149",
+        "boundingBox" : [ 231, 364, 529, 364, 529, 387, 231, 387 ],
+        "words" : [ {
+          "text" : "12/07/2020",
+          "boundingBox" : [ 232, 364, 387, 366, 387, 387, 232, 387 ],
+          "confidence" : 0.957
+        }, {
+          "text" : "586788149",
+          "boundingBox" : [ 393, 366, 529, 367, 529, 386, 393, 387 ],
+          "confidence" : 0.981
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "10:20:24 AM",
+        "boundingBox" : [ 233, 393, 395, 395, 395, 416, 233, 415 ],
+        "words" : [ {
+          "text" : "10:20:24",
+          "boundingBox" : [ 233, 394, 356, 395, 356, 417, 233, 415 ],
+          "confidence" : 0.964
+        }, {
+          "text" : "AM",
+          "boundingBox" : [ 365, 395, 396, 395, 395, 417, 364, 417 ],
+          "confidence" : 0.979
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "XXXX XXXX XXXX 1543",
+        "boundingBox" : [ 232, 453, 515, 455, 515, 476, 232, 475 ],
+        "words" : [ {
+          "text" : "XXXX",
+          "boundingBox" : [ 233, 454, 297, 454, 297, 476, 233, 475 ],
+          "confidence" : 0.985
+        }, {
+          "text" : "XXXX",
+          "boundingBox" : [ 305, 454, 371, 455, 371, 476, 305, 476 ],
+          "confidence" : 0.985
+        }, {
+          "text" : "XXXX",
+          "boundingBox" : [ 380, 455, 445, 455, 444, 476, 379, 476 ],
+          "confidence" : 0.983
+        }, {
+          "text" : "1543",
+          "boundingBox" : [ 456, 455, 515, 456, 514, 477, 456, 477 ],
+          "confidence" : 0.983
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "Visa",
+        "boundingBox" : [ 232, 482, 293, 484, 292, 504, 232, 502 ],
+        "words" : [ {
+          "text" : "Visa",
+          "boundingBox" : [ 232, 483, 293, 484, 293, 505, 232, 503 ],
+          "confidence" : 0.966
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "INVOICE 016333",
+        "boundingBox" : [ 234, 511, 441, 514, 441, 534, 234, 532 ],
+        "words" : [ {
+          "text" : "INVOICE",
+          "boundingBox" : [ 234, 512, 339, 513, 339, 534, 235, 533 ],
+          "confidence" : 0.982
+        }, {
+          "text" : "016333",
+          "boundingBox" : [ 350, 513, 441, 514, 440, 535, 350, 534 ],
+          "confidence" : 0.982
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "AUTH 05540D",
+        "boundingBox" : [ 231, 540, 395, 542, 395, 562, 231, 560 ],
+        "words" : [ {
+          "text" : "AUTH",
+          "boundingBox" : [ 232, 540, 294, 542, 293, 562, 231, 560 ],
+          "confidence" : 0.986
+        }, {
+          "text" : "05540D",
+          "boundingBox" : [ 306, 542, 395, 542, 395, 563, 305, 562 ],
+          "confidence" : 0.83
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "PUMP# 3",
+        "boundingBox" : [ 229, 597, 336, 599, 336, 622, 229, 620 ],
+        "words" : [ {
+          "text" : "PUMP#",
+          "boundingBox" : [ 230, 598, 312, 599, 312, 622, 229, 621 ],
+          "confidence" : 0.984
+        }, {
+          "text" : "3",
+          "boundingBox" : [ 320, 599, 337, 599, 336, 623, 319, 623 ],
+          "confidence" : 0.987
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "REGULAR CR",
+        "boundingBox" : [ 230, 628, 380, 630, 380, 650, 230, 649 ],
+        "words" : [ {
+          "text" : "REGULAR",
+          "boundingBox" : [ 231, 629, 339, 630, 338, 650, 231, 649 ],
+          "confidence" : 0.984
+        }, {
+          "text" : "CR",
+          "boundingBox" : [ 349, 630, 381, 631, 380, 651, 348, 651 ],
+          "confidence" : 0.987
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "8.764G",
+        "boundingBox" : [ 438, 631, 528, 631, 528, 652, 438, 652 ],
+        "words" : [ {
+          "text" : "8.764G",
+          "boundingBox" : [ 439, 632, 529, 632, 528, 653, 439, 652 ],
+          "confidence" : 0.982
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "PRICE/GAL",
+        "boundingBox" : [ 229, 656, 364, 659, 363, 683, 229, 681 ],
+        "words" : [ {
+          "text" : "PRICE/GAL",
+          "boundingBox" : [ 230, 657, 363, 659, 362, 683, 229, 681 ],
+          "confidence" : 0.979
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "$3.099",
+        "boundingBox" : [ 439, 660, 528, 660, 527, 682, 439, 682 ],
+        "words" : [ {
+          "text" : "$3.099",
+          "boundingBox" : [ 439, 660, 528, 661, 527, 683, 439, 682 ],
+          "confidence" : 0.984
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "FUEL TOTAL",
+        "boundingBox" : [ 228, 718, 379, 718, 379, 739, 228, 738 ],
+        "words" : [ {
+          "text" : "FUEL",
+          "boundingBox" : [ 229, 719, 292, 718, 291, 739, 229, 738 ],
+          "confidence" : 0.987
+        }, {
+          "text" : "TOTAL",
+          "boundingBox" : [ 304, 718, 379, 719, 379, 740, 304, 739 ],
+          "confidence" : 0.986
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "$",
+        "boundingBox" : [ 400, 717, 432, 718, 432, 743, 400, 743 ],
+        "words" : [ {
+          "text" : "$",
+          "boundingBox" : [ 407, 717, 431, 717, 431, 743, 407, 743 ],
+          "confidence" : 0.983
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 0.999
+          }
+        }
+      }, {
+        "text" : "27.16",
+        "boundingBox" : [ 451, 719, 529, 720, 529, 741, 451, 741 ],
+        "words" : [ {
+          "text" : "27.16",
+          "boundingBox" : [ 452, 720, 528, 721, 527, 742, 452, 742 ],
+          "confidence" : 0.985
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "CREDIT",
+        "boundingBox" : [ 228, 776, 320, 776, 320, 800, 228, 800 ],
+        "words" : [ {
+          "text" : "CREDIT",
+          "boundingBox" : [ 228, 777, 320, 777, 319, 800, 228, 800 ],
+          "confidence" : 0.985
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "$",
+        "boundingBox" : [ 406, 779, 430, 779, 428, 802, 407, 802 ],
+        "words" : [ {
+          "text" : "$",
+          "boundingBox" : [ 409, 779, 429, 779, 429, 802, 409, 802 ],
+          "confidence" : 0.987
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "27.16",
+        "boundingBox" : [ 448, 779, 529, 779, 529, 803, 448, 803 ],
+        "words" : [ {
+          "text" : "27.16",
+          "boundingBox" : [ 452, 779, 530, 780, 530, 804, 452, 804 ],
+          "confidence" : 0.965
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "Customer-activated Purchase/Capture",
+        "boundingBox" : [ 221, 869, 496, 872, 495, 899, 221, 894 ],
+        "words" : [ {
+          "text" : "Customer-activated",
+          "boundingBox" : [ 222, 870, 360, 870, 360, 896, 221, 894 ],
+          "confidence" : 0.828
+        }, {
+          "text" : "Purchase/Capture",
+          "boundingBox" : [ 365, 871, 495, 874, 494, 900, 364, 896 ],
+          "confidence" : 0.906
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "Sequence Number 16876",
+        "boundingBox" : [ 222, 901, 387, 902, 387, 926, 222, 925 ],
+        "words" : [ {
+          "text" : "Sequence",
+          "boundingBox" : [ 222, 902, 282, 902, 282, 926, 223, 925 ],
+          "confidence" : 0.979
+        }, {
+          "text" : "Number",
+          "boundingBox" : [ 286, 902, 338, 903, 338, 926, 286, 926 ],
+          "confidence" : 0.98
+        }, {
+          "text" : "16876",
+          "boundingBox" : [ 343, 903, 387, 903, 386, 926, 342, 926 ],
+          "confidence" : 0.955
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "Contactless",
+        "boundingBox" : [ 220, 932, 308, 933, 308, 955, 220, 954 ],
+        "words" : [ {
+          "text" : "Contactless",
+          "boundingBox" : [ 221, 933, 309, 934, 308, 955, 220, 955 ],
+          "confidence" : 0.952
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      }, {
+        "text" : "APPROVED 05540D",
+        "boundingBox" : [ 222, 963, 346, 965, 346, 986, 222, 984 ],
+        "words" : [ {
+          "text" : "APPROVED",
+          "boundingBox" : [ 223, 963, 293, 965, 292, 986, 223, 984 ],
+          "confidence" : 0.967
+        }, {
+          "text" : "05540D",
+          "boundingBox" : [ 297, 965, 346, 966, 345, 987, 296, 986 ],
+          "confidence" : 0.84
+        } ],
+        "appearance" : {
+          "style" : {
+            "name" : "other",
+            "confidence" : 1
+          }
+        }
+      } ]
+    } ],
+    "pageResults" : [ {
+      "page" : 1
+    } ],
+    "documentResults" : [ {
+      "docType" : "prebuilt:invoice",
+      "pageRange" : [ 1, 1 ],
+      "fields" : {
+        "InvoiceDate" : {
+          "type" : "date",
+          "valueDate" : "2020-12-07",
+          "text" : "12/07/2020",
+          "boundingBox" : [ 232, 364, 387, 366, 387, 387, 232, 387 ],
+          "page" : 1,
+          "confidence" : 0.993,
+          "elements" : [ "#/readResults/0/lines/6/words/0" ]
+        },
+        "InvoiceId" : {
+          "type" : "string",
+          "valueString" : "016333",
+          "text" : "016333",
+          "boundingBox" : [ 350, 513, 441, 514, 440, 535, 350, 534 ],
+          "page" : 1,
+          "confidence" : 0.995,
+          "elements" : [ "#/readResults/0/lines/10/words/1" ]
+        },
+        "InvoiceTotal" : {
+          "type" : "number",
+          "valueNumber" : 27.16,
+          "text" : "$ 27.16",
+          "boundingBox" : [ 407, 716.8, 528, 717.6, 527.8, 743.8, 406.8, 743 ],
+          "page" : 1,
+          "confidence" : 0.962,
+          "elements" : [ "#/readResults/0/lines/18/words/0", "#/readResults/0/lines/19/words/0" ]
+        },
+        "VendorAddress" : {
+          "type" : "string",
+          "valueString" : "2901 SAN BRUNO AVE W SAN BRUNO CA 94066",
+          "text" : "2901 SAN BRUNO AVE W SAN BRUNO CA 94066",
+          "boundingBox" : [ 232.1, 278, 530, 279.9, 529.5, 357.4, 231.6, 355.5 ],
+          "page" : 1,
+          "confidence" : 0.946,
+          "elements" : [ "#/readResults/0/lines/2/words/0", "#/readResults/0/lines/2/words/1", "#/readResults/0/lines/2/words/2", "#/readResults/0/lines/2/words/3", "#/readResults/0/lines/2/words/4", "#/readResults/0/lines/3/words/0", "#/readResults/0/lines/3/words/1", "#/readResults/0/lines/4/words/0", "#/readResults/0/lines/5/words/0" ]
+        },
+        "VendorAddressRecipient" : {
+          "type" : "string",
+          "valueString" : "ECONO GAS XXXXXXXXX7001",
+          "text" : "ECONO GAS XXXXXXXXX7001",
+          "boundingBox" : [ 233, 224.1, 423.3, 225.4, 423, 273, 232.7, 271.8 ],
+          "page" : 1,
+          "confidence" : 0.78,
+          "elements" : [ "#/readResults/0/lines/0/words/0", "#/readResults/0/lines/0/words/1", "#/readResults/0/lines/1/words/0" ]
+        },
+        "VendorName" : {
+          "type" : "string",
+          "valueString" : "ECONO GAS XXXXXXXXX7001",
+          "text" : "ECONO GAS XXXXXXXXX7001",
+          "boundingBox" : [ 233, 224.1, 423.3, 225.4, 423, 273, 232.7, 271.8 ],
+          "page" : 1,
+          "confidence" : 0.78,
+          "elements" : [ "#/readResults/0/lines/0/words/0", "#/readResults/0/lines/0/words/1", "#/readResults/0/lines/1/words/0" ]
+        }
+      }
+    } ]
+  }
+}

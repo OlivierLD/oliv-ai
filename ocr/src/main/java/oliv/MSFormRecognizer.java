@@ -8,10 +8,15 @@ package oliv;
  */
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.*;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -26,14 +31,17 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MSFormRecognizer {
 
+    // LOGGING_FLAG=-Djava.util.logging.config.file=./logging.properties
     private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); // BlahBlahBlah.class.getName());
-
     static {
         log.setLevel(Level.INFO);
     }
@@ -73,7 +81,7 @@ public class MSFormRecognizer {
         return fullPath.substring(fullPath.lastIndexOf(".") + 1);
     }
 
-    private static String reachOutToMsOcrService(ProcessContent processContent, boolean withProxy) {
+    private static String reachOutToMsOcrService(ProcessContent processContent, boolean withProxy, boolean parameterRequired) {
 
         String finalResponse = "{}";
 
@@ -83,6 +91,7 @@ public class MSFormRecognizer {
         /*
          * See this: https://blogs.oracle.com/oit-ces/oci-rest-api-made-simple-get-request-in-java
          *           https://www.baeldung.com/httpclient-post-http-request
+         *           https://www.baeldung.com/java-httpclient-parameters?__s=avhsdu2sz8hdysjtxfi8
          */
         try {
             String firstEndPoint =
@@ -94,6 +103,19 @@ public class MSFormRecognizer {
 
             HttpPost ocrRequestOne = new HttpPost(firstEndPoint);
             ocrRequestOne.setHeader(SUBSCRIPTION_KEY_HEADER, msKey.trim());
+
+            if (parameterRequired) {
+                try {
+                    URI uri = new URIBuilder(ocrRequestOne.getURI())
+                            .addParameter("includeTextDetails", "true")  // Apparently, no impact
+                            .build();
+                    ocrRequestOne.setURI(uri);
+                } catch (URISyntaxException use) {
+                    System.err.println("Oops:" + use.getMessage());
+                }
+            }
+
+            log.info(String.format("First Request: %s", ocrRequestOne.toString()));
 
             if (processContent.getContentType().equals(ProcessContent.ContentType.IMAGE_URL)) {
                 ocrRequestOne.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
@@ -139,6 +161,7 @@ public class MSFormRecognizer {
 
             HttpResponse response = client.execute(ocrRequestOne);
             String responseAsString = EntityUtils.toString(response.getEntity());
+            System.out.println(String.format(">> Response status code: %d", response.getStatusLine().getStatusCode()));
             System.out.println(responseAsString);
             // Check the other URL in the response's headers
             Header[] headers = response.getHeaders(OPERATION_LOCATION);
@@ -153,11 +176,15 @@ public class MSFormRecognizer {
                     if (withProxy) {
                         ocrRequestTwo.setConfig(config); // For the proxy
                     }
+
+                    log.info(String.format("Second Request: %s", ocrRequestTwo.toString()));
+
                     boolean completed = false;
                     int nbLoops = 0;
                     String processStatus = "";
                     while (!completed && nbLoops < MAX_RETRIEVE_LOOPS) {
                         HttpResponse secondResponse = client.execute(ocrRequestTwo);
+                        System.out.println(String.format(">> Second response status code: %d", secondResponse.getStatusLine().getStatusCode()));
                         String retrieved = EntityUtils.toString(secondResponse.getEntity());
                         try {
                             var readValue = new ObjectMapper().readValue(retrieved, Map.class); // Java 11 ;)
@@ -194,8 +221,7 @@ public class MSFormRecognizer {
                     }
                 }
             } else {
-                // Really?
-                // TODO Honk
+                // Really? Honk!
                 finalResponse = "Operation-Location was not found...";
             }
         } catch (IOException e) {
@@ -205,34 +231,105 @@ public class MSFormRecognizer {
         return finalResponse;
     }
 
+    /**
+     * Quick and dirty..., not for prod.
+     * @param json The object
+     * @param path The path
+     * @return the value the path points on.
+     */
+    private static Object findInJson(Object json, String path) {
+        Object result = null;
+        String[] pathElements = path.split("/");
+        for (String element : pathElements) {
+//            System.out.println("Processing JSON path for " + element);
+            if (element.equals("#")) { // the root
+                result = json;
+            } else {
+                if (result != null) {
+//                    System.out.println(String.format(">> %s", result.getClass().getName()));
+                    if (result instanceof Map) {
+                        result = ((Map<String, Object>) result).get(element);
+                    } else if (result instanceof List) {
+                        result = ((List<Object>)result).get(Integer.parseInt(element));
+                    }
+                } else {
+                    System.out.println(String.format("Found null for element %s", element));
+                    return null;
+                }
+            }
+        }
+        return result;
+    }
+
     private final static String imageURL = "https://upload.wikimedia.org/wikipedia/commons/0/0b/ReceiptSwiss.jpg";
     private final static String imagePath = "/Users/olivierlediouris/repos/oliv-ai/OpenCV-doc-processing/FormProcessingSampleData/gas.receipt.jpg";
 
     private final static String PROXY_PRM_PREFIX = "--use-proxy:";
+    private final static String DETAIL_PRM_PREFIX = "--text-details:";
+    private final static String VERBOSE_PRM_PREFIX = "--verbose:";
 
+    /**
+     * Will send documents for OCR processing.
+     *
+     * @param args can be
+     *             --use-proxy:true|false. Default is false.
+     *             --text-details:true|false. Default is false.
+     *             --verbose:true|false. Default is false.
+     */
     public static void main(String... args) {
-        ProcessContent[] images = new ProcessContent[]{
+
+        boolean verbose = false;
+
+        ProcessContent[] images = new ProcessContent[] {
                 new ProcessContent(ProcessContent.ContentType.IMAGE_URL, imageURL),
                 new ProcessContent(ProcessContent.ContentType.IMAGE_PATH, imagePath)
         };
         boolean useProxy = false;
+        boolean withTextDetails = true;
         if (args.length > 0) {
             for (String arg : args) {
                 if (arg.startsWith(PROXY_PRM_PREFIX)) {
                     useProxy = arg.substring(PROXY_PRM_PREFIX.length()).equals("true");
                 }
+                if (arg.startsWith(DETAIL_PRM_PREFIX)) {
+                    withTextDetails = arg.substring(DETAIL_PRM_PREFIX.length()).equals("true");
+                }
+                if (arg.startsWith(VERBOSE_PRM_PREFIX)) {
+                    verbose = arg.substring(VERBOSE_PRM_PREFIX.length()).equals("true");
+                }
             }
         }
 
         for (ProcessContent processContent : images) {
-            String parsedContent = reachOutToMsOcrService(processContent, useProxy);
+            String parsedContent = reachOutToMsOcrService(processContent, useProxy, withTextDetails);
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 Object json = mapper.readValue(parsedContent, Object.class);
-                String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-                System.out.println(indented);
+                if (verbose) {
+                    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+                    System.out.println(indented);
+                }
+                // Look for "#/analyzeResult/documentResults/0/fields/VendorAddress/text
+                // Look for "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text, valueNumber
+                String pathOne = "#/analyzeResult/documentResults/0/fields/VendorAddress/text";
+                Object vendorAddress = findInJson(json, pathOne);
+                if (vendorAddress != null) {
+                    System.out.println(String.format("VendorAddress, %s, %s", vendorAddress.getClass().getName(), vendorAddress.toString()));
+                }
+                String pathTwo = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text";
+                Object invoiceTotalStr = findInJson(json, pathTwo);
+                if (invoiceTotalStr != null) {
+                    System.out.println(String.format("InvoiceTotal (str), %s, %s", invoiceTotalStr.getClass().getName(), invoiceTotalStr.toString()));
+                }
+                String pathThree = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/valueNumber";
+                Object invoiceTotalVal = findInJson(json, pathThree);
+                if (invoiceTotalVal != null) {
+                    System.out.println(String.format("InvoiceTotal (val), %s, %s", invoiceTotalVal.getClass().getName(), invoiceTotalVal.toString()));
+                }
             } catch (Exception ex) {
-                System.out.println(parsedContent);
+                if (verbose) {
+                    System.out.println(parsedContent);
+                }
                 ex.printStackTrace();
             }
         }

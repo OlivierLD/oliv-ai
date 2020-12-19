@@ -10,6 +10,10 @@ import json
 import matplotlib.pyplot as plt
 # import time
 
+print("__name__: {}".format(__name__))
+# if __name__ == '__main__':
+#     main(sys.argv)
+
 show_details = False
 
 # Read from File (requires 'import json'). Training data.

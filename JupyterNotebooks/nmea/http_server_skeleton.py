@@ -189,7 +189,6 @@ machine_name = "127.0.0.1"
 MACHINE_NAME_PRM_PREFIX = "--machine-name:"
 PORT_PRM_PREFIX = "--port:"
 
-
 if len(sys.argv) > 0:  # Script name + X args
     for arg in sys.argv:
         if arg[:len(MACHINE_NAME_PRM_PREFIX)] == MACHINE_NAME_PRM_PREFIX:
