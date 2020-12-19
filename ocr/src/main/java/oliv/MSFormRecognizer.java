@@ -28,9 +28,7 @@ import org.apache.http.util.EntityUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -77,10 +75,22 @@ public class MSFormRecognizer {
         }
     }
 
+    /**
+     *
+     * @param fullPath From "path/to/file.ext"
+     * @return "ext"
+     */
     private static String findExtension(String fullPath) {
         return fullPath.substring(fullPath.lastIndexOf(".") + 1);
     }
 
+    /**
+     * Makes the 2 required requests to get to the document description.
+     * @param processContent Content to process
+     * @param withProxy use proxy to reach the MicroSoft site
+     * @param parameterRequired add the includeTextDetails parameter to the first query. Seem to have no impact.
+     * @return the json content.
+     */
     private static String reachOutToMsOcrService(ProcessContent processContent, boolean withProxy, boolean parameterRequired) {
 
         String finalResponse = "{}";
@@ -161,7 +171,7 @@ public class MSFormRecognizer {
 
             HttpResponse response = client.execute(ocrRequestOne);
             String responseAsString = EntityUtils.toString(response.getEntity());
-            System.out.println(String.format(">> Response status code: %d", response.getStatusLine().getStatusCode()));
+            System.out.printf(">> Response status code: %d%n", response.getStatusLine().getStatusCode());
             System.out.println(responseAsString);
             // Check the other URL in the response's headers
             Header[] headers = response.getHeaders(OPERATION_LOCATION);
@@ -184,7 +194,7 @@ public class MSFormRecognizer {
                     String processStatus = "";
                     while (!completed && nbLoops < MAX_RETRIEVE_LOOPS) {
                         HttpResponse secondResponse = client.execute(ocrRequestTwo);
-                        System.out.println(String.format(">> Second response status code: %d", secondResponse.getStatusLine().getStatusCode()));
+                        System.out.printf(">> Second response status code: %d%n", secondResponse.getStatusLine().getStatusCode());
                         String retrieved = EntityUtils.toString(secondResponse.getEntity());
                         try {
                             var readValue = new ObjectMapper().readValue(retrieved, Map.class); // Java 11 ;)
@@ -214,15 +224,12 @@ public class MSFormRecognizer {
                                 String.format(
                                         "Request at %s still in state '%s' after %d tries. Come back later.",
                                         nextUrl, processStatus, MAX_RETRIEVE_LOOPS);
-                        finalResponse =
-                                String.format(
-                                        "{ \"end-point\": \"%s\", \"message\": \"%s\" }",
-                                        nextUrl, message);
+                        throw new RuntimeException(message);
                     }
                 }
             } else {
                 // Really? Honk!
-                finalResponse = "Operation-Location was not found...";
+                throw new RuntimeException("Operation-Location was not found in the first response...");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -253,7 +260,7 @@ public class MSFormRecognizer {
                         result = ((List<Object>)result).get(Integer.parseInt(element));
                     }
                 } else {
-                    System.out.println(String.format("Found null for element %s", element));
+                    System.out.printf("Found null for element %s%n", element);
                     return null;
                 }
             }
@@ -305,26 +312,42 @@ public class MSFormRecognizer {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 Object json = mapper.readValue(parsedContent, Object.class);
+                String indented = mapper
+                        .writerWithDefaultPrettyPrinter()
+                        .writeValueAsString(json);
+                // Write the result on the file system
+                String outputFileName;
+                if (processContent.getContentType().equals(ProcessContent.ContentType.IMAGE_PATH)) {
+                    outputFileName = processContent.getLocation().substring(processContent.getLocation().lastIndexOf(File.separator) + 1);
+                } else {
+                    outputFileName = processContent.getLocation().substring(processContent.getLocation().lastIndexOf("/") + 1);
+                }
+                outputFileName += ".json";
+                File outputFile = new File(outputFileName);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+                bw.write(indented);
+                bw.close();
+                System.out.printf("-- Data written to %s%n", outputFile.getAbsolutePath());
                 if (verbose) {
-                    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
                     System.out.println(indented);
                 }
+                // Parse final output, extract field values.
                 // Look for "#/analyzeResult/documentResults/0/fields/VendorAddress/text
                 // Look for "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text, valueNumber
                 String pathOne = "#/analyzeResult/documentResults/0/fields/VendorAddress/text";
                 Object vendorAddress = findInJson(json, pathOne);
                 if (vendorAddress != null) {
-                    System.out.println(String.format("VendorAddress, %s, %s", vendorAddress.getClass().getName(), vendorAddress.toString()));
+                    System.out.printf("VendorAddress, %s, %s%n", vendorAddress.getClass().getName(), vendorAddress.toString());
                 }
                 String pathTwo = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text";
                 Object invoiceTotalStr = findInJson(json, pathTwo);
                 if (invoiceTotalStr != null) {
-                    System.out.println(String.format("InvoiceTotal (str), %s, %s", invoiceTotalStr.getClass().getName(), invoiceTotalStr.toString()));
+                    System.out.printf("InvoiceTotal (str), %s, %s%n", invoiceTotalStr.getClass().getName(), invoiceTotalStr.toString());
                 }
                 String pathThree = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/valueNumber";
                 Object invoiceTotalVal = findInJson(json, pathThree);
                 if (invoiceTotalVal != null) {
-                    System.out.println(String.format("InvoiceTotal (val), %s, %s", invoiceTotalVal.getClass().getName(), invoiceTotalVal.toString()));
+                    System.out.printf("InvoiceTotal (val), %s, %s%n", invoiceTotalVal.getClass().getName(), invoiceTotalVal.toString());
                 }
             } catch (Exception ex) {
                 if (verbose) {
