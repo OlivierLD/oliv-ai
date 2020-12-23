@@ -28,9 +28,14 @@ import org.apache.http.util.EntityUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -75,6 +80,9 @@ public class MSFormRecognizer {
         }
     }
 
+    private static long before = 0L;
+    private static long after = 0L;
+
     /**
      *
      * @param fullPath From "path/to/file.ext"
@@ -91,7 +99,10 @@ public class MSFormRecognizer {
      * @param parameterRequired add the includeTextDetails parameter to the first query. Seem to have no impact.
      * @return the json content.
      */
-    private static String reachOutToMsOcrService(ProcessContent processContent, boolean withProxy, boolean parameterRequired) {
+    private static String reachOutToMsOcrService(ProcessContent processContent,
+                                                 boolean withProxy,
+                                                 boolean parameterRequired,
+                                                 boolean showTime) {
 
         String finalResponse = "{}";
 
@@ -155,8 +166,7 @@ public class MSFormRecognizer {
 //                HttpEntity multipart = builder.build();
 //                ocrRequestOne.setEntity(multipart);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
+                    throw new RuntimeException(ex);
                 }
             }
 
@@ -169,7 +179,16 @@ public class MSFormRecognizer {
                 ocrRequestOne.setConfig(config);
             }
 
+            if (showTime) {
+                before = System.currentTimeMillis();
+            }
             HttpResponse response = client.execute(ocrRequestOne);
+            if (showTime) {
+                after = System.currentTimeMillis();
+                System.out.printf("First request (for %s) took %sms%n",
+                        processContent.getLocation(),
+                        NumberFormat.getInstance().format(after - before));
+            }
             String responseAsString = EntityUtils.toString(response.getEntity());
             System.out.printf(">> Response status code: %d%n", response.getStatusLine().getStatusCode());
             System.out.println(responseAsString);
@@ -193,7 +212,14 @@ public class MSFormRecognizer {
                     int nbLoops = 0;
                     String processStatus = "";
                     while (!completed && nbLoops < MAX_RETRIEVE_LOOPS) {
+                        if (showTime) {
+                            before = System.currentTimeMillis();
+                        }
                         HttpResponse secondResponse = client.execute(ocrRequestTwo);
+                        if (showTime) {
+                            after = System.currentTimeMillis();
+                            System.out.printf("Second request took %sms%n", NumberFormat.getInstance().format(after - before));
+                        }
                         System.out.printf(">> Second response status code: %d%n", secondResponse.getStatusLine().getStatusCode());
                         String retrieved = EntityUtils.toString(secondResponse.getEntity());
                         try {
@@ -273,6 +299,7 @@ public class MSFormRecognizer {
 
     private final static String PROXY_PRM_PREFIX = "--use-proxy:";
     private final static String DETAIL_PRM_PREFIX = "--text-details:";
+    private final static String SHOW_TIME_PRM_PREFIX = "--show-time:";
     private final static String VERBOSE_PRM_PREFIX = "--verbose:";
 
     /**
@@ -281,18 +308,16 @@ public class MSFormRecognizer {
      * @param args can be
      *             --use-proxy:true|false. Default is false.
      *             --text-details:true|false. Default is false.
+     *             --show-time:true|false. Default is false.
      *             --verbose:true|false. Default is false.
      */
     public static void main(String... args) {
 
         boolean verbose = false;
-
-        ProcessContent[] images = new ProcessContent[] {
-                new ProcessContent(ProcessContent.ContentType.IMAGE_URL, imageURL),
-                new ProcessContent(ProcessContent.ContentType.IMAGE_PATH, imagePath)
-        };
         boolean useProxy = false;
+        boolean showTime = false;
         boolean withTextDetails = true;
+        // Parse CLI parameters
         if (args.length > 0) {
             for (String arg : args) {
                 if (arg.startsWith(PROXY_PRM_PREFIX)) {
@@ -301,60 +326,78 @@ public class MSFormRecognizer {
                 if (arg.startsWith(DETAIL_PRM_PREFIX)) {
                     withTextDetails = arg.substring(DETAIL_PRM_PREFIX.length()).equals("true");
                 }
+                if (arg.startsWith(SHOW_TIME_PRM_PREFIX)) {
+                    showTime = arg.substring(SHOW_TIME_PRM_PREFIX.length()).equals("true");
+                }
                 if (arg.startsWith(VERBOSE_PRM_PREFIX)) {
                     verbose = arg.substring(VERBOSE_PRM_PREFIX.length()).equals("true");
                 }
             }
         }
 
+        ProcessContent[] images = new ProcessContent[] {
+                new ProcessContent(ProcessContent.ContentType.IMAGE_URL, imageURL),
+                new ProcessContent(ProcessContent.ContentType.IMAGE_PATH, imagePath)
+        };
+
+        ObjectMapper mapper = new ObjectMapper(); // Here comes Jackson
+
         for (ProcessContent processContent : images) {
-            String parsedContent = reachOutToMsOcrService(processContent, useProxy, withTextDetails);
             try {
-                ObjectMapper mapper = new ObjectMapper();
-                Object json = mapper.readValue(parsedContent, Object.class);
-                String indented = mapper
-                        .writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(json);
-                // Write the result on the file system
-                String outputFileName;
-                if (processContent.getContentType().equals(ProcessContent.ContentType.IMAGE_PATH)) {
-                    outputFileName = processContent.getLocation().substring(processContent.getLocation().lastIndexOf(File.separator) + 1);
-                } else {
-                    outputFileName = processContent.getLocation().substring(processContent.getLocation().lastIndexOf("/") + 1);
-                }
-                outputFileName += ".json";
-                File outputFile = new File(outputFileName);
-                BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
-                bw.write(indented);
-                bw.close();
-                System.out.printf("-- Data written to %s%n", outputFile.getAbsolutePath());
-                if (verbose) {
-                    System.out.println(indented);
-                }
-                // For fun: Parse final output, extract field values.
-                // Look for "#/analyzeResult/documentResults/0/fields/VendorAddress/text
-                // Look for "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text, valueNumber
-                String pathOne = "#/analyzeResult/documentResults/0/fields/VendorAddress/text";
-                Object vendorAddress = findInJson(json, pathOne);
-                if (vendorAddress != null) {
-                    System.out.printf("VendorAddress, %s, %s%n", vendorAddress.getClass().getName(), vendorAddress.toString());
-                }
-                String pathTwo = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text";
-                Object invoiceTotalStr = findInJson(json, pathTwo);
-                if (invoiceTotalStr != null) {
-                    System.out.printf("InvoiceTotal (str), %s, %s%n", invoiceTotalStr.getClass().getName(), invoiceTotalStr.toString());
-                }
-                String pathThree = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/valueNumber";
-                Object invoiceTotalVal = findInJson(json, pathThree);
-                if (invoiceTotalVal != null) {
-                    System.out.printf("InvoiceTotal (val), %s, %s%n", invoiceTotalVal.getClass().getName(), invoiceTotalVal.toString());
+                String parsedContent = reachOutToMsOcrService(processContent,
+                        useProxy,
+                        withTextDetails,
+                        showTime);
+                try {
+                    Object json = mapper.readValue(parsedContent, Object.class);
+                    String indented = mapper
+                            .writerWithDefaultPrettyPrinter()
+                            .writeValueAsString(json);
+                    // Write the result on the file system
+                    String outputFileName;
+                    if (processContent.getContentType().equals(ProcessContent.ContentType.IMAGE_PATH)) {
+                        outputFileName = processContent.getLocation().substring(processContent.getLocation().lastIndexOf(File.separator) + 1);
+                    } else {
+                        outputFileName = processContent.getLocation().substring(processContent.getLocation().lastIndexOf("/") + 1);
+                    }
+                    outputFileName += ".json";
+                    File outputFile = new File(outputFileName);
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+                    bw.write(indented);
+                    bw.close();
+                    System.out.printf("-- Data written to %s%n", outputFile.getAbsolutePath());
+                    if (verbose) {
+                        System.out.println(indented);
+                    }
+                    // For fun: Parse final output, extract field values.
+                    // Look for "#/analyzeResult/documentResults/0/fields/VendorAddress/text
+                    // Look for "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text, valueNumber
+                    String pathOne = "#/analyzeResult/documentResults/0/fields/VendorAddress/text";
+                    Object vendorAddress = findInJson(json, pathOne);
+                    if (vendorAddress != null) {
+                        System.out.printf("VendorAddress, %s, %s%n", vendorAddress.getClass().getName(), vendorAddress.toString());
+                    }
+                    String pathTwo = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/text";
+                    Object invoiceTotalStr = findInJson(json, pathTwo);
+                    if (invoiceTotalStr != null) {
+                        System.out.printf("InvoiceTotal (str), %s, %s%n", invoiceTotalStr.getClass().getName(), invoiceTotalStr.toString());
+                    }
+                    String pathThree = "#/analyzeResult/documentResults/0/fields/InvoiceTotal/valueNumber";
+                    Object invoiceTotalVal = findInJson(json, pathThree);
+                    if (invoiceTotalVal != null) {
+                        System.out.printf("InvoiceTotal (val), %s, %s%n", invoiceTotalVal.getClass().getName(), invoiceTotalVal.toString());
+                    }
+                } catch (Exception ex) {
+                    if (verbose) {
+                        System.out.println(parsedContent);
+                    }
+                    ex.printStackTrace();
                 }
             } catch (Exception ex) {
-                if (verbose) {
-                    System.out.println(parsedContent);
-                }
                 ex.printStackTrace();
+//                break;
             }
         }
+        System.out.println("Et voilà!");
     }
 }

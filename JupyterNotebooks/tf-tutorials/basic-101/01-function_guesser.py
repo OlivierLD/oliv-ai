@@ -5,12 +5,18 @@
 from tensorflow import keras
 import numpy as np
 import json
+from tensorflow.keras.utils import plot_model     # Requires pydot and GraphViz
 
 # Single layer model
 model = keras.Sequential([
     keras.layers.Dense(units=1, input_shape=[1])
 ])
 model.compile(optimizer='sgd', loss='mean_squared_error')
+
+plot_model(model,
+           to_file='01_01.png',
+           show_shapes=True,
+           show_layer_names=True)
 
 # Actual function is y = (2x - 1)
 xs = np.array([-1.0, 0.0, 1.0, 2.0, 3.0, 4.0], dtype=float)   # in

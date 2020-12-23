@@ -8,6 +8,7 @@ from tensorflow import keras
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+from tensorflow.keras.utils import plot_model     # Requires pydot and GraphViz
 # import time
 
 print("__name__: {}".format(__name__))
@@ -68,6 +69,11 @@ model = model_4
 
 # model.compile(optimizer='sgd', loss='mean_squared_error')
 model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mse', 'mae'])
+
+plot_model(model,
+           to_file='01_02.png',
+           show_shapes=True,
+           show_layer_names=True)
 
 # In english: fit the xs to the ys, and try X(epochs) times
 # model.fit(xs, ys, epochs=500)

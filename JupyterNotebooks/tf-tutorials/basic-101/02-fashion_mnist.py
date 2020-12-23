@@ -11,6 +11,7 @@ import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
 import json
+from tensorflow.keras.utils import plot_model     # Requires pydot and GraphViz
 
 print("TF Version {}".format(tf.__version__))
 
@@ -26,6 +27,12 @@ model = keras.Sequential([
 model.compile(optimizer=tf.keras.optimizers.Adam(),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
+
+plot_model(model,
+           to_file='02.png',
+           show_shapes=True,
+           show_layer_names=True)
+
 
 model.fit(train_images, train_labels, epochs=5)
 
