@@ -28,9 +28,10 @@ fi
 #
 CLASS=oliv.opencv.OpenCVSwingCamera
 #
-# For MacOS Catalina, does not work :(
+# For MacOS Catalina, does not work from the CLI :(
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"
 export OPENCV_AVFOUNDATION_SKIP_AUTH=1
+#
 JAVA_OPTS="-Dinput.source=CAMERA"
 # JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
 #
