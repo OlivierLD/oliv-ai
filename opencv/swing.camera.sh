@@ -7,6 +7,11 @@ SUDO=
 if [[ "$DARWIN" != "" ]]
 then
   echo -e "Running on MacOS: ${DARWIN}"
+  echo -e "+------------------------------------------------------------------+"
+  echo -e "| Note: If this does not work, try '../gradlew runOlivSwingCamera' |"
+  echo -e "+------------------------------------------------------------------+"
+  echo -en "Hit [return] > "
+  read a
   # SUDO="sudo "
   # export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.7)
   CP="$CP:/usr/local/share/java/opencv4/opencv-450.jar" # Mac
