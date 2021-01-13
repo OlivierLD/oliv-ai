@@ -13,6 +13,10 @@ import json
 import matplotlib.pyplot as plt
 # from tensorflow.keras.utils import plot_model     # Requires pydot and GraphViz
 
+print("Python version {}".format(sys.version))
+print("TensorFlow version {}".format(tf.__version__))
+print("Keras version {}".format(keras.__version__))
+
 
 def float_range(start, stop, step):
     i = start
@@ -125,23 +129,31 @@ def main(argv):
         print(argv)
     for arg in argv:
         if arg[:len(MODEL_PRM_PREFIX)] == MODEL_PRM_PREFIX:
-            model_num = arg[len(MODEL_PRM_PREFIX):]
-            if model_num == 1:
-                model = model_1
-            elif model_num == 2:
-                model = model_2
-            elif model_num == 3:
-                model = model_3
-            elif model_num == 4:
-                model = model_4
+            try:
+                model_num = int(arg[len(MODEL_PRM_PREFIX):])
+                if model_num == 1:
+                    model = model_1
+                elif model_num == 2:
+                    model = model_2
+                elif model_num == 3:
+                    model = model_3
+                elif model_num == 4:
+                    model = model_4
+                else:
+                    print("{} not there yet, using default (4)".format(model_num))
+            except Exception as ex:
+                print(str(ex))
         elif arg[:len(SHOW_DETAILS_PRM_PREFIX)] == SHOW_DETAILS_PRM_PREFIX:
             show_details = (arg[len(SHOW_DETAILS_PRM_PREFIX):] == "true")
-
     do_it(model, show_details)
 
 
-print("__name__: {}".format(__name__))
+# print("__name__: {}".format(__name__))
 
 if __name__ == '__main__':
+    print("Running as main")
+    print("Usage is:")
+    print("  python3 {} --model:[1..4]".format(__file__))
+    print("  python3 {} --show-details:true|false".format(__file__))
     main(sys.argv)
     print("Done!")
