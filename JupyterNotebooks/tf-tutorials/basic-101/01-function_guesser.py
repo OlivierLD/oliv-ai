@@ -1,11 +1,13 @@
 #
 # The SIMPLEST Neural Network ever.
 #
-# import tensorflow as tf
+import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 import json
 from tensorflow.keras.utils import plot_model     # Requires pydot and GraphViz
+
+print(f"Using TensorFlow Version {tf.__version__}")
 
 # Single layer model
 model = keras.Sequential([
@@ -13,6 +15,7 @@ model = keras.Sequential([
 ])
 model.compile(optimizer='sgd', loss='mean_squared_error')
 
+print("Printing model to 01_01.png")
 plot_model(model,
            to_file='01_01.png',
            show_shapes=True,
@@ -45,7 +48,8 @@ if show_details:  # Display model details
 model.summary()
 
 prediction = model.predict([10.0])
-print("For value 10, predict is {}".format(prediction[0][0]))
+# print("For value 10, predict is {}".format(prediction[0][0]))
+print(f"For value 10, predict is {prediction[0][0]}")
 expected = (2 * 10.0) - 1
 error = (expected - prediction[0][0]) / expected
 print("Expected {}, error is {:.3f}% ({}%)".format(expected, error * 100, error * 100))

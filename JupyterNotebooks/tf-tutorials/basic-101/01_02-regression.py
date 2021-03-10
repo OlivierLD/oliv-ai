@@ -49,9 +49,11 @@ model_4 = keras.Sequential([
 ])
 
 
-def do_it(model, show_details):
+def do_it(model, show_details, model_name):
+    print(f"Will use model {model_name}")
     # Read from File (requires 'import json'). Training data.
-    with open('./linear.regression.data.json', mode='r') as f:
+    # with open('./linear.regression.data.json', mode='r') as f:
+    with open('./linear.regression.data.02.json', mode='r') as f:
         data = json.load(f)
     print("Data were read, {} points".format(len(data)))
     raw_xs = []
@@ -104,6 +106,7 @@ def do_it(model, show_details):
     print("Calculating predictions...")
     # Wider range than the training data.
     for x in float_range(1.5 * np.min(xs), 1.5 * np.max(xs), 0.1):
+        # print(f"float_range just yield {x}")
         new_x.append(x)
         y = model.predict([x])
         new_y.append(y[0][0])
@@ -123,6 +126,7 @@ SHOW_DETAILS_PRM_PREFIX = "--show-details:"
 
 def main(argv):
     # Try the different models here... ;)
+    model_name = "model_4"
     model = model_4
     show_details = False
     if len(argv) != 0:
@@ -133,19 +137,23 @@ def main(argv):
                 model_num = int(arg[len(MODEL_PRM_PREFIX):])
                 if model_num == 1:
                     model = model_1
+                    model_name = "model_1"
                 elif model_num == 2:
                     model = model_2
+                    model_name = "model_2"
                 elif model_num == 3:
                     model = model_3
+                    model_name = "model_3"
                 elif model_num == 4:
                     model = model_4
+                    model_name = "model_4"
                 else:
                     print("{} not there yet, using default (4)".format(model_num))
             except Exception as ex:
                 print(str(ex))
         elif arg[:len(SHOW_DETAILS_PRM_PREFIX)] == SHOW_DETAILS_PRM_PREFIX:
             show_details = (arg[len(SHOW_DETAILS_PRM_PREFIX):] == "true")
-    do_it(model, show_details)
+    do_it(model, show_details, model_name)
 
 
 # print("__name__: {}".format(__name__))
