@@ -25,37 +25,46 @@ def float_range(start, stop, step):
         i += step
 
 
-# Model definitions (globals)
+#
+# Several model definitions (globals)
+#
+# 3 layers: 10 -> 5 -> 1
 model_1 = keras.Sequential([
     keras.layers.Dense(units=10, input_shape=[1], kernel_initializer='normal', activation=tf.nn.relu),
     keras.layers.Dense(5, kernel_initializer='normal', activation=tf.nn.relu),
     keras.layers.Dense(1, kernel_initializer='normal', activation=tf.keras.activations.linear)
 ])
+# 4 layers: 500 -> 100 -> 50 -> 1
 model_2 = keras.Sequential([
     keras.layers.Dense(500, input_dim=1, activation=tf.nn.relu),
     keras.layers.Dense(100, activation=tf.nn.relu),
     keras.layers.Dense(50, activation=tf.nn.relu),
     keras.layers.Dense(1)
 ])
+# 3 layers: 500 -> 50 -> 1
 model_3 = keras.Sequential([
     keras.layers.Dense(500, input_dim=1, activation=tf.nn.relu),
     keras.layers.Dense(50, activation=tf.nn.relu),
     keras.layers.Dense(1)
 ])
+# 4 layers: 100 -> 50 -> 1
 model_4 = keras.Sequential([
     keras.layers.Dense(100, input_dim=1, activation=tf.nn.relu),
     keras.layers.Dense(50, activation=tf.nn.relu),
     keras.layers.Dense(1)
 ])
 
+# data_file = "./linear.regression.data.json"
+data_file = "./linear.regression.data.02.json"
+
 
 def do_it(model, show_details, model_name):
     print(f"Will use model {model_name}")
+    print(f"Now reading the data from {data_file}")
     # Read from File (requires 'import json'). Training data.
-    # with open('./linear.regression.data.json', mode='r') as f:
-    with open('./linear.regression.data.02.json', mode='r') as f:
+    with open(data_file, mode='r') as f:
         data = json.load(f)
-    print("Data were read, {} points".format(len(data)))
+    print("Data were read, we have {} points".format(len(data)))
     raw_xs = []
     raw_ys = []
     for point in data:

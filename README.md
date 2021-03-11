@@ -1,9 +1,15 @@
 ## Oliv AI
 Learning AI, ML, DL, etc.
 
-> “Any intelligent fool can make things bigger and more complex... It takes a touch of genius and a lot of courage to move in the opposite direction.” 
+> “Any intelligent fool can make things bigger and more complex...  
+>  It takes a touch of genius and a lot of courage to move in the opposite direction.” 
 >
 > - Albert Einstein 
+
+### Some links (more to come)
+- PyTorch tutorial: <https://pytorch.org/tutorials/>
+- 9 hour video on PyTorch: <https://www.youtube.com/watch?v=GIsg-ZUy0MY>
+- 7 hour video on TensorFlow: <https://www.youtube.com/watch?v=tPYj3fFJGjk>
 
 #### About the Raspberry Pi
 Did several tests, specially since RaspiOS 64-bits was released, running TensorFlow - installing it actually - is not always as straigthforward as expected.
