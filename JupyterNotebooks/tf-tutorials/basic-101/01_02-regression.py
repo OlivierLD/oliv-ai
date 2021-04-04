@@ -55,7 +55,8 @@ model_4 = keras.Sequential([
 ])
 
 # data_file = "./linear.regression.data.json"
-data_file = "./linear.regression.data.02.json"
+# data_file = "./linear.regression.data.02.json"
+data_file = "./linear.regression.data.03.json"
 
 
 def do_it(model, show_details, model_name):

@@ -16,7 +16,29 @@ When OpenCV is needed, you can install it with
 ```
 pip3 install opencv-python
 ```
+## The simplest NN ever
+- `01-function_guesser.py`
 
+## Regression problem
+- `02-01_02-regression.py`
+  - Read data points from a JSON file to train a model, put to work after that.
+> It might be interesting to compare this method with the Least Square method.  
+> In <https://olivierld.github.io/>, in the Menu (hamburger): 
+> - choose Single Page App stuff > A Full Modal Page,... , linear regression.
+> - Spray ponts on the canvas
+> - Choose the polynomial degree you want (here 3, and 4)
+> - Hit the `[Resolve]` button
+> - If you hit the `[Spit points]` button, you get the json content (in red, at the bottom) you can use with `02-01_02-regression.py`.
+
+| Least Square Method                   | Neural Network Regression  |
+|:-------------------------------------:|:--------------------------:|
+| ![Least Squares](./least.squares.png) ![Least Squares](./least.squares.deg4.png) | ![NN](./nn.regression.png) |
+
+It could be a good starting point to discuss under-fitting and over-fitting of a model.
+
+## TODO: more doc here
+
+## Rock-Scissors-Paper
 The script `04-bis_rock_paper_scissors_webcam.py` is extension of `04-image_classifier.py`, it uses
 - A WebCam
 - The model trained in `04-image_classifier.py`
