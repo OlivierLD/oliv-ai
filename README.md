@@ -7,6 +7,7 @@ Learning AI, ML, DL, etc.
 > - Albert Einstein 
 
 ### Some links (more to come)
+- Tutorials and code in this repo, [here](./TUTORIALS.md).
 - PyTorch tutorial: <https://pytorch.org/tutorials/>
 - 9 hour video on PyTorch: <https://www.youtube.com/watch?v=GIsg-ZUy0MY>
 - 7 hour video on TensorFlow: <https://www.youtube.com/watch?v=tPYj3fFJGjk>
