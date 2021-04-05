@@ -59,9 +59,9 @@ It takes images from the WebCam to recognize `rock`, `paper`, or `scissors`.
 - Get the dataset, and train the model.
   - Dataset `rps` contains images of rocks, papers, scissors.
   - Run `04-image_classifier.py`.  
-  This will train the model, and apply it to somne test data.
-  - Then, using the same trained model (`rps.h5`), run `04-bis_rock_paper_scissors_webcam.py`.
-    - This requires `OpenCV` and a WebCam.  
-      See in the code, comments will tell you how to install the requirements. 
+  This will train the model, and apply it to some test data.
+- Then, using the same trained model (`rps.h5`), run `04-bis_rock_paper_scissors_webcam.py`.
+  - This requires `OpenCV` and a WebCam.  
+    See in the code, comments will tell you how to install the requirements. 
 
 ---
