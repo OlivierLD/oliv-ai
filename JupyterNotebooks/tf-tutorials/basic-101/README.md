@@ -34,9 +34,16 @@ pip3 install opencv-python
 |:-------------------------------------:|:--------------------------:|
 | ![Least Squares](./least.squares.png) ![Least Squares](./least.squares.deg4.png) | ![NN](./nn.regression.png) |
 
-It could be a good starting point to discuss under-fitting and over-fitting of a model.
+It could be a good starting point to discuss under-fitting and over-fitting of a model.  
+See in the code the available runtime/CLI parameters.
 
-## TODO: more doc here
+## Image classification
+Model training, and image classification. Uses the `Fashion MNIST` data set.    
+Use `02-fashion-mnist.py`.
+
+## Convolutional Neural Network
+Image transformation, using Convolutional Neural Network, not Image Processing (like OpenCV).  
+See `03-convolutional_neural_networks.py`.
 
 ## Rock-Scissors-Paper
 The script `04-bis_rock_paper_scissors_webcam.py` is extension of `04-image_classifier.py`, it uses
@@ -47,5 +54,14 @@ It takes images from the WebCam to recognize `rock`, `paper`, or `scissors`.
 | Rock | Scissors | Paper |
 |:-------------------:|:-------------------:|:-------------------:|
 | ![Rock](./rock.jpg) | ![Scissors](./scissors.jpg) | ![Paper](./paper.jpg) |
+
+### The full process
+- Get the dataset, and train the model.
+  - Dataset `rps` contains images of rocks, papers, scissors.
+  - Run `04-image_classifier.py`.  
+  This will train the model, and apply it to somne test data.
+  - Then, using the same trained model (`rps.h5`), run `04-bis_rock_paper_scissors_webcam.py`.
+    - This requires `OpenCV` and a WebCam.  
+      See in the code, comments will tell you how to install the requirements. 
 
 ---

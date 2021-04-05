@@ -9,10 +9,11 @@
 import numpy as np
 from scipy import misc
 
-image = misc.ascent()  # THIS is the image, 2 people ascending a starcase.
+image = misc.ascent()  # THIS is the image, 2 people ascending a staircase.
 
 import matplotlib.pyplot as plt
 
+print("Displaying original image")
 plt.grid(False)
 plt.gray()
 plt.axis('off')
@@ -61,6 +62,8 @@ def apply_filter(image, size_x, size_y, filter, weight, transformed_image):
                 output_pixel = 255
             transformed_image[x, y] = output_pixel
 
+
+print("Displaying first filter transformation")
 apply_filter(image, size_x, size_y, filter_1, weight, transformed_image)
 # Plot the image. Note the size of the axes -- they are 512 by 512
 plt.gray()
@@ -69,6 +72,7 @@ plt.imshow(transformed_image)
 #plt.axis('off')
 plt.show()
 
+print("Displaying second filter transformation")
 apply_filter(image, size_x, size_y, filter_2, weight, transformed_image)
 # Plot the image. Note the size of the axes -- they are 512 by 512
 plt.gray()
@@ -92,6 +96,7 @@ for x in range(0, size_x, 2):
         newImage[int(x / 2), int(y / 2)] = pixels[0]
 
 # Plot the image. Note the size of the axes -- now 256 pixels instead of 512
+print("Displaying third transformation")
 plt.gray()
 plt.grid(False)
 plt.imshow(newImage)
