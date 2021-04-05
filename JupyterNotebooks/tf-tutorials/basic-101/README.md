@@ -68,6 +68,7 @@ It takes images from the WebCam to recognize `rock`, `paper`, or `scissors`.
   This will train the model, and apply it to some test data.
 - Then, using the same trained model (`rps.h5`), run `04-bis_rock_paper_scissors_webcam.py`.
   - This requires `OpenCV` and a WebCam.  
-    See in the code, comments will tell you how to install the requirements. 
+    See in the code, comments will tell you how to install the requirements.
+  - Instructions are provided at runtime (in the window's title and the console).  
 
 ---
