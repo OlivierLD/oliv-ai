@@ -35,8 +35,6 @@ Installing OpenCV is not snappy, but it is not too difficult.
 
 Some differences below with the scripts provided above...
 
-Also see [this project](https://github.com/OlivierLD/oliv-ai/tree/master/opencv).
-
 ### Other Systems
 See <https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html>.
 

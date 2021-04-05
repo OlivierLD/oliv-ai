@@ -12,6 +12,9 @@ brew behind a firewall:
 all_proxy=http://www-proxy-hqdc.us.oracle.com:80 brew install --build-from-source opencv
 ```
 
+### Build OpenCV on the Raspberry Pi
+- See <https://github.com/OlivierLD/raspberry-coffee/tree/master/opencv>
+
 ### Camera access
 On Mac, if you see a message like this:
 ```
@@ -29,7 +32,6 @@ Then you need to add those keys in `/Library/Java/JavaVirtualMachines/jdk-[Your-
          <string>OpenCV</string>
          <!---------------------->
 ```
-
 
 ### JavaFX, Swing, etc
 JavaFX was removed from Java 11.
