@@ -1,8 +1,8 @@
 ==== Before starting ====
-From ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course
+From ~/repos/oliv-ai/JupyterNotebooks/deep.learning.crash.course
 jupyter notebook
 
-From ~repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/insurance.demo/tfjs
+From ~repos/oliv-ai/JupyterNotebooks/deep.learning.crash.course/insurance.demo/tfjs
 node server.js
 
 Get the TensorFlowPlayground.Cheat.Sheet ready
@@ -15,12 +15,12 @@ sublime .
 
 in PyCharm, display sample.05.1.py & Co
 
-Open a console in ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/digit.demo
+Open a console in ~/repos/oliv-ai/JupyterNotebooks/deep.learning.crash.course/digit.demo
 
 ==========================
 
 For OpenCV (time permitting):
-from ~/repos/raspberry-coffee/opencv:
+from ~/repos/oliv-ai/opencv:
 $ export JAVA_HOME=`/usr/libexec/java_home -v 9.0.1`   # At least 9. Higher versions would do it too.
 $ ../gradlew tasks --all
 $ ../gradlew runOlivSwingCamera
