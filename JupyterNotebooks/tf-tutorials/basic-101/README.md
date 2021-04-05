@@ -1,8 +1,9 @@
+# TensorFlow Tutorials
+
+
 Code from the TensorFlow tutorial videos at <https://www.tensorflow.org/tutorials>
-
 Full TensorFlow course (~7 hours) <https://www.youtube.com/watch?v=tPYj3fFJGjk>
-
-Installing TF on Debian 10 <https://itnext.io/installing-tensorflow-2-3-0-for-raspberry-pi3-4-debian-buster-11447cb31fc4>
+Installing TF on Debian 10 <https://itnext.io/installing-tensorflow-2-3-0-for-raspberry-pi3-4-debian-buster-11447cb31fc4>  
 
 The scripts presented here might require
 ```
@@ -16,7 +17,12 @@ When OpenCV is needed, you can install it with
 ```
 pip3 install opencv-python
 ```
+
+> _Note:_ All the data required by the model training steps will be downloaded by the 
+> corresponding code.
+
 ## The simplest NN ever
+Look in the code, it's worth it. One layer, one neuron!
 - `01-function_guesser.py`
 
 ## Regression problem
