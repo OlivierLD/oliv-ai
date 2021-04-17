@@ -117,7 +117,7 @@ while keepLooping:
 
         # Original image
         if show_all_steps:
-            cv2.imshow('Original', original_image)
+            cv2.imshow('Original - Q to Quit.', original_image)
         image = original_image.copy()
         last_image = image
 
