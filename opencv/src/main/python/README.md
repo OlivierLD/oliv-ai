@@ -10,7 +10,7 @@ $ pip install opencv-python
 ```
 
 For help on OpenCV:
-```buildoutcfg
+```
 $ python
 Python 3.7.0 (default, Jun 28 2018, 07:39:16) 
 ...
@@ -88,6 +88,9 @@ Very good paper:
 
 ### Object recognition (classification)
 See [Here](./object.detection/README.md)
+
+### Use the Raspberry Pi Camera Module with OpenCV
+- <https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/>
 
 ##### Glossary:
 - ROI: Region Of Interest

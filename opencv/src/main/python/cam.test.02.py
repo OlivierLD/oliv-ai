@@ -8,6 +8,7 @@ h = 768
 cam.set(3, w)
 cam.set(4, h)
 print('Resolution is now ' + str(int(cam.get(3))) + 'x' + str(int(cam.get(4))))
+print('Hit [escape] to exit.')
 
 while True:
     # Capture frames one by one
