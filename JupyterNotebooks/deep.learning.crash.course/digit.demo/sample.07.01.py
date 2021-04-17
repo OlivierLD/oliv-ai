@@ -15,7 +15,7 @@ import math
 
 warnings.filterwarnings('ignore')
 
-print(f"type 'python3 {sys.argv[0]} --help for details.")
+print(f"type 'python3 {sys.argv[0]} --help' for details.")
 print("Let's go!")
 
 # Usual yada-yada
