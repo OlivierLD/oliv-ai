@@ -38,7 +38,8 @@ Look in the code, it's worth it. One layer, one neuron!
 
 | Least Square Method                   | Neural Network Regression  |
 |:-------------------------------------:|:--------------------------:|
-| ![Least Squares](./least.squares.png) ![Least Squares](./least.squares.deg4.png) | ![NN](./nn.regression.png) |
+| ![Least Squares](./least.squares.png) | ![NN](./nn.regression.png) |
+| ![Least Squares](./least.squares.deg4.png) | |
 
 It could be a good starting point to discuss under-fitting and over-fitting of a model.  
 See in the code the available runtime/CLI parameters.
