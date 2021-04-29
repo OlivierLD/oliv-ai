@@ -79,13 +79,13 @@ ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecogn
 
 tasks.withType(JavaExec) {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
-        print "Running on Mac"
+        println "Running on Mac"
         // For Mac
         systemProperty "java.library.path", "/usr/local/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/" // Mac
     } else {
-        print "Running on Raspberry Pi"
+        println "Running on Raspberry Pi"
 //        systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
         systemProperty "java.library.path", "/home/pi/opencv-4.5.2/build/lib" // Raspberry Pi
     }
