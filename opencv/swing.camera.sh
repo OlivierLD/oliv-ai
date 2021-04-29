@@ -19,7 +19,8 @@ then
 else  # Assume Raspberry Pi
   SUDO="sudo "
   CP="$CP:/usr/local/share/java/opencv4/opencv-450.jar" # RPi
-  JAVA_LIB_PATH="/usr/local/share/java/opencv4"         # RPi
+  # JAVA_LIB_PATH="/usr/local/share/java/opencv4"         # RPi
+  JAVA_LIB_PATH="/home/pi/opencv-4.5.2/build/lib"         # RPi
 fi
 #CP="$CP:/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/opencv-430.jar" # Mac
 ## CP="$CP:/usr/local/share/java/opencv4/opencv-430.jar" # RPi
