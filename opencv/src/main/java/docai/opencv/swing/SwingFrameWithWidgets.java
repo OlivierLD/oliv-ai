@@ -245,14 +245,14 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		contrastSlider = new JSlider(JSlider.HORIZONTAL, 100, 300, 100);
 		contrastSlider.setEnabled(true);
 		contrastSlider.addChangeListener(changeEvent -> {
-			cbLabel.setText(String.format("Cont.:%03d%%, Bright:%.02f", getBrightnessValue(), getContrastValue()));
+			cbLabel.setText(String.format("Bright.:%03d%%, Contr.:%.02f", getBrightnessValue(), getContrastValue()));
 		});
 		contrastSlider.setToolTipText("Contrast");
 
-		brightnessSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+		brightnessSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 		brightnessSlider.setEnabled(true);
 		brightnessSlider.addChangeListener(changeEvent -> {
-			cbLabel.setText(String.format("Cont.:%03d%%, Bright:%.02f", getBrightnessValue(), getContrastValue()));
+			cbLabel.setText(String.format("Bright.:%03d%%, Contr.:%.02f", getBrightnessValue(), getContrastValue()));
 		});
 		brightnessSlider.setToolTipText("Brightness");
 
@@ -587,6 +587,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	}
 	public int getBrightnessValue() {
 		int slider = brightnessSlider.getValue();
+		System.out.println("Brightness slider:" + slider);
 		return slider;
 	}
 	public double getZoomValue() {
