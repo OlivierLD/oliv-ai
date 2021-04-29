@@ -19,7 +19,7 @@ fi
 #JAVA_LIB_PATH="/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4" # For Mac
 ## JAVA_LIB_PATH="/usr/local/share/java/opencv4" # RPi
 #
-CLASS=oliv.opencv.OpenCVSwingCameraFaceRecognition
+CLASS=docai.opencv.OpenCVSwingCameraFaceRecognition
 #
 # For MacOS Catalina, does not work :(
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"

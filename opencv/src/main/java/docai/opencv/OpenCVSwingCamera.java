@@ -42,7 +42,7 @@ public class OpenCVSwingCamera {
 	private ScheduledExecutorService timer;
 	private VideoCapture camera = null;
 	private boolean cameraActive = false;
-	private final static int cameraId = 0;
+	private static int cameraId = 0;
 
 	private static SwingFrameWithWidgets swingFrame = null;
 
@@ -127,6 +127,9 @@ public class OpenCVSwingCamera {
 	protected void startCamera() {
 
 		this.camera = new VideoCapture();  // cameraId, Videoio.CAP_ANY); // With a cameraId: also opens the camera
+		System.out.println("+------------------------------");
+		System.out.println("| Opening camera with id " + cameraId);
+		System.out.println("+------------------------------");
 
 		if (!this.cameraActive) {
 
@@ -355,6 +358,11 @@ public class OpenCVSwingCamera {
 
 		Properties props = System.getProperties();
 		props.forEach((name, value) -> System.out.println(String.format("%s: %s", name, value)));
+
+		String cameraIdStr = System.getProperty("camera.id");
+		if (cameraIdStr != null) {
+			cameraId = Integer.parseInt(cameraIdStr);
+		}
 
 		new OpenCVSwingCamera();
 
