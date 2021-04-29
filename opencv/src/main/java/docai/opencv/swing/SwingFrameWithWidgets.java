@@ -587,7 +587,7 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	}
 	public int getBrightnessValue() {
 		int slider = brightnessSlider.getValue();
-		System.out.println("Brightness slider:" + slider);
+//		System.out.println("Brightness slider:" + slider);
 		return slider;
 	}
 	public double getZoomValue() {
