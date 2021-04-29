@@ -119,7 +119,7 @@ task runOlivSwing(type:JavaExec) {
 }
 
 task runOlivSwingCamera(type:JavaExec) {
-    environment "DISPLAY", "192.168.42.23:0.0"
+//    environment "DISPLAY", "192.168.42.23:0.0"
     main = mainClassNameOlivSwingCamera
     classpath = sourceSets.main.runtimeClasspath
 }
