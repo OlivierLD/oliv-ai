@@ -139,6 +139,10 @@ $ find /usr/local -name '*opencv*.jar' -exec ls -lisah {} \;
 ```
 - `/usr/local/share/java/opencv4/opencv-430.jar` will be used for the Java Classpath 
 - `/usr/local/share/java/opencv4` will be used for the Java `-Djava.library.path`, as it contains a required system lib.
+
+> Note: Version `4.5.2` leaves those guys under the `build` directory. Good to know...  
+> The scripts presented here will reflect that.
+
 ```
 ll /usr/local/share/java/opencv4/
 total 20M
