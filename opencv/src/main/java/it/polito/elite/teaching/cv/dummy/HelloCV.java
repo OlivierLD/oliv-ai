@@ -32,9 +32,14 @@ public class HelloCV {
 		// get the jpeg image from the internal resource folder
 		Mat image = Imgcodecs.imread(location);
 		// convert the image in gray scale
-		Imgproc.cvtColor(image, image, Imgproc.COLOR_BGR2GRAY);
-		// write the new image on disk
-		Imgcodecs.imwrite("src/main/resources/Poli-gray.jpg", image);
+		try {
+			Imgproc.cvtColor(image, image, Imgproc.COLOR_BGR2GRAY);
+			// write the new image on disk
+			Imgcodecs.imwrite("src/main/resources/Poli-gray.jpg", image);
+		} catch (Throwable barf) {
+			System.err.println("Oops:");
+			barf.printStackTrace();
+		}
 		System.out.println("Done!");
 	}
 }
