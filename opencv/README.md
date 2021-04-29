@@ -57,6 +57,11 @@ Setting `ANT_HOME` may also recently fix issues:
 ```
 $ export ANT_HOME=/usr/share/ant
 ```
+> About `ant`: `cmake` returned for `ant` a path like `/bin/ant`.
+> That was on my box a symbolic link saying `../share/ant/bin/ant`, which was a problem.
+> I `unlinked` it, and recreate the link on `/bin/ant` with  
+> `sudo ln -s /usr/share/ant/bin/ant /bin/ant`.  
+> That fixed the problem.
 
 Also, you may want to install or update the followings:
 ```
