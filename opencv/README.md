@@ -53,6 +53,43 @@ If missing, install it:
 ```
 sudo apt-get install build-essential cmake ant
 ```
+Setting `ANT_HOME` may also recently fix issues:
+```
+$ export ANT_HOME=/usr/share/ant
+```
+
+Also, you may want to install or update the followings:
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install cmake gfortran
+sudo apt-get install libjpeg-dev libtiff-dev libgif-dev
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install libgtk2.0-dev libcanberra-gtk*
+sudo apt-get install libxvidcore-dev libx264-dev libgtk-3-dev
+sudo apt-get install libtbb2 libtbb-dev libdc1394-22-dev libv4l-dev
+sudo apt-get install libopenblas-dev libatlas-base-dev libblas-dev
+sudo apt-get install libjasper-dev liblapack-dev libhdf5-dev
+sudo apt-get install protobuf-compiler
+```
+
+```
+sudo apt-get update
+sudo apt-get install libcblas-dev
+sudo apt-get install libhdf5-dev
+sudo apt-get install libhdf5-serial-dev
+sudo apt-get install libatlas-base-dev
+sudo apt-get install libjasper-dev 
+sudo apt-get install libqtgui4 
+sudo apt-get install libqt4-test
+sudo apt-get libilmbase-dev
+sudo apt-get libopenexr-dev
+sudo apt-get libgstreamer1.0-dev
+sudo apt-get libavcodec-dev
+sudo apt-get libavformat-dev
+sudo apt-get libswscale-dev
+sudo apt-get libwebp-dev
+```
 
 - Download the last sources from <https://opencv.org/releases/>
   - Can be a `wget https://github.com/opencv/opencv/archive/4.3.0.zip`
@@ -65,18 +102,19 @@ sudo apt-get install build-essential cmake ant
 - `mkdir build`
 - `cd build`
 - Make sure your `$JAVA_HOME` is set
-- Make it (this one takes time, like hours...):
-```
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-      -D WITH_LIBV4L=ON \
-      -D WITH_OPENCL=OFF \
-      -D BUILD_PERF_TESTS=OFF \
-      -D BUILD_SHARED_LIBS=OFF \
-      -D JAVA_INCLUDE_PATH=$JAVA_HOME/include \
-      -D JAVA_AWT_LIBRARY=$JAVA_HOME/lib/libawt.so \
-      -D JAVA_JVM_LIBRARY=$JAVA_HOME/lib/server/libjvm.so \
-      -D CMAKE_INSTALL_PREFIX=/usr/local ..
-```
+- `$ANT_HOME` is also useful in the last versions
+- Make it (this `sudo make` one takes time, like hours...):
+- ```
+  cmake -D CMAKE_BUILD_TYPE=RELEASE \
+        -D WITH_LIBV4L=ON \
+        -D WITH_OPENCL=OFF \
+        -D BUILD_PERF_TESTS=OFF \
+        -D BUILD_SHARED_LIBS=OFF \
+        -D JAVA_INCLUDE_PATH=$JAVA_HOME/include \
+        -D JAVA_AWT_LIBRARY=$JAVA_HOME/lib/libawt.so \
+        -D JAVA_JVM_LIBRARY=$JAVA_HOME/lib/server/libjvm.so \
+        -D CMAKE_INSTALL_PREFIX=/usr/local ..
+  ```
 - `sudo make`
 - `sudo make install`
 
