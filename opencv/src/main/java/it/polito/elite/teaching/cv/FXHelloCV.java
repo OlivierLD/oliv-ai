@@ -41,7 +41,7 @@ public class FXHelloCV extends Application {
 
 			// set the proper behavior on closing the application
 			FXHelloCVController controller = (FXHelloCVController)loader.getController();
-			primaryStage.setOnCloseRequest((we -> controller.setClosed()));
+			primaryStage.setOnCloseRequest(we -> controller.setClosed());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
