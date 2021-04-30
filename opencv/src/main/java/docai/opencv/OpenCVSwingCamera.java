@@ -86,7 +86,7 @@ public class OpenCVSwingCamera {
 			@Override
 			public void windowClosing(WindowEvent evt) {
 				stopAcquisition();
-				System.out.println("Closing!");
+				System.out.println("Closing.");
 				System.exit(0);
 			}
 		});
@@ -261,7 +261,7 @@ public class OpenCVSwingCamera {
 		if (swingFrame.isContrastBrightnessChecked()) {
 			newMat = Mat.zeros(lastMat.size(), lastMat.type());
 			double alpha = swingFrame.getContrastValue();  // Simple contrast control [1.0, 3.0]
-			int beta = swingFrame.getBrightnessValue();    // Simple brightness control [0, 100]
+			int beta = swingFrame.getBrightnessValue();    // Simple brightness control [-100, 100]
 			byte[] imageData = new byte[(int) (lastMat.total() * lastMat.channels())];
 			lastMat.get(0, 0, imageData);
 			byte[] newImageData = new byte[(int) (newMat.total() * newMat.channels())];
@@ -326,7 +326,9 @@ public class OpenCVSwingCamera {
 
 		try {
 			if (lastMat.size().height > 0 && lastMat.size().width > 0) {
-				swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s", System.getProperty("java.version"), Core.getVersionString()));
+				swingFrame.plot(Utils.mat2AWTImage(lastMat), String.format("Java %s, Swing and OpenCV %s",
+						System.getProperty("java.version"),
+						Core.getVersionString()));
 			} else {
 				System.out.println("...No image yet.");
 			}

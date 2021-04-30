@@ -70,6 +70,7 @@ ext.mainClassNameFX = 'it.polito.elite.teaching.cv.FXHelloCV'
 ext.mainClassNameOliv101 = 'docai.opencv.OpenCV101'
 ext.mainClassNameOlivSwing = 'docai.opencv.OpenCVSwing'
 ext.mainClassNameOlivSwingCamera = 'docai.opencv.OpenCVSwingCamera'
+ext.mainClassNameSwingReadURL = 'docai.opencv.OpenCVSwingReadURL'
 ext.mainClassNameFaceDetect = 'docai.opencv.FaceRecognitionSample'
 ext.mainClassNameContinuousFaceDetect = 'docai.opencv.OpenCVContinuousFaceDetection'
 ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetection'
@@ -121,6 +122,12 @@ task runOlivSwing(type:JavaExec) {
 task runOlivSwingCamera(type:JavaExec) {
 //    environment "DISPLAY", "192.168.42.23:0.0"
     main = mainClassNameOlivSwingCamera
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runSwingRedURL(type:JavaExec) {
+//    environment "DISPLAY", "192.168.42.23:0.0"
+    main = mainClassNameSwingReadURL
     classpath = sourceSets.main.runtimeClasspath
 }
 
