@@ -125,7 +125,7 @@ task runOlivSwingCamera(type:JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runSwingRedURL(type:JavaExec) {
+task runSwingReadURL(type:JavaExec) {
 //    environment "DISPLAY", "192.168.42.23:0.0"
     main = mainClassNameSwingReadURL
     classpath = sourceSets.main.runtimeClasspath
