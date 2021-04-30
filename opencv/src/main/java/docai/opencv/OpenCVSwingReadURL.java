@@ -14,14 +14,12 @@ import java.awt.Dimension;
  * Read image from the Web (from a URL)
  *
  * Uses assertions.
- *
- * original ( -> gray -> threshed)
  */
 public class OpenCVSwingReadURL {
 
 	private final static String IMAGE_URL = "http://donpedro.lediouris.net/journal/trip/PB180629.JPG";
 
-	private final static long WAIT = 5_000L;
+//	private final static long WAIT = 5_000L;
 
 	private static SwingFrame swingFrame = null;
 
