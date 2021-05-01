@@ -28,7 +28,7 @@ public class OpenCVSwingReadURL {
 	public static void process(String imageUrl) {
 
 		swingFrame = new SwingFrame();
-		swingFrame.setTitle("OpenCV read image fro URL");
+		swingFrame.setTitle("OpenCV read image from URL");
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		System.out.println(String.format("Screen Dimensions: w %d h %d", screenSize.width, screenSize.height));
