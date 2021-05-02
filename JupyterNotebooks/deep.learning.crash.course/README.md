@@ -184,7 +184,7 @@ If it can do that, that would be a scientific step forward!
 > But think again... What could a statement like "look like" translate to in C, Java, Python,.... or whatever computer language you could think of?
 > Computer do understand "is equal to", "is not equal to"..., but "almost like" is NO _binary_ stuff...  
 > This "look like" question has been looked into - as you may think. With some really cool (although un-expected or unwanted) side effects 😂.
-> In your favorite search engine, _**do look for "I look like my dog"**_. Some flavors of it have been created by computers asked to address this question. You might like it. 
+> In your favorite search engine, _**do look for "I look like my dog"**_. Some flavors of it have been created by computers asked to address this question. You might like [it](https://kidtimes.files.wordpress.com/2011/12/dogs-woof1.jpg). 
 
 |  |  |
 |:---:|:---:|

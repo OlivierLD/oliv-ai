@@ -31,7 +31,7 @@ dependencies {
     } else {
         print "Assuming Raspberry Pi"
 //        implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
-        implementation fileTree(dir: '/home/pi/opencv-4.5.2/build/bin', include: ['*.jar']) // RPi
+        implementation fileTree(dir: "/home/pi/opencv-${opencvVersion}/build/bin", include: ['*.jar']) // RPi
     }
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
@@ -88,7 +88,7 @@ tasks.withType(JavaExec) {
     } else {
         println "Running on Raspberry Pi"
 //        systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
-        systemProperty "java.library.path", "/home/pi/opencv-4.5.2/build/lib" // Raspberry Pi
+        systemProperty "java.library.path", "/home/pi/opencv-${opencvVersion}/build/lib" // Raspberry Pi
     }
     if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'

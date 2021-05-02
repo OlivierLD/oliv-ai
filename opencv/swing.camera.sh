@@ -3,6 +3,7 @@ CP=./build/libs/opencv-1.0-all.jar
 JAVA_LIB_PATH=
 DARWIN=$(uname -a | grep Darwin)  # Mac ?
 SUDO=
+OPENCV_VERSION=4.5.2
 # Paths can be different...
 if [[ "$DARWIN" != "" ]]
 then
@@ -20,7 +21,7 @@ else  # Assume Raspberry Pi
   SUDO="sudo "
   CP="$CP:/usr/local/share/java/opencv4/opencv-450.jar" # RPi
   # JAVA_LIB_PATH="/usr/local/share/java/opencv4"         # RPi
-  JAVA_LIB_PATH="/home/pi/opencv-4.5.2/build/lib"         # RPi
+  JAVA_LIB_PATH="/home/pi/opencv-${OPENCV_VERSION}/build/lib"         # RPi
 fi
 #CP="$CP:/usr/local/Cellar/opencv/4.3.0_5/share/java/opencv4/opencv-430.jar" # Mac
 ## CP="$CP:/usr/local/share/java/opencv4/opencv-430.jar" # RPi
