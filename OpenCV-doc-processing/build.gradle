@@ -19,18 +19,19 @@ repositories {
     // Also see https://mvnrepository.com/artifact/org.openpnp/opencv, https://mvnrepository.com/artifact/com.quickbirdstudios/opencv/4.0.1 ?
 }
 
-def opencvVersion = "4.5.0_2"
+def opencvVersion = "4.5.2"
 // Use ${opencvVersion} below, when needed.
 
 // Note: use "$ gradle dependencies" to visualize them.
 dependencies {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
-        print "On Mac"
+        println "On Mac, OpenCV version ${opencvVersion}"
 //        implementation fileTree(dir: "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/", include: ['*.jar']) // Mac
         implementation fileTree(dir: "/usr/local/share/java/opencv4/", include: ['*.jar']) // Mac
     } else {
-        print "Assuming Raspberry Pi"
-        implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
+        println "Assuming Raspberry Pi, OpenCV version ${opencvVersion}"
+//        implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
+        implementation fileTree(dir: "/home/pi/opencv-${opencvVersion}/build/bin", include: ['*.jar']) // RPi
     }
 
 // https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j
@@ -88,7 +89,8 @@ tasks.withType(JavaExec) {
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/" // Mac
     } else {
-        systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
+//        systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
+        systemProperty "java.library.path", "/home/pi/opencv-${opencvVersion}/build/lib" // Raspberry Pi
     }
     if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
