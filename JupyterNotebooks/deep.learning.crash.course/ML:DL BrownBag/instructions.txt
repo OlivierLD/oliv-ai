@@ -9,7 +9,7 @@ Get the TensorFlowPlayground.Cheat.Sheet ready
 
 Training digit images: in ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/mnist_png
 
-Load in sublime:
+Load in sublime (or code, or atom):
 From ~/repos/raspberry-coffee/JupyterNotebooks/deep.learning.crash.course/insurance.demo/tfjs
 sublime .
 
