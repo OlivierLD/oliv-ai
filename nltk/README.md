@@ -28,3 +28,10 @@ To check:
 ```
 python3 -i nltk.101.py
 ```
+
+### To read next
+- <https://www.nltk.org/book/>
+
+## Data to analyze
+`sqlite` can be used to store and retirieve data. Easy to deal with from Python.  
+See `sqlite3.101.py`.
