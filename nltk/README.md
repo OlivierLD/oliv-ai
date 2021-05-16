@@ -35,3 +35,25 @@ python3 -i nltk.101.py
 ## Data to analyze
 `sqlite` can be used to store and retirieve data. Easy to deal with from Python.  
 See `sqlite3.101.py`.
+
+#### Install sqlite3 CLI on Raspberry Pi
+See <https://sqlite.org/cli.html>
+
+```
+sudo apt-get install sqlite3
+```
+Then
+```
+sqlite3 data/mydb.db
+. . .
+sqlite> select * from cities;
+...
+sqlite> .quit
+```
+
+Execute a script from the CLI
+```
+sqlite> .read select.cities.sql
+```
+
+---
