@@ -55,6 +55,12 @@ Execute a script from the CLI
 ```
 sqlite> .mode column
 sqlite> .read select.cities.sql
+Athens      Greece      1368      
+Bangkok     Thailand    1178      
+Barcelona   Spain       1280      
+Berlin      East Germa  3481      
+Birmingham  UK          1112      
+sqlite> 
 
 ```
 
