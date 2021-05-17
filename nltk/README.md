@@ -53,7 +53,9 @@ sqlite> .quit
 
 Execute a script from the CLI
 ```
+sqlite> .mode column
 sqlite> .read select.cities.sql
+
 ```
 
 ---
