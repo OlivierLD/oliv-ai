@@ -47,6 +47,8 @@ Then
 ```
 sqlite3 data/mydb.db
 . . .
+sqlite> .schema cities
+CREATE TABLE CITIES(CITY TEXT PRIMARY KEY, COUNTRY TEXT, POPULATION NUMBER);
 sqlite> select * from cities;
 ...
 sqlite> .quit
@@ -55,12 +57,13 @@ sqlite> .quit
 Execute a script from the CLI
 ```
 sqlite> .mode column
+sqlite> .width 15 30 10
 sqlite> .read select.cities.sql
-Athens      Greece      1368      
-Bangkok     Thailand    1178      
-Barcelona   Spain       1280      
-Berlin      East Germa  3481      
-Birmingham  UK          1112      
+Athens           Greece                          1368      
+Bangkok          Thailand                        1178      
+Barcelona        Spain                           1280      
+Berlin           East Germany                    3481      
+Birmingham       UK                              1112      
 sqlite> 
 
 ```
