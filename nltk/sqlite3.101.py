@@ -19,7 +19,8 @@ db = sqlite3.connect('data/mydb.db')
 cursor = db.cursor()
 
 try:
-    create_city_table = "CREATE TABLE CITIES (CITY TEXT PRIMARY KEY, COUNTRY TEXT, POPULATION NUMBER)"
+    # create_city_table = "CREATE TABLE CITIES (CITY TEXT PRIMARY KEY, COUNTRY TEXT, POPULATION NUMBER)"
+    create_city_table = "CREATE TABLE IF NOT EXISTS CITIES (CITY TEXT PRIMARY KEY, COUNTRY TEXT, POPULATION NUMBER)"
     cursor.execute(create_city_table)
     db.commit()
 except sqlite3.OperationalError:

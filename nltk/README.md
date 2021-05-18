@@ -37,6 +37,10 @@ python3 -i nltk.101.py
 `sqlite` can be used to store and retirieve data. Easy to deal with from Python.  
 See `sqlite3.101.py`.
 
+
+### SQLite tutorials
+- <https://www.sqlitetutorial.net/sqlite-tutorial/> 
+
 #### Install sqlite3 CLI on Raspberry Pi
 See <https://sqlite.org/cli.html>
 
@@ -54,10 +58,23 @@ sqlite> select * from cities;
 sqlite> .quit
 ```
 
+Info about a table:
+```
+sqlite> .mode column
+sqlite> pragma table_info('cities');
+cid         name        type        notnull     dflt_value  pk        
+----------  ----------  ----------  ----------  ----------  ----------
+0           CITY        TEXT        0                       1         
+1           COUNTRY     TEXT        0                       0         
+2           POPULATION  NUMBER      0                       0         
+sqlite> 
+```
+
 Execute a script from the CLI
 ```
 sqlite> .mode column
 sqlite> .width 15 30 10
+sqlite> .header on
 sqlite> .read select.cities.sql
 Athens           Greece                          1368      
 Bangkok          Thailand                        1178      
