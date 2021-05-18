@@ -76,6 +76,8 @@ sqlite> .mode column
 sqlite> .width 15 30 10
 sqlite> .header on
 sqlite> .read select.cities.sql
+CITY             COUNTRY                         POPULATION
+---------------  ------------------------------  ----------
 Athens           Greece                          1368      
 Bangkok          Thailand                        1178      
 Barcelona        Spain                           1280      
