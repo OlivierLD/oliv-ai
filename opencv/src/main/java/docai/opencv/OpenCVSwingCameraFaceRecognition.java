@@ -127,7 +127,8 @@ public class OpenCVSwingCameraFaceRecognition {
 			try {
 				faceDetector.detectMultiScale(image, faceDetections);
 			} catch (CvException oops) {
-				throw oops;
+//				throw oops;
+				System.err.println(oops.toString());
 			}
 			if (VERBOSE) {
 				System.out.println("Face detection - 3");
@@ -253,6 +254,7 @@ public class OpenCVSwingCameraFaceRecognition {
 			System.out.println(String.format(">> Capture size WxH: %.02f x %.02f", this.camera.get(Videoio.CAP_PROP_FRAME_WIDTH), this.camera.get(Videoio.CAP_PROP_FRAME_HEIGHT)));
 
 			if (this.camera.isOpened()) {
+				System.out.println(String.format("Camera (%d) opened: %s", cameraId, this.camera.isOpened()));
 				this.cameraActive = true;
 
 				// grab a frame every 33 ms (30 frames/sec)

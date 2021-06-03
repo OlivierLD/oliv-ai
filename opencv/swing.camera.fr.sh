@@ -22,6 +22,7 @@ fi
 ## JAVA_LIB_PATH="/usr/local/share/java/opencv4" # RPi
 #
 CLASS=docai.opencv.OpenCVSwingCameraFaceRecognition
+# CLASS=docai.opencv.OpenCVContinuousFaceDetection
 #
 # For MacOS Catalina, does not work :(
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"
