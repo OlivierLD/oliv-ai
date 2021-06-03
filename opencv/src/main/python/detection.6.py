@@ -30,7 +30,7 @@ img_path = "path.2.png"
 #
 
 
-def get_dir(x, y):
+def get_dir(x: float, y: float) -> float:
     direction = math.degrees(math.atan2(x, y))
     while direction < 0:
         direction += 360

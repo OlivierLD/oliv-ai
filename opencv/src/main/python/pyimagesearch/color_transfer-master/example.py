@@ -6,9 +6,9 @@ from color_transfer import color_transfer
 import numpy as np
 import argparse
 import cv2
+from typing import Optional   # Dict, Optional, Sequence, Tuple, Type, Union
 
-
-def show_image(title, image, width=300):
+def show_image(title: str, image: np.ndarray, width: Optional[int]=300):
     # resize the image to have a constant width, just to
     # make displaying the images take up less screen real
     # estate
@@ -20,7 +20,7 @@ def show_image(title, image, width=300):
     cv2.imshow(title, resized)
 
 
-def str2bool(v):
+def str2bool(v: str) -> bool:
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
         return True
     elif v.lower() in ('no', 'false', 'f', 'n', '0'):
@@ -37,7 +37,7 @@ ap.add_argument("-t", "--target", required=True,
                 help="Path to the target image")
 ap.add_argument("-c", "--clip", type=str2bool, default='t',
                 help="Should np.clip scale L*a*b* values before final conversion to BGR? "
-                     "Approptiate min-max scaling used if False.")
+                     "Appropriate min-max scaling used if False.")
 ap.add_argument("-p", "--preservePaper", type=str2bool, default='t',
                 help="Should color transfer strictly follow methodology layed out in original paper?")
 ap.add_argument("-o", "--output", help="Path to the output image (optional)")
@@ -46,6 +46,8 @@ args = vars(ap.parse_args())
 # load the images
 source = cv2.imread(args["source"])
 target = cv2.imread(args["target"])
+
+# print(f"Image Type {type(source)}")
 
 # transfer the color distribution from the source image
 # to the target image
