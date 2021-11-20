@@ -4,6 +4,14 @@
 import cv2
 import numpy as np
 
+"""
+ Processing image from the camera, in real time.
+ Color image
+ Gray image
+ Threshold image
+ Contours detection (on a new image)
+"""
+
 print('Using OpenCV version', cv2.__version__)
 cam = cv2.VideoCapture(0)
 w = 512
@@ -13,6 +21,8 @@ cam.set(4, h)
 
 verboseContour = False
 verbose = False
+
+print('Hit a key to exit the program')
 
 while True:
     ret, image = cam.read()
@@ -47,7 +57,7 @@ while True:
             blank_image[:] = color
 
             cv2.drawContours(blank_image, contours, -1, (0, 0, 0), 3)  # in black
-            cv2.imshow('Blank', blank_image)
+            cv2.imshow('Contours only', blank_image)
 
         except ValueError as ve:
             # keep going
@@ -57,11 +67,12 @@ while True:
             if verbose:
                 print('Moving on')
     else:
-        print('Oops!')
+        print('Oops! Image was not read.')
     key = cv2.waitKey(1) & 0xFF
     if key != 255:   # ord('q'):
         print("Key {}".format(key))
         break
 
+print('Exiting')
 cv2.destroyAllWindows()
 cam.release()
