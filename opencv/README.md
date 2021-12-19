@@ -109,7 +109,7 @@ sudo apt-get libwebp-dev
 - `cd build`
 - Make sure your `$JAVA_HOME` is set
 - `$ANT_HOME` is also useful in the last versions
-- Make it (this `sudo make` one takes time, like hours...):
+- Make it (this `sudo make` below takes time, like hours...):
 - ```
   cmake -D CMAKE_BUILD_TYPE=RELEASE \
         -D WITH_LIBV4L=ON \

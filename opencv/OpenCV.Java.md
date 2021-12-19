@@ -1,7 +1,7 @@
 ## OpenCV Java
 Install Instruction at <https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html#install-opencv-3-x-under-macos> 
 
-On Mac OS, do make sure you have
+On macOS, do make sure you have
 ```buildoutcfg
 xcode-select --install
 ```

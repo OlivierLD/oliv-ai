@@ -16,4 +16,4 @@ on-line at <https://colab.research.google.com/github/tensorflow/tensorflow/blob/
 
 `WANTED_WORDS` can be `yes`, `no`, `up`, `down`, `left`, `right`, `on`, `off`, `stop`, `go`.
 
-> Note: If the Arduino Nana 33 BLE is stuck in upload mode, double-click on the `reset` button.
+> Note: If the Arduino Nano 33 BLE is stuck in upload mode, double-click on the `reset` button.
