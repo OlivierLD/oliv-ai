@@ -134,6 +134,10 @@ $ python3
 4.3.0
 >>>
 ```
+
+You might also want to try a `sudo pip3 install opencv-python`.
+> To install `pip3` if needed: `sudo apt install python3-pip`
+
 Some location(s) to keep track of:
 ```
 $ find /usr/local -name '*opencv*.jar' -exec ls -lisah {} \;
