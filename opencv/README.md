@@ -57,14 +57,18 @@ Setting `ANT_HOME` may also recently fix issues:
 ```
 $ export ANT_HOME=/usr/share/ant
 ```
-> ### About `ant`:   
-> `cmake` returned for `ant` a path like `/bin/ant`.
-> That was on my box a symbolic link saying `../share/ant/bin/ant`, which was a problem.
-> I `unlinked` it, and recreated the link on `/bin/ant` with    
-> `sudo unlink /bin/ant`  
-> `sudo ln -s /usr/share/ant/bin/ant /bin/ant`.  
+---
+### About `ant`:   
+> During the build (around `99%`),`cmake` returned for `ant` a path like `/bin/ant`, whatever the `ANT_HOME` was set to.  
+> There was on my box a symbolic link saying `../share/ant/bin/ant`, which was a problem...  
+> It happened on Raspberry Pis, and other boxes, running Debian or Ubuntu.  
+> I `unlinked` it, and recreated the link on `/bin/ant` with   
+> ```
+> sudo unlink /bin/ant  
+> sudo ln -s /usr/share/ant/bin/ant /bin/ant.
+> ```  
 > That fixed the problem.
-
+---
 Also, you may want to install or update the followings:
 ```
 sudo apt-get update
