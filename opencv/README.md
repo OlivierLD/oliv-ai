@@ -53,7 +53,7 @@ If missing, install it:
 ```
 sudo apt-get install build-essential cmake ant
 ```
-Setting `ANT_HOME` may also recently fix issues:
+Setting `ANT_HOME` _**may**_ also fix issues:
 ```
 $ export ANT_HOME=/usr/share/ant
 ```
