@@ -1,3 +1,8 @@
+#
+# Basic video test
+#
+# Type [esc] on the image to exit.
+#
 import cv2
 
 cam = cv2.VideoCapture(0)
@@ -16,7 +21,7 @@ while True:
     # Display
     cv2.imshow('Video Test', frame)
     # Wait for escape key to exit
-    if cv2.waitKey(1) == 27:
+    if cv2.waitKey(1) == 27:  # 27: Esp
         cv2.imwrite('./snap.snap.jpg', frame)
         break  # Exit loop
 

@@ -1,9 +1,11 @@
 #
 # pip install opencv-python
 #
+# Basic sample. Read an image, write it on the file system, display it.
+#
 import cv2
 
-print('Using OpenCV version', cv2.__version__)
+print(f'Using OpenCV version {cv2.__version__}')
 cam = cv2.VideoCapture(0)
 ret, image = cam.read()
 if ret:

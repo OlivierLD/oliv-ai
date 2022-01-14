@@ -12,6 +12,7 @@ compileJava.options.compilerArgs += ["-Xlint:unchecked"]
 group = 'oliv.ai'
 version = '1.0'
 
+// See java class versions: https://javaalmanac.io/bytecode/versions/
 //sourceCompatibility = 1.8
 //targetCompatibility = 1.8
 
