@@ -5,21 +5,21 @@
 #
 # pip3 install pyaudio
 #   On mac, requires a brew install portaudio
-#        On Mac, if fails, try: pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
+#      - On Mac, if fails, try: pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
 #   On Ubuntu/Debian requires a sudo apt-get install portaudio19-dev python-pyaudio
 # pip3 install matplotlib
 #
 import pyaudio
-import struct
+# import struct
 import matplotlib.pyplot as plt
 import numpy as np
 
 mic = pyaudio.PyAudio()
 FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 5000
-# I had to look for a good value for CHUNK, to avoid messages like "[Errno -9981] Input overflowed" ...
-CHUNK = 750  # 500  # int(RATE/20)
+CHANNELS: int = 1
+RATE: int = 5000
+# I had to look for a good value for CHUNK, to avoid messages like "[Err_no -9981] Input overflowed" ...
+CHUNK: int = 750  # 500  # int(RATE/20)
 stream = mic.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, output=True, frames_per_buffer=CHUNK)
 
 fig, ax = plt.subplots(figsize=(14,6))
@@ -31,9 +31,9 @@ ax.set_xlim(0, CHUNK) # make sure our x axis matched our chunk size
 line, = ax.plot(x, np.random.rand(CHUNK))
 how_many_loops: int = 0
 
-display_data:bool = False
-keep_looping:bool = True
-plot_min_max:bool = False
+display_data: bool = False
+keep_looping: bool = True
+plot_min_max: bool = False
 
 while keep_looping:
     how_many_loops += 1
@@ -43,8 +43,8 @@ while keep_looping:
         data = np.frombuffer(data, np.int16)
         if display_data:
             print(data)
-        min_data:np.int16 = np.amin(data)
-        max_data:np.int16 = np.amax(data)
+        min_data: np.int16 = np.amin(data)
+        max_data: np.int16 = np.amax(data)
         print(f"Min:{min_data}, Max:{max_data}, Amplitude: {max_data - min_data}")
         line.set_ydata(data)
 

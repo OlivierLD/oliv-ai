@@ -310,7 +310,6 @@ See the code in `OpenCVSwingColor2BW.java` for details.
 |:---------:|:-----------:|
 | ![Final](./docimg/downgrading/minion.ssd1306.png) | ![Final](./docimg/downgrading/on.the.device.jpg) |
 
-
 ### In Python
 See [here](./src/main/python/README.md)
 
