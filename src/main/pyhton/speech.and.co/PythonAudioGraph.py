@@ -22,18 +22,19 @@ RATE: int = 5000
 CHUNK: int = 750  # 500  # int(RATE/20)
 stream = mic.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, output=True, frames_per_buffer=CHUNK)
 
-fig, ax = plt.subplots(figsize=(14,6))
+fig, ax = plt.subplots(figsize=(14, 6))
 fig.canvas.manager.set_window_title("Graphed Sound!")  # Window title
 fig.suptitle('Sound as Graph', fontsize=12)   # Figure title
 x = np.arange(0, 2 * CHUNK, 2)
 ax.set_ylim(-2000, 2000)  # Was 200, 200, too narrow
-ax.set_xlim(0, CHUNK) # make sure our x axis matched our chunk size
+ax.set_xlim(0, CHUNK)  # make sure our x axis matched our chunk size
 line, = ax.plot(x, np.random.rand(CHUNK))
 how_many_loops: int = 0
 
 display_data: bool = False
 keep_looping: bool = True
 plot_min_max: bool = False
+verbose: bool = False
 
 while keep_looping:
     how_many_loops += 1
@@ -45,13 +46,14 @@ while keep_looping:
             print(data)
         min_data: np.int16 = np.amin(data)
         max_data: np.int16 = np.amax(data)
-        print(f"Min:{min_data}, Max:{max_data}, Amplitude: {max_data - min_data}")
+        if verbose:
+            print(f"Min:{min_data}, Max:{max_data}, Amplitude: {max_data - min_data}")
         line.set_ydata(data)
 
         if plot_min_max:
             plt.clf()  # Clear
             plt.axhline(y=min_data, color='r', linestyle='-')   # Plot min
-            plt.axhline(y=max_data, color='r', linestyle='-')   # Plot max
+            plt.axhline(y=max_data, color='g', linestyle='-')   # Plot max
             # plt.show()
 
         fig.canvas.draw()
