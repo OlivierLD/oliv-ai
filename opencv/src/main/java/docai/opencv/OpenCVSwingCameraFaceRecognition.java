@@ -396,7 +396,7 @@ public class OpenCVSwingCameraFaceRecognition {
 			Imgproc.Canny(lastMat, newMat, 10, 100);
 			lastMat = newMat;
 		}
-		if (swingFrame.isContoursChecked()) {
+		if (swingFrame.isContoursChecked() && swingFrame.isCannyChecked()) {
 			if (swingFrame.isContoursOnNewImageChecked()) {
 				newMat = new Mat(original.height(), original.width(), CvType.CV_8UC1); // Write on a new image
 			} else {

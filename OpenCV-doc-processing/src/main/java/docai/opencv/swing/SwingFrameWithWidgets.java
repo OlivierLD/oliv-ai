@@ -1,9 +1,12 @@
 package docai.opencv.swing;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 
 /**
  * A Canvas & Frame, in Swing.
@@ -591,10 +594,14 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String... args) {
+	public static void main(String... args) throws Exception {
 		SwingFrameWithWidgets frame = new SwingFrameWithWidgets();
 		frame.setVisible(true);
 
-		frame.plot(null);
+		// This is for tests
+		String url = "http://donpedro.lediouris.net/journal/trip/PB180629.JPG";
+		URL imageUrl = new URL(url);
+		BufferedImage image = ImageIO.read(imageUrl);
+		frame.plot(image);
 	}
 }

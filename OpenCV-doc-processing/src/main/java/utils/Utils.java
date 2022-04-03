@@ -15,7 +15,6 @@ import java.awt.image.DataBufferByte;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 
 /**
  * Provide general purpose methods for handling OpenCV-JavaFX data conversion.

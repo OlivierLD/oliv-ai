@@ -20,8 +20,8 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 	private SwingImagePanel swingImagePanel;
 
 	private JCheckBox divideCheckBox = null;
-	private JRadioButton rot0 = null;
-	private JRadioButton rot90 = null;
+	private JRadioButton rot0   = null;
+	private JRadioButton rot90  = null;
 	private JRadioButton rot180 = null;
 	private JRadioButton rot270 = null;
 	private ButtonGroup rotGroup = null;
@@ -222,11 +222,22 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 
 		cannyCheckBox = new JCheckBox("To Canny Edges");
 		cannyCheckBox.setSelected(false);
+		cannyCheckBox.addChangeListener(changeEvent -> {
+			AbstractButton abstractButton = (AbstractButton)changeEvent.getSource();
+			ButtonModel buttonModel = abstractButton.getModel();
+//			boolean armed = buttonModel.isArmed();
+//			boolean pressed = buttonModel.isPressed();
+			boolean selected = buttonModel.isSelected();
+			contoursCheckBox.setEnabled(selected);
+			contoursOnNewImageCheckBox.setEnabled(selected);
+		});
 
-		contoursCheckBox = new JCheckBox("With Contours");
+		contoursCheckBox = new JCheckBox("With Contours");  // Requires Canny to be on
+		contoursCheckBox.setEnabled(false);
 		contoursCheckBox.setSelected(false);
 
-		contoursOnNewImageCheckBox = new JCheckBox("Contours on new image");
+		contoursOnNewImageCheckBox = new JCheckBox("Contours on new image");  // Requires Canny to be on
+		contoursOnNewImageCheckBox.setEnabled(false);
 		contoursOnNewImageCheckBox.setSelected(false);
 
 		contrastBrightnessCheckBox = new JCheckBox(B_AND_C_LABEL);

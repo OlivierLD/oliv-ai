@@ -339,6 +339,22 @@ See the code in `OpenCVSwingColor2BW.java` for details.
 |:---------:|:-----------:|
 | ![Final](./docimg/downgrading/minion.ssd1306.png) | ![Final](./docimg/downgrading/on.the.device.jpg) |
 
+### Interactive Transformations, with Swing UI
+See in `swing.camera.sh`, to use (and rework) static images, modify the script, from:
+```
+JAVA_OPTS="-Dinput.source=CAMERA"
+# JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
+```
+to 
+```
+# JAVA_OPTS="-Dinput.source=CAMERA"
+JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
+```
+and just run it.
+```
+$ ./swing.camera.sh
+```
+
 ### In Python
 See [here](./src/main/python/README.md)
 
