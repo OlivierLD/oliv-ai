@@ -76,6 +76,7 @@ ext.mainClassNameContinuousFaceDetect = 'docai.opencv.OpenCVContinuousFaceDetect
 ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetection'
 // More
 ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecognition"
+// "docai.opencv.OpenCVSwingColor2BW"
 
 
 tasks.withType(JavaExec) {

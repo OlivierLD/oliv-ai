@@ -71,14 +71,14 @@ if (!hasProperty('mainClassName')) {
 
 
 mainClassName = 'docai.opencv.OpenCVSwing'
-ext.mainClassNameOliv101 = 'docai.opencv.OpenCV101'
+//ext.mainClassNameOliv101 = 'docai.opencv.OpenCV101'
 ext.mainClassNameOlivSwing = 'docai.opencv.OpenCVSwing'
-ext.mainClassNameOlivSwingCamera = 'docai.opencv.OpenCVSwingCamera'
-ext.mainClassNameFaceDetect = 'docai.opencv.FaceRecognitionSample'
-ext.mainClassNameContinuousFaceDetect = 'docai.opencv.OpenCVContinuousFaceDetection'
-ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetection'
+//ext.mainClassNameOlivSwingCamera = 'docai.opencv.OpenCVSwingCamera'
+//ext.mainClassNameFaceDetect = 'docai.opencv.FaceRecognitionSample'
+//ext.mainClassNameContinuousFaceDetect = 'docai.opencv.OpenCVContinuousFaceDetection'
+//ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetection'
 // More
-ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecognition"
+//ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecognition"
 ext.tesseract101 = "docai.opencv.Tess4J101"
 
 
@@ -106,11 +106,6 @@ tasks.withType(JavaExec) {
 //
 
 // Could not use gradlew run -PmainClassName=oliv.opencv.OpenCV101
-task runOliv101(type:JavaExec) {
-    main = mainClassNameOliv101
-    classpath = sourceSets.main.runtimeClasspath
-}
-
 task runTesseract101(type:JavaExec) {
     main = tesseract101
     classpath = sourceSets.main.runtimeClasspath
@@ -118,30 +113,5 @@ task runTesseract101(type:JavaExec) {
 
 task runOlivSwing(type:JavaExec) {
     main = mainClassNameOlivSwing
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runOlivSwingCamera(type:JavaExec) {
-    main = mainClassNameOlivSwingCamera
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task continuousPathDetect(type:JavaExec) {
-    main = mainClassNameContinuousPathDetect
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task faceDetect(type:JavaExec) {
-    main = mainClassNameFaceDetect
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task continuousFaceDetect(type:JavaExec) {
-    main = mainClassNameContinuousFaceDetect
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task continuousSwingFaceDetect(type:JavaExec) {
-    main = openCVSwingCameraFaceRecognition
     classpath = sourceSets.main.runtimeClasspath
 }

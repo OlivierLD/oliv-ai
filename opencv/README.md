@@ -182,6 +182,35 @@ For JavaFX, see [this](https://stackoverflow.com/questions/38359076/how-can-i-ge
 > samples in 3 languages: C++, Java, Python.
 
 #### Java stuff
+> This is - in this module - implemented with gradle. To know what's available, try a 
+> ```
+> $ ../gradlew tasks --all
+> . . .
+> Other tasks
+> -----------
+> compileJava - Compiles main Java source.
+> compileTestJava - Compiles test Java source.
+> continuousFaceDetect
+> continuousPathDetect
+> continuousSwingFaceDetect
+> faceDetect
+> listJars
+> prepareKotlinBuildScriptModel
+> processResources - Processes main resources.
+> processTestResources - Processes test resources.
+> runFX
+> runOliv101
+> runOlivSwing
+> runOlivSwingCamera
+> runSwingReadURL
+> startScripts - Creates OS specific scripts to run the project as a JVM application.
+>
+> . . .
+> BUILD SUCCESSFUL in 1s
+> 1 actionable task: 1 executed
+> $
+> ```
+
 - find the `opencv` jar file, done during the build
 ```
 Mac> ll /usr/local/Cellar/opencv/4.x.x_x/share/java/opencv4
