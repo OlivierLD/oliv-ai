@@ -2,6 +2,8 @@
 
 Inspired by <https://realpython.com/nltk-nlp-python/>
 
+Also see < https://www.nltk.org/data.html>
+
 ### Installation
 ```
 pip3 install -r requirements.txt
