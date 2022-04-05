@@ -79,6 +79,7 @@ for cnt in contours:
         # Count the vertex above the middle of the figure
         # print("Image h:{} x w:{}, Hull:\n{}".format(image.shape[0], image.shape[1], hull))
 
+print(">>> Displaying image!")
 cv2.imshow('contours', image)
 ESC = 27
 

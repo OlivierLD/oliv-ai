@@ -235,10 +235,12 @@ public class SwingFrameWithWidgets extends JFrame implements ComponentListener {
 		contoursCheckBox = new JCheckBox("With Contours");  // Requires Canny to be on
 		contoursCheckBox.setEnabled(false);
 		contoursCheckBox.setSelected(false);
+		contoursCheckBox.setToolTipText("Enabled when Canny is on");
 
 		contoursOnNewImageCheckBox = new JCheckBox("Contours on new image");  // Requires Canny to be on
 		contoursOnNewImageCheckBox.setEnabled(false);
 		contoursOnNewImageCheckBox.setSelected(false);
+		contoursOnNewImageCheckBox.setToolTipText("Enabled when Canny is on");
 
 		contrastBrightnessCheckBox = new JCheckBox(B_AND_C_LABEL);
 		contrastBrightnessCheckBox.setSelected(false);
