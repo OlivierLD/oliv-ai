@@ -27,7 +27,10 @@ while True:
         arr.append(index)
     cap.release()
     index += 1
+    
+print("=================================")    
 print(f'There {"are" if len(arr) > 1 else "is"} {len(arr)} camera{"s" if len(arr) > 1 else ""} available.')
+print("=================================")    
 
 cam = cv2.VideoCapture(0)  # Open camera #0
 ret, image = cam.read()

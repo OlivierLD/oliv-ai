@@ -19,7 +19,7 @@ repositories {
     // Also see https://mvnrepository.com/artifact/org.openpnp/opencv, https://mvnrepository.com/artifact/com.quickbirdstudios/opencv/4.0.1 ?
 }
 
-def opencvVersion = "4.5.2"
+def opencvVersion = "4.5.0"
 // Use ${opencvVersion} below, when needed.
 
 // Note: use "$ gradle dependencies" to visualize them.

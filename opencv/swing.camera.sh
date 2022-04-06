@@ -3,7 +3,7 @@ CP=./build/libs/opencv-1.0-all.jar
 JAVA_LIB_PATH=
 DARWIN=$(uname -a | grep Darwin)  # Mac ?
 SUDO=
-OPENCV_VERSION=4.5.2
+OPENCV_VERSION=4.5.0
 # Paths can be different...
 if [[ "$DARWIN" != "" ]]
 then
@@ -34,9 +34,9 @@ CLASS=docai.opencv.OpenCVSwingCamera
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"
 export OPENCV_AVFOUNDATION_SKIP_AUTH=1
 #
-# JAVA_OPTS="-Dinput.source=CAMERA"
+JAVA_OPTS="-Dinput.source=CAMERA"
 # JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
-JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/BelzHouse.jpg"
+# JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/BelzHouse.jpg"
 # JAVA_OPTS="$JAVA_OPTS -Dcamera.id=0"
 #
 REMOTE_DEBUG_FLAGS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
