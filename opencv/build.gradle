@@ -81,6 +81,22 @@ shadowJar {
     zip64 true
 }
 
+println "-------- This module Summary --------"
+println 'Some OpenCV tests and samples.'
+println 'Do try \"gradlew tasks --all\" to see what can be done.'
+println ">> Root Project is \"${project.getProperty('rootProject')}\""
+//println "--- Properties ---"
+//project.getProperties().each {
+//    println it
+//}
+//println "------------------"
+if (project.hasProperty('verbose') && project.getProperty('verbose') == 'true') {
+    println 'Verbose required'
+} else {
+    println 'No verbose required'
+}
+println "-------------------------------------"
+
 // to use with gradlew run -PmainClassName=...
 //if (!project.hasProperty('mainClassName')) {
 //    println "No mainClassName, using default"
@@ -136,13 +152,17 @@ ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecogn
 
 tasks.withType(JavaExec) {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
-        println "Running on Mac"
+        if (project.hasProperty('verbose') && project.getProperty('verbose') == 'true') {
+            println "Running on Mac"
+        }
         // For Mac
         systemProperty "java.library.path", "/usr/local/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/:/usr/local/Cellar/openssl/1.0.2s/lib/"
 //      systemProperty "java.library.path", "/usr/local/Cellar/opencv/${opencvVersion}/share/java/opencv4/" // Mac
     } else {
-        println "Running on Raspberry Pi"
+        if (project.hasProperty('verbose') && project.getProperty('verbose') == 'true') {
+            println "Running on Raspberry Pi"
+        }
 //        systemProperty "java.library.path", "/usr/local/share/java/opencv4" // Raspberry Pi
         systemProperty "java.library.path", "/home/pi/opencv-${opencvVersion}/build/lib" // Raspberry Pi
     }
@@ -152,12 +172,16 @@ tasks.withType(JavaExec) {
 
     // For use with ./gradlew opencv:run -PmainClassName=oliv.opencv.OpenCV101
     if (!project.hasProperty('mainClassName')) {
-        println "No mainClassName, using default"
+        if (project.hasProperty('verbose') && project.getProperty('verbose') == 'true') {
+            println "No mainClassName, using default"
+        }
         ext.mainClassName = 'it.polito.elite.teaching.cv.HelloCV'
     } else {
         mainClassName = project.getProperty('mainClassName')
         ext.mainClassName = mainClassName
-        println ">> Found mainClassName: $mainClassName"
+        if (project.hasProperty('verbose') && project.getProperty('verbose') == 'true') {
+            println ">> Found mainClassName: ${mainClassName}"
+        }
     }
     main = ext.mainClassName
     classpath = sourceSets.main.runtimeClasspath
@@ -172,6 +196,7 @@ tasks.withType(JavaExec) {
 //
 
 task runFX(type:JavaExec) {
+    description "If you get that one to work, let me know."
     main = mainClassNameFX
 //    mainClassName = mainClassNameFX
     classpath = sourceSets.main.runtimeClasspath
@@ -190,6 +215,7 @@ task runOlivSwing(type:JavaExec) {
 }
 
 task runOlivSwingCamera(type:JavaExec) {
+    description "Through camera, use OpenCV's transformations"
 //    environment "DISPLAY", "192.168.42.23:0.0"
     main = mainClassNameOlivSwingCamera
 //    mainClassName = mainClassNameOlivSwingCamera
@@ -220,6 +246,11 @@ task continuousFaceDetect(type:JavaExec) {
 }
 
 task continuousSwingFaceDetect(type:JavaExec) {
+    description "Continuous fac detection, through the camera"
+    println "Continuous fac detection, through the camera"
     main = openCVSwingCameraFaceRecognition
     classpath = sourceSets.main.runtimeClasspath
+    doLast {
+        println "Eh ben!"
+    }
 }
