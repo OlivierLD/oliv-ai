@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Do look at the JAVA_OPTS="-Dinput.source=CAMERA" below.
+# You can also use static images.
+# Sources can be CAMERA, or a URL (file:// or http[s]:// protocols). See below.
+#
 CP=./build/libs/opencv-1.0-all.jar
 JAVA_LIB_PATH=
 DARWIN=$(uname -a | grep Darwin)  # Mac ?
