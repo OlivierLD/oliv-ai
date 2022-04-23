@@ -11,6 +11,11 @@ in order to prepare images before they're processed by a trained model.
 - <https://opencv-java-tutorials.readthedocs.io/en/latest/index.html>
 - <https://github.com/opencv-java/>
 
+> _Note_: JavaFX is sometimes difficult to get to work, contradicting or unclear instructions...  
+> Swing seems to be easier to use.  
+> JavaFX seems to require a `module-info.java`, I could not get it to work right...
+> It is currently renamed to `module-info.java.stby`.
+
 #### For OpenCV on the Raspberry Pi
 - <https://www.learnopencv.com/install-opencv-4-on-raspberry-pi/> <- Good start!
 - [For Java](https://elbauldelprogramador.com/en/compile-opencv-3.2-with-java-intellij-idea/)

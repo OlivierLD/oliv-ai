@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 import org.opencv.core.Core;
 
 import java.net.URL;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 /**
  * The main class for a avaFX application. It creates and handle the main
@@ -50,7 +50,8 @@ public class FXHelloCV extends Application {
 	private URL getResource(String filename) {
 		URL resource = getClass().getClassLoader().getResource(filename);
 		if (resource == null) {
-			Logger.getLogger("FXHelloCV").info("Can't find resource " + filename);
+//			Logger.getLogger("FXHelloCV").info("Can't find resource " + filename);
+			System.err.printf("FXHelloCV, Can't find resource %s\n", filename);
 		}
 		return resource;
 	}

@@ -1,11 +1,13 @@
 plugins {
     id 'java'
     id 'application' // -> provides the 'run' task. See mainClassName
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+//    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'com.github.johnrengelman.shadow'
 }
 
 // Application plugin doc at https://docs.gradle.org/current/userguide/application_plugin.html
+// Also for JavaFX: https://openjfx.io/openjfx-docs/#gradle
 
 group 'oliv.opencv'
 version '1.0'
@@ -33,11 +35,35 @@ dependencies {
 //        implementation fileTree(dir: '/usr/local/share/java/opencv4', include: ['*.jar']) // RPi
         implementation fileTree(dir: "/home/pi/opencv-${opencvVersion}/build/bin", include: ['*.jar']) // RPi
     }
+
+//    compile 'org.openjfx:javafx-base:11:win'
+//    compile 'org.openjfx:javafx-controls:11:win'
+//    compile 'org.openjfx:javafx-fxml:11:win'
+//    compile 'org.openjfx:javafx-graphics:11:win'
+
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
+//compileJava {
+//    doFirst {
+//        options.compilerArgs = [
+//                '--module-path', classpath.asPath,
+//                '--add-modules', 'javafx.controls'
+//        ]
+//    }
+//}
+//
+//run {
+//    doFirst {
+//        jvmArgs = [
+//                '--module-path', classpath.asPath,
+//                '--add-modules', 'javafx.controls'
+//        ]
+//    }
+//}
+
 javafx {
-    version = "12"
+    version = "11.0.2" // "17.0.1"  // "11"  // was "12"
     modules = [ 'javafx.controls',
                 'javafx.swing',
                 'javafx.fxml' ]
@@ -55,15 +81,14 @@ shadowJar {
     zip64 true
 }
 
-
-if (!hasProperty('mainClassName')) {
-    println "No mainClassName, using default"
-    ext.mainClassName = 'it.polito.elite.teaching.cv.HelloCV'
+// to use with gradlew run -PmainClassName=...
+//if (!project.hasProperty('mainClassName')) {
+//    println "No mainClassName, using default"
+//    ext.mainClassName = 'it.polito.elite.teaching.cv.HelloCV'
 //} else {
 //    println ">> Found mainClassName: $mainClassName"
 //    ext.mainClassName = mainClassName
-}
-
+//}
 
 mainClassName = 'it.polito.elite.teaching.cv.dummy.HelloCV'
 ext.mainClassNameFX = 'it.polito.elite.teaching.cv.FXHelloCV'
@@ -78,6 +103,36 @@ ext.mainClassNameContinuousPathDetect = 'docai.opencv.OpenCVContinuousPathDetect
 ext.openCVSwingCameraFaceRecognition = "docai.opencv.OpenCVSwingCameraFaceRecognition"
 // "docai.opencv.OpenCVSwingColor2BW"
 
+//run {
+//    println "----------------------------------"
+//    println ">>> Run Task"
+//    println "----------------------------------"
+//    // Use like ../gradlew run -P--use-proxy:true
+////    if (project.hasProperty("--use-proxy:true")) {
+////        args = ["--use-proxy:true"]
+////    }
+////    if (project.hasProperty("--text-details:true")) {
+////        args = ["--text-details:true"]
+////    }
+//
+//    if (!project.hasProperty('mainClassName')) {
+//        println ">>>>> (opencv:run) No mainClassName, using default"
+//        ext.mainClassName = 'it.polito.elite.teaching.cv.HelloCV'
+//        println "       Set mainClassName to $mainClassName"
+//    } else {
+//        ext.mainClassName = project.getProperty("mainClassName")
+//        println ">>>>> (opencv:run) Found mainClassName: $mainClassName"
+//        ext.mainClassName = mainClassName
+//    }
+//
+//    // Mmmh...
+//    // jvmArgs '-Djava.util.logging.config.file=./logging.properties'
+//
+//    jvmArgs = [
+//        '--module-path', classpath.asPath,
+//        '--add-modules', 'javafx.controls'
+//    ]
+//}
 
 tasks.withType(JavaExec) {
     if (System.getProperty("os.name").indexOf("Mac") > -1) {
@@ -94,6 +149,18 @@ tasks.withType(JavaExec) {
     if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
     }
+
+    // For use with ./gradlew opencv:run -PmainClassName=oliv.opencv.OpenCV101
+    if (!project.hasProperty('mainClassName')) {
+        println "No mainClassName, using default"
+        ext.mainClassName = 'it.polito.elite.teaching.cv.HelloCV'
+    } else {
+        mainClassName = project.getProperty('mainClassName')
+        ext.mainClassName = mainClassName
+        println ">> Found mainClassName: $mainClassName"
+    }
+    main = ext.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 //task run01(type: JavaExec, ) {
@@ -106,34 +173,39 @@ tasks.withType(JavaExec) {
 
 task runFX(type:JavaExec) {
     main = mainClassNameFX
+//    mainClassName = mainClassNameFX
     classpath = sourceSets.main.runtimeClasspath
 }
 
-// Could not use gradlew run -PmainClassName=oliv.opencv.OpenCV101
 task runOliv101(type:JavaExec) {
     main = mainClassNameOliv101
+//    mainClassName = mainClassNameOliv101
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runOlivSwing(type:JavaExec) {
     main = mainClassNameOlivSwing
+//    mainClassName = mainClassNameOlivSwing
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runOlivSwingCamera(type:JavaExec) {
 //    environment "DISPLAY", "192.168.42.23:0.0"
     main = mainClassNameOlivSwingCamera
+//    mainClassName = mainClassNameOlivSwingCamera
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runSwingReadURL(type:JavaExec) {
 //    environment "DISPLAY", "192.168.42.23:0.0"
     main = mainClassNameSwingReadURL
+//    mainClassName = mainClassNameSwingReadURL
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task continuousPathDetect(type:JavaExec) {
     main = mainClassNameContinuousPathDetect
+//    mainClassName = mainClassNameContinuousPathDetect
     classpath = sourceSets.main.runtimeClasspath
 }
 
