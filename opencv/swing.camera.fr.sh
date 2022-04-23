@@ -8,7 +8,7 @@ OPENCV_VERSION=4.5.0
 # Paths can be different...
 if [[ "$DARWIN" != "" ]]
 then
-  SUDO="sudo "
+  # SUDO="sudo "
   CP="$CP:/usr/local/share/java/opencv4/opencv-450.jar" # Mac
   JAVA_LIB_PATH="/usr/local/share/java/opencv4/"        # For Mac
 else  # Assume Raspberry Pi
