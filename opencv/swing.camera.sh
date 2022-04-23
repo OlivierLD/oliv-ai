@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+#
+# Do look at the JAVA_OPTS="-Dinput.source=CAMERA" below. (and OCV_SOURCE)
+# You can also use static images.
+# Sources can be CAMERA, or a URL (file:// or http[s]:// protocols). See below.
+#
 CP=./build/libs/opencv-1.0-all.jar
 JAVA_LIB_PATH=
 DARWIN=$(uname -a | grep Darwin)  # Mac ?
@@ -34,9 +39,20 @@ CLASS=docai.opencv.OpenCVSwingCamera
 # JAVA_OPTS="-DOPENCV_AVFOUNDATION_SKIP_AUTH=1"
 export OPENCV_AVFOUNDATION_SKIP_AUTH=1
 #
-JAVA_OPTS="-Dinput.source=CAMERA"
-# JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
-# JAVA_OPTS="-Dinput.source=file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/BelzHouse.jpg"
+# OCV_SOURCE="CAMERA"
+# OCV_SOURCE="file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
+# OCV_SOURCE="file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/BelzHouse.jpg"
+# OCV_SOURCE="https://avatars.githubusercontent.com/u/7231375?v=4"
+OCV_SOURCE="https://olivierld.github.io/web.stuff/boat.stuff/trip-2010-2011/P1201324.JPG"
+#
+echo -e "+-------------------------------------"
+echo -e "| Image source will be ${OCV_SOURCE}"
+echo -e "+-------------------------------------"
+#
+echo -en "Hit [return] > "
+read a
+#
+JAVA_OPTS="-Dinput.source=${OCV_SOURCE}"
 # JAVA_OPTS="$JAVA_OPTS -Dcamera.id=0"
 #
 REMOTE_DEBUG_FLAGS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
