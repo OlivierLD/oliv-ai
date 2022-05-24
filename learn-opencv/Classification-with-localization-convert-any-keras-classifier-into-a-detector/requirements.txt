@@ -1,4 +1,4 @@
-tensorflow==2.3.0
+tensorflow==2.6.4
 imgaug==0.2.9
 numpy==1.18.5
 pandas==1.1.3
