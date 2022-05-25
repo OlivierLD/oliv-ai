@@ -3,7 +3,7 @@ imgaug==0.2.9
 numpy==1.21.0
 pandas==1.1.3
 opencv-contrib-python==4.1.2.30
-opencv-python==4.1.2.30
+opencv-python==4.2.0.32
 sklearn==0.0
 sklearn-pandas==1.8.0
 scikit-image==0.16.2
