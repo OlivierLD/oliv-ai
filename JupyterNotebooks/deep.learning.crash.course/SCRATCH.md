@@ -3,7 +3,7 @@ See [Keras web site](http://keras.io) for instructions on how to install Keras
 
 #### pip install
 ```
-$ sudo pip install tensorflow==2.3.1 --ignore-installed
+$ sudo pip install tensorflow==2.6.4 --ignore-installed
 $ sudo pip install keras
 $ sudo pip install numpy
 ```

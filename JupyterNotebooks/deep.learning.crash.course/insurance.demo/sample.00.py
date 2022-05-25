@@ -7,7 +7,7 @@
 # pip3 install tensorflow
 # - or -
 # pip3 install --upgrade pip
-# pip3 install tensorflow==2.3.1
+# pip3 install tensorflow==2.6.4
 # ------
 # pip3 install numpy
 # pip3 install seaborn

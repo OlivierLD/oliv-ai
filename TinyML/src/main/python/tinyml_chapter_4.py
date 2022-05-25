@@ -11,7 +11,7 @@ Original file is located at
 """
 
 # Install TensorFLow
-# !pip install tensorflow==2.2.0
+# !pip install tensorflow==2.6.4
 #
 # Close the windows to proceed to the next step.
 # Note: The last steps (conversion to C file) are commented.
