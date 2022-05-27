@@ -17,3 +17,7 @@ To install requirements:
 ```
 pip install -r requirements.txt
 ```
+or something like
+```
+python3.7 -m pip install -r requirements.txt
+```
