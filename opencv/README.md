@@ -289,6 +289,8 @@ contrasts and brightness...
 |:-----------------------------:|
 | ![Swing UI](./docimg/snap.01.png) |
 
+> Also see the script `swing.camera.sh`
+
 #### Face detection, on an image
 Run:
 ```
