@@ -1,3 +1,9 @@
+# Requirements
+To install required modules:
+```commandline
+$ pip install -r requirements.txt
+```
+
 # [Jupyter Notebooks](https://jupyter.org/)
 Emergence of AI, Machine Learning, and Deep Learning contributed to the popularity of the Jupyter Notebooks.
 
