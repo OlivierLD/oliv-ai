@@ -13,7 +13,7 @@ Learning AI, ML, DL, etc.
 - 7 hour video on TensorFlow: <https://www.youtube.com/watch?v=tPYj3fFJGjk>
 
 #### About the Raspberry Pi
-Did several tests, specially since RaspiOS 64-bits was released, running TensorFlow - installing it actually - is not always as straigthforward as expected.
+Did several tests, specially since RaspiOS 64-bits was released, running TensorFlow - installing it actually - is not always as straightforward as expected.
 
 Trying the Docker route.
 

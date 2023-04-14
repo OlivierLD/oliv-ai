@@ -43,7 +43,10 @@ export OPENCV_AVFOUNDATION_SKIP_AUTH=1
 # OCV_SOURCE="file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/birds/puffin.3.jpg"
 # OCV_SOURCE="file:///Users/olivierlediouris/repos/oliv-ai/opencv/images/BelzHouse.jpg"
 # OCV_SOURCE="https://avatars.githubusercontent.com/u/7231375?v=4"
-OCV_SOURCE="https://olivierld.github.io/web.stuff/boat.stuff/trip-2010-2011/P1201324.JPG"
+# OCV_SOURCE="https://olivierld.github.io/web.stuff/boat.stuff/trip-2010-2011/P1201324.JPG"
+# OCV_SOURCE="https://olivierld.github.io/web.stuff/boat.stuff/trip-2010-2011/P1241389.JPG"
+# OCV_SOURCE="file:///Users/olivierlediouris/Desktop/flying.pepette.cropped.jpeg"
+OCV_SOURCE="http://sf-home.lediouris.net/pictures/wood/misc/baleine.jpg"
 #
 echo -e "+-------------------------------------"
 echo -e "| Image source will be ${OCV_SOURCE}"

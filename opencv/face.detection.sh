@@ -13,6 +13,7 @@ else  # Assume Raspberry Pi
   JAVA_LIB_PATH="/usr/local/share/java/opencv4"         # RPi
 fi
 #
-CLASS=oliv.opencv.FaceRecognitionSample
+# CLASS=oliv.opencv.FaceRecognitionSample
+CLASS=docai.opencv.FaceRecognitionSample
 #
 java -cp ${CP} -Djava.library.path=${JAVA_LIB_PATH} ${CLASS}
