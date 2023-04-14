@@ -2,7 +2,7 @@
 # tensorflow==2.7.2
 tensorflow==2.11.1
 imgaug==0.2.9
-numpy==1.21.0
+numpy==1.22.0
 pandas==1.1.3
 # opencv-contrib-python==4.2.0.32
 # opencv-python==4.2.0.32
