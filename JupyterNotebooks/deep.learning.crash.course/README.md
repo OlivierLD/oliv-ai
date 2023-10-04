@@ -1031,7 +1031,8 @@ Go ahead! Just do it!
 ---
 
 Bonus: AI example
-- <https://www.youtube.com/watch?v=aovJqfcY0kE>
+<!-- - <https://www.youtube.com/watch?v=aovJqfcY0kE> -->
+- <https://www.youtube.com/watch?v=wXxrmussq4E>
 
 ---
 
